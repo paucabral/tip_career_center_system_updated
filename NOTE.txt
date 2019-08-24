@@ -1,4 +1,4 @@
-08/24/19 - (LATEST) Newly created repository. Edited inorder to suit the requirements based on meeting last 8/23/19. All integer based input on activities are removed. Please use the old database for the mean time.
+08/24/19 - (LATEST) Newly created repository. Edited inorder to suit the requirements based on meeting last 8/23/19. All integer based input on activities are removed. Please use the old database for the mean time. --pau
 
 Links (so far):
 
