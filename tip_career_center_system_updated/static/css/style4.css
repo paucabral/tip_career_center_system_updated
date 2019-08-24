@@ -1,0 +1,223 @@
+/*----------------------------------------------------
+                  BODY STYLE
+------------------------------------------------------*/
+
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #fafafa;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1em;
+    font-weight: 300;
+    line-height: 1.7em;
+    color: #999;
+}
+
+a,
+a:hover,
+a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+.header {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background-color: #fae806;
+    color:#1e1e1e;
+    text-align:center;
+    padding:1%;
+    font-family:sans-serif;
+    font-size:34px;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    border-bottom: 5px solid #1e1e1e;
+}
+.logo {
+    width:85%;
+    height:85%;
+    display: block;
+    margin:auto;
+}
+.line {
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px dashed #ddd;
+    margin: 40px 0;
+}
+.label{
+    text-align:left;
+    padding-top:20px;
+    font-family: 'Poppins', sans-serif;
+    font-size:14px;
+    color:#dbc300;
+}
+i,
+span {
+    display: inline-block;
+}
+#loginOJT,#loginAdmin {
+    margin-bottom:20px;
+}
+::-webkit-scrollbar{
+    width:5px;
+}
+::-webkit-scrollbar-track {
+    background:#f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+/* ---------------------------------------------------
+    SIDEBAR STYLE
+----------------------------------------------------- */
+
+.wrapper {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+#sidebar {
+    min-width: 225px;
+    max-width: 225px;
+    min-height: 100%;
+    max-height: 100%;
+    background: #1e1e1e;
+    color: #fff;
+    transition: all 0.3s;
+    position: -webkit-sticky;
+    position: fixed;
+    top: 1;
+    z-index: 1020;
+    overflow: auto; 
+    padding-bottom: 250px
+}
+#sidebar ul li a {
+    text-align: left;
+}
+#sidebar .sidebar-header {
+    padding: 10px;
+    background: #1e1e1e;
+}
+#sidebar ul.components {
+    border-top: 1px solid #fae806;
+    border-bottom: 1px solid #fae806;
+}
+#sidebar ul li a {
+    padding: 15px;
+    font-size: 1.1em;
+    display: block;
+}
+#sidebar ul li a:hover {
+    color: #1e1e1e;
+    background: #fff;
+}
+#sidebar ul li a i {
+    margin-right: 15px;
+}
+#logout_bottom{
+    position: absolute;
+    bottom:1;
+}
+ul ul a {
+    font-size: 0.9em !important;
+    padding-left: 35px !important;
+    background: #1e1e1e;
+}
+ul.CTAs {
+    padding: 25px;
+}
+ul.CTAs a {
+    text-align: center;
+    font-size: 0.9em !important;
+    display: block;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+a.download {
+    background: #fff;
+    color: #1e1e1e;
+}
+
+a.article,
+a.article:hover {
+    background: #1e1e1e !important;
+    color: #fff !important;
+}
+
+/* ---------------------------------------------------
+    CONTENT STYLE
+----------------------------------------------------- */
+#content {
+    width: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    transition: all 0.3s;
+    margin-left: 225px;
+    z-index:0;
+    position: sticky;
+    position: -webkit-sticky;
+}
+/* ---------------------------------------------------
+    MEDIAQUERIES
+----------------------------------------------------- */
+
+@media (max-width: 768px) {
+    #sidebar {
+        min-width: 80px;
+        max-width: 80px;
+        text-align: center;
+        margin-left: -80px !important;
+    }
+    .dropdown-toggle::after {
+        top: auto;
+        bottom: 10px;
+        right: 50%;
+        -webkit-transform: translateX(50%);
+        -ms-transform: translateX(50%);
+        transform: translateX(50%);
+    }
+    #sidebar.active {
+        margin-left: 0 !important;
+    }
+    #sidebar .sidebar-header h3,
+    #sidebar .CTAs {
+        display: none;
+    }
+    #sidebar .sidebar-header strong {
+        display: block;
+    }
+    #sidebar ul li a {
+        padding: 20px 10px;
+    }
+    #sidebar ul li a span {
+        font-size: 0.85em;
+    }
+    #sidebar ul li a i {
+        margin-right: 0;
+        display: block;
+    }
+    #sidebar ul ul a {
+        padding: 10px !important;
+    }
+    #sidebar ul li a i {
+        font-size: 1.3em;
+    }
+    #sidebar {
+        margin-left: 0;
+    }
+    #sidebarCollapse span {
+        display: none;
+    }
+}

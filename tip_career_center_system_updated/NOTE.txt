@@ -1,0 +1,9 @@
+08/24/19 - (LATEST) Newly created repository. Edited inorder to suit the requirements based on meeting last 8/23/19. All integer based input on activities are removed. Please use the old database for the mean time.
+
+Links (so far):
+
+main(login) - localhost:8000/
+administrator - localhost:8000/company-management/administrator
+view/edit/delete (as admin) - localhost:8000/administrator/company-mangement/manage-companies
+update a specific company (as admin) - http://localhost:8000/company-management/administrator/edit-company/<company_id>
+add a company (as admin) - http://localhost:8000/company-management/administrator/add-company

@@ -1,0 +1,79 @@
+
+table {
+  box-sizing: border-box;
+  text-align: left;
+  line-height: 40px;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 2px solid #f5e405;
+  width: 100%;
+  margin: 50px auto;
+  border-radius: .25rem;
+}
+thead tr:first-child {
+  background: #f5e405;
+  color: #fff;
+  border: none;
+}
+thead {
+  background-color: #f6f6f6;
+  font-size: 18px;
+}
+tbody {
+  background-color: #ececec;
+  font-size: 16px;
+}
+th:first-child,
+td:first-child {
+  padding: 5px 15px 5px 20px;
+}
+
+th {
+  font-weight: 500;
+}
+
+thead tr:last-child th {
+  border-bottom: 3px solid #ddd;
+}
+
+tbody tr:hover {
+  background-color: #f2f2f2;
+  cursor: default;
+}
+
+tbody tr:last-child td {
+  border: none;
+}
+
+tbody td {
+  border-bottom: 1px solid #ddd;
+}
+
+td:last-child {
+  text-align: right;
+  padding-right: 10px;
+}
+
+.button {
+  color: #aaa;
+  cursor: pointer;
+  vertical-align: middle;
+  margin-top: -4px;
+}
+
+.edit:hover {
+  color: #0a79df;
+}
+
+.delete:hover {
+  color: #dc2a2a;
+}
+tbody:hover td {
+	color: transparent;
+	text-shadow: 0 0 4px #aaa;
+}
+
+tbody:hover tr:hover td {
+	color: #444;
+	text-shadow: 0 1px 0 #fff;
+}
