@@ -84,8 +84,6 @@ span {
     display: flex;
     align-items: stretch;
     height: 100%;
-    overflow-x: auto;
-    white-space: nowrap;
 }
 #sidebar {
     min-width: 225px;
@@ -164,9 +162,9 @@ a.article:hover {
     min-height: 100%;
     max-height: 100%;
     transition: all 0.3s;
-    margin-left: 225px;
+    margin-left:225px;
     z-index:0;
-    position: sticky;
+    position: fixed;
     position: -webkit-sticky;
 }
 /* ---------------------------------------------------

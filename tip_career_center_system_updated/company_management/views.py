@@ -144,3 +144,30 @@ class ManageCompaniesAsAdmin(View):
             result = dictfetchall(cursor)
         print(result)
         return render(request,template_name='company_management/manage_companies_AsAdmin.html',context={'companies':result})
+
+class ViewCompanyAsAdmin(View):
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT contactperson_id FROM contact_person WHERE contactperson_id IN (SELECT Contact_Person_contactperson_id FROM company_has_contact_person WHERE Company_company_id='{}') AND contactperson_priority='PRIMARY' ORDER BY contactperson_id DESC LIMIT 1".format(company_id))
+            contact_id=cursor.fetchone()[0]
+
+            cursor.execute("SELECT contactperson_id FROM contact_person WHERE contactperson_id IN (SELECT Contact_Person_contactperson_id FROM company_has_contact_person WHERE Company_company_id='{}') AND contactperson_priority='SECONDARY' ORDER BY contactperson_id DESC LIMIT 1".format(company_id))
+            contact_id2=cursor.fetchone()[0]
+
+            print('contact ID is here!')
+            print(contact_id)
+
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
+            result1=dictfetchall(cursor)[0]
+            cursor.execute("SELECT * FROM contact_person WHERE contactperson_id={}".format(contact_id))
+            result2=dictfetchall(cursor)[0]
+            cursor.execute("SELECT * FROM contact_person WHERE contactperson_id={}".format(contact_id2))
+            result3=dictfetchall(cursor)[0]
+            print(result1)
+        return render(request,template_name='company_management/company_profile_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3})
+    def post(self, request, *args, **kwargs):
+        pass

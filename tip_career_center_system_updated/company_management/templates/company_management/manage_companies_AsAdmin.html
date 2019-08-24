@@ -1,9 +1,9 @@
 {% extends 'template.html' %}
 {% load static %}
     {% block content %}
-        <div class="container parallax1" style="padding-left:100px;padding-right:100px">
+        <div class="container-fluid parallax1" style="padding:50px">
         <div class="row">
-          <div class="col" style="background-color:rgba(175, 175, 175, 0.7);padding-left:75px;padding-right:75px;padding-top:50px;padding-bottom:50px">
+          <div class="col" style="background-color:rgba(175, 175, 175, 0.7)">
           <div class="table-responsive">
                     <!--<h1>Main page test</h1>
                     <p>index @ "--blank--" url pattern is working</p>-->
@@ -32,7 +32,7 @@
                                   <td>Level of Engagement (TBA)</td>
                                   <td>Icon (TBA)</td>
                                   <td>
-                                      <i class="button edit"><a href="/company-profile/{{ c.company_id }}">view</a></i>
+                                      <i class="button edit"><a href="/company-management/administrator/company-profile/{{ c.company_id }}">view</a></i>
                                       <i class="button edit"><a href="/company-management/administrator/edit-company/{{ c.company_id }}">edit</a></i>
                                       <!-- <i class="button edit" data-toggle="modal" data-target="#editmodal" id="editbtn">edit</i> -->
                                       <i class="button delete" data-toggle="modal" data-target="#deletemodal" id="deletebtn">delete</i>
