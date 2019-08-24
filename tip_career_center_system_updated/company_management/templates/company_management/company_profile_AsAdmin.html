@@ -1,15 +1,43 @@
 {% extends 'template.html' %}
-	{% block content %}
+    {% block content %}
+    <div class="container-fluid parallax1" style="padding-left:100px;padding-right:100px">
 	<header>
         <div style="background-image:url(banner.img); z-index:0">
+            BRUCE BANNER
         </div>
         <div stlye="background-image:url(background-engagement.img); z-index:1">
+            LEVEL OF ENGAGEMENT
         </div>
         <div style="background-image:url(engagement.img); z-index:2;">
+            LOGO    
         </div>
     </header>
     <table id="activities">
-        Table Here
+        <thead>
+                <tr>
+                        <th colspan="8" style="text-align:center;color:#1e1e1e">Companies</th>
+                </tr>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Industry Type</th>
+                    <th>Engagement Points</th>
+                    <th>Level of Engagement</th>
+                    <th></th>
+                </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>hello</td>
+                <td>hello</td>
+                <td>hello</td>
+                <td>hello</td>
+                <td>hello</td>
+                <td>hello</td>
+                <td></td>
+            </tr>
+        </tbody>
     </table>
     <button type="btn" data-toggle="modal" data-target="#modalform">
         <h3>Add</h3>
@@ -17,6 +45,12 @@
     <div class="modal fade" id="modalform" style="margin-top:100px;" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false">
         <div class="modal-dialog cascading-modal" role="document">
             <div class="modal-content">
+                <div class="modal-header">
+                        Company Activities
+                        <button type="button" style="float:right" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-idden="true">&times;</span>
+                        </button>
+                </div>
                 <div class="modal-tabs">
                     <ul class="nav nav-tabs" role="tablist">
                         <li class="nav-item">
@@ -31,12 +65,11 @@
                         <li class="nav-item">
                                 <a class="nav-link" data-toggle="tab" href="#activity4" role="tab">OCR</a>
                         </li>
-                        <button type="button" style="align-right" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-idden="true">&times;</span>
-                        </button>
+                        
                     </ul>
-                    <div class="tab pane fade in show active" id ="activity1" role="tabpanel">
-                        <div class="modal-body">
+                    <div class="tab-content" style="padding:20px"> 
+                    <div class="tab-pane fade in active show" id ="activity1" role="tabpanel">
+                        <div class="tab-content">
                             <div class="form-group">
                                 <input type="text" id="title_activity" name="title_activity" class="form-control">
                                 <label for="title_activity">
@@ -64,23 +97,43 @@
                             <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </div>
-                    <div class="tab pane fade" id ="activity2" role="tabpanel">
-                       <div class="modal-body">
-                            B
+                    <div class="tab-pane fade" id ="activity2" role="tabpanel">
+                        <div class="tab-content">
+                            <div class="form-group">
+                                <input type="text" id="date" name="date" class="form-control">
+                                <label for="Date">
+                                    Date
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </div>
-                    <div class="tab pane fade" id ="activity3" role="tabpanel">
-                        <div class="modal-body">
-                            C
+                    <div class="tab-pane fade" id ="activity3" role="tabpanel">
+                         <div class="tab-content">
+                             <div class="form-group">
+                                <input type="text" id="attachment" name="attachment" class="form-control">
+                                <label for="attachment">
+                                    Attachment
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </div>
-                    <div class="tab pane fade" id ="activity4" role="tabpanel">
-                        <div class="modal-body">
-                            D
+                    <div class="tab-pane fade" id ="activity4" role="tabpanel">
+                        <div class="tab-content">
+                            <div class="form-group">    
+                                <input type="text" id="participation" name="participation" class="form-control">
+                                <label for="participation">
+                                    No. of Students participated
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-info">Submit</button>
                         </div>
                     </div>
+                </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 	{% endblock %}

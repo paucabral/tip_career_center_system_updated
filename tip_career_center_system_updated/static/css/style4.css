@@ -164,7 +164,7 @@ a.article:hover {
     transition: all 0.3s;
     margin-left:225px;
     z-index:0;
-    position: fixed;
+    position: sticky;
     position: -webkit-sticky;
 }
 /* ---------------------------------------------------

@@ -7,8 +7,7 @@ table {
   border-spacing: 0;
   border: 2px solid #f5e405;
   width: 100%;
-  margin: auto;
-  padding:50px;
+  margin: 50px auto;
   border-radius: .25rem;
 }
 thead tr:first-child {
@@ -71,7 +70,7 @@ td:last-child {
 }
 tbody:hover td {
 	color: transparent;
-	text-shadow: 0 0 4px #aaa;
+	text-shadow: 0 0 3px #aaa;
 }
 
 tbody:hover tr:hover td {
