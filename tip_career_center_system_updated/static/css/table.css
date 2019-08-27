@@ -60,13 +60,15 @@ td:last-child {
   vertical-align: middle;
   margin-top: -4px;
 }
-
 .edit:hover {
   color: #0a79df;
 }
 
 .delete:hover {
   color: #dc2a2a;
+}
+.view:hover {
+  color: #0b6623;
 }
 tbody:hover td {
 	color: transparent;

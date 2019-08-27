@@ -7,7 +7,6 @@ body {
     font-family: 'Poppins', sans-serif;
     background: #fafafa;
 }
-
 p {
     font-family: 'Poppins', sans-serif;
     font-size: 1.1em;
@@ -15,7 +14,6 @@ p {
     line-height: 1.7em;
     color: #999;
 }
-
 a,
 a:hover,
 a:focus {
@@ -29,6 +27,21 @@ a:focus {
     top: 0;
     z-index: 1020;
     background-color: #fae806;
+    color:#1e1e1e;
+    text-align:center;
+    padding:1%;
+    font-family:sans-serif;
+    font-size:34px;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    border-bottom: 5px solid #1e1e1e;
+}
+.header2 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1;
+    z-index: 1020;
+    background-color: #f8f9fa;
     color:#1e1e1e;
     text-align:center;
     padding:1%;
@@ -84,6 +97,8 @@ span {
     display: flex;
     align-items: stretch;
     height: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
 }
 #sidebar {
     min-width: 225px;
@@ -142,12 +157,10 @@ ul.CTAs a {
     border-radius: 5px;
     margin-bottom: 5px;
 }
-
 a.download {
     background: #fff;
     color: #1e1e1e;
 }
-
 a.article,
 a.article:hover {
     background: #1e1e1e !important;
