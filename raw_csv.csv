@@ -1,0 +1,464 @@
+
+1,Agricultural Production-Crops
+2,Agricultural Prod-Livestock  Animal Specialties
+3,Agricultural Services
+4,Forestry
+5,Fishing Hunting and Trapping
+6,Metal Mining
+7,Gold and Silver Ores
+8,Miscellaneous Metal Ores
+9,Bituminous Coal  Lignite Mining
+10,Bituminous Coal  Lignite Surface Mining
+11,Crude Petroleum  Natural Gas
+12,Drilling Oil  Gas Wells
+13,Oil  Gas Field Exploration Services
+14,Oil  Gas Field Services NEC
+15,Mining  Quarrying of Nonmetallic Minerals (No Fuels)
+16,General Bldg Contractors - Residential Bldgs
+17,Operative Builders
+18,General Bldg Contractors - Nonresidential Bldgs
+19,Heavy Construction Other Than Bldg Const - Contractors
+20,Water Sewer Pipeline Comm  Power Line Construction
+21,Heavy Construction Not Elsewhere Classified [8]
+22,Construction - Special Trade Contractors
+23,Electrical Work
+24,Food and Kindred Products
+25,Meat Packing Plants
+26,Sausages  Other Prepared Meat Products
+27,Poultry Slaughtering and Processing
+28,Dairy Products
+29,Ice Cream  Frozen Desserts
+30,Canned Frozen  Preserved Fruit Veg  Food Specialties
+31,Canned Fruits Veg Preserves Jams  Jellies
+32,Grain Mill Products
+33,Bakery Products
+34,Cookies  Crackers
+35,Sugar  Confectionery Products
+36,
+37,Fats  Oils
+38,Beverages
+39,Malt Beverages
+40,Bottled  Canned Soft Drinks  Carbonated Waters
+41,Miscellaneous Food Preparations  Kindred Products
+42,Prepared Fresh or Frozen Fish  Seafood
+43,Tobacco Products
+44,Cigarettes
+45,Textile Mill Products
+46,Broadwoven Fabric Mills Cotton
+47,Broadwoven Fabric Mills Man Made Fiber  Silk
+48,Knitting Mills
+49,Knit Outerwear Mills
+50,Carpets  Rugs
+51,Apparel  Other Finished Prods of Fabrics  Similar Matl
+52,Men's  Boys' Furnishings Work Clothing  Allied Garments
+53,Women's Misses' and Juniors Outerwear
+54,Women's Misses' Children's  Infant's Undergarments
+55,Miscellaneous Fabricated Textile Products
+56,Lumber  Wood Products (No Furniture)
+57,Sawmills  Planing Mills General
+58,Millwood Veneer Plywood  Structural Wood Members
+59,Mobile Homes
+60,Prefabricated Wood Bldgs  Components
+61,Household Furniture
+62,Wood Household Furniture (No Upholstered)
+63,Office Furniture
+64,Office Furniture (No Wood)
+65,Public Bldg  Related Furniture
+66,Partitions Shelvg Lockers  office  Store Fixtures
+67,Miscellaneous Furniture  Fixtures
+68,Papers  Allied Products
+69,Pulp Mills
+70,Paper Mills
+71,Paperboard Mills
+72,Paperboard Containers  Boxes
+73,Converted Paper  Paperboard Prods (No Containers/Boxes)
+74,Plastics Foil  Coated Paper Bags
+75,
+76,Newspapers: Publishing or Publishing  Printing
+77,Periodicals: Publishing or Publishing  Printing
+78,Books: Publishing or Publishing  Printing
+79,Book Printing
+80,Miscellaneous Publishing
+81,Commercial Printing
+82,Manifold Business Forms
+83,Greeting Cards
+84,Blankbooks Looseleaf Binders  Bookbinding  Related Work
+85,Service Industries For The Printing Trade
+86,Chemicals  Allied Products
+87,Industrial Inorganic Chemicals
+88,Plastic Material Synth Resin/Rubber Cellulos (No Glass)
+89,Plastic Materials Synth Resins  Nonvulcan Elastomers
+90,Medicinal Chemicals  Botanical Products
+91,Pharmaceutical Preparations
+92,In Vitro  In Vivo Diagnostic Substances
+93,Biological Products (No Diagnostic Substances)
+94,Soap Detergents Cleaning Preparations Perfumes Cosmetics
+95,Specialty Cleaning Polishing and Sanitation Preparations
+96,Perfumes Cosmetics  Other Toilet Preparations
+97,Paints Varnishes Lacquers Enamels  Allied Prods
+98,Industrial Organic Chemicals
+99,Agricultural Chemicals
+100,Miscellaneous Chemical Products
+101,Adhesives  Sealants
+102,Petroleum Refining
+103,Asphalt Paving  Roofing Materials
+104,Miscellaneous Products of Petroleum  Coal
+105,Tires  Inner Tubes
+106,Rubber  Plastics Footwear
+107,Gaskets Packg  Sealg Devices  Rubber  Plastics Hose
+108,Fabricated Rubber Products NEC
+109,Miscellaneous Plastics Products
+110,Unsupported Plastics Film  Sheet
+111,Plastics Foam Products
+112,Plastics Products NEC
+113,Leather  
+114,Leather Products
+115,Footwear (No Rubber)
+116,Flat Glass
+117,Glass  Glassware Pressed or Blown
+118,Glass Containers
+119,Glass Products Made of Purchased Glass
+120,Cement Hydraulic
+121,Structural Clay Products
+122,Pottery  Related Products
+123,Concrete Gypsum  Plaster Products
+124,Concrete Products Except Block  Brick
+125,Cut Stone  Stone Products
+126,Abrasive Asbestos  Misc Nonmetallic Mineral Prods
+127,Steel Works Blast Furnaces  Rolling  Finishing Mills
+128,Steel Works Blast Furnaces  Rolling Mills (Coke Ovens)
+129,Steel Pipe  Tubes
+130,Iron  Steel Foundries
+131,Primary Smelting  Refining of Nonferrous Metals
+132,Primary Production of Aluminum
+133,Secondary Smelting  Refining of Nonferrous Metals
+134,Rolling Drawing  Extruding of Nonferrous Metals
+135,Drawing  Insulating of Nonferrous Wire
+136,Nonferrous Foundries (Castings)
+137,Miscellaneous Primary Metal Products
+138,Metal Cans
+139,Metal Shipping Barrels Drums Kegs  Pails
+140,Cutlery Handtools  General Hardware
+141,Heating Equip Except Elec  Warm Air;  Plumbing Fixtures
+142,Heating Equipment Except Electric  Warm Air Furnaces
+143,Fabricated Structural Metal Products
+144,Metal Doors Sash Frames Moldings  Trim
+145,Fabricated Plate Work (Boiler Shops)
+146,Sheet Metal Work
+147,Prefabricated Metal Buildings  Components
+148,Screw Machine Products
+149,Bolts Nuts Screws Rivets  Washers
+150,Metal Forgings  Stampings
+151,Coating Engraving  Allied Services
+152,Ordnance  Accessories (No Vehicles/Guided Missiles)
+153,
+154,Miscellaneous Fabricated Metal Products
+155,Engines  Turbines
+156,Farm Machinery  Equipment
+157,Lawn  Garden Tractors  Home Lawn  Gardens Equip
+158,Construction Mining  Materials Handling Machinery  Equip
+159,Construction Machinery  Equip
+160,Mining Machinery  Equip (No Oil  Gas Field Mach  Equip)
+161,Oil  Gas Field Machinery  Equipment
+162,Industrial Trucks Tractors Trailers  Stackers
+163,Metalworkg Machinery  Equipment
+164,Machine Tools Metal Cutting Types
+165,Special Industry Machinery (No Metalworking Machinery)
+166,Printing Trades Machinery  Equipment
+167,Special Industry Machinery NEC
+168,General Industrial Machinery  Equipment
+169,Pumps  Pumping Equipment
+170,Ball  Roller Bearings
+171,Industrial  Commercial Fans  Blowers  Air Purifying Equip
+172,Industrial Process Furnaces  Ovens
+173,General Industrial Machinery  Equipment NEC
+174,Computer  office Equipment
+175,Electronic Computers
+176,Computer Storage Devices
+177,Computer Terminals
+178,Computer Communications Equipment
+179,Computer Peripheral Equipment NEC
+180,Calculating  Accounting Machines (No Electronic Computers)
+181,Office Machines NEC
+182,Refrigeration  Service Industry Machinery
+183,Air-Cond  Warm Air Heatg Equip  Comm  Indl Refrig Equip
+184,Misc Industrial  Commercial Machinery  Equipment
+185,Electronic  Other Electrical Equipment (No Computer Equip)
+186,Power Distribution  Specialty Transformers
+187,Switchgear  Switchboard Apparatus
+188,Electrical Industrial Apparatus
+189,Motors  Generators
+190,Household Appliances
+191,Electric Housewares  Fans
+192,
+193,Electric Lighting  Wiring Equipment
+194,Household Audio  Video Equipment
+195,Phonograph Records  Prerecorded Audio Tapes  Disks
+196,Telephone  Telegraph Apparatus
+197,Radio  TV Broadcasting  Communications Equipment
+198,Communications Equipment NEC
+199,Electronic Components  Accessories
+200,Printed Circuit Boards
+201,Semiconductors  Related Devices
+202,Electronic Coils Transformers  Other Inductors
+203,Electronic Connectors
+204,Electronic Components NEC
+205,Miscellaneous Electrical Machinery Equipment  Supplies
+206,Magnetic  Optical Recording Media
+207,Motor Vehicles  Passenger Car Bodies
+208,Truck  Bus Bodies
+209,Motor Vehicle Parts  Accessories
+210,Truck Trailers
+211,Motor Homes
+212,Aircraft  Parts
+213,Aircraft
+214,Aircraft Engines  Engine Parts
+215,Aircraft Parts  Auxiliary Equipment NEC
+216,Ship  Boat Building  Repairing
+217,Railroad Equipment
+218,Motorcycles Bicycles  Parts
+219,Guided Missiles  Space Vehicles  Parts
+220,Miscellaneous Transportation Equipment
+221,Search Detection Navigation Guidance Aeronautical Sys
+222,Laboratory Apparatus  Furniture
+223,Auto Controls For Regulating Residential  Comml Environments
+224,Industrial Instruments For Measurement Display and Control
+225,Totalizing Fluid Meters  Counting Devices
+226,Instruments For Meas  Testing of Electricity  Elec Signals
+227,Laboratory Analytical Instruments
+228,Optical Instruments  Lenses
+229,Measuring  Controlling Devices NEC
+230,Surgical  Medical Instruments  Apparatus
+231,
+232,Orthopedic Prosthetic  Surgical Appliances  Supplies
+233,Dental Equipment  Supplies
+234,X-Ray Apparatus  Tubes  Related Irradiation Apparatus
+235,Electromedical  Electrotherapeutic Apparatus
+236,Ophthalmic Goods
+237,Photographic Equipment  Supplies
+238,Watches Clocks Clockwork Operated Devices/Parts
+239,Jewelry Silverware  Plated Ware
+240,Jewelry Precious Metal
+241,Musical Instruments
+242,Dolls  Stuffed Toys
+243,Games Toys  Children's Vehicles (No Dolls  Bicycles)
+244,Sporting  Athletic Goods NEC
+245,Pens Pencils  Other Artists' Materials
+246,Costume Jewelry  Novelties
+247,Miscellaneous Manufacturing Industries
+248,Railroads Line-Haul Operating
+249,Railroad Switching  Terminal Establishments
+250,Local  Suburban Transit  Interurban Hwy Passenger Trans
+251,Trucking  Courier Services (No Air)
+252,Trucking (No Local)
+253,Public Warehousing  Storage
+254,Terminal Maintenance Facilities For Motor Freight Transport
+255,Water Transportation
+256,Deep Sea Foreign Transportation of Freight
+257,Air Transportation Scheduled
+258,Air Courier Services
+259,Air Transportation Nonscheduled
+260,Airports Flying Fields  Airport Terminal Services
+261,Pipe Lines (No Natural Gas)
+262,Transportation Services
+263,Arrangement of Transportation of Freight  Cargo
+264,Radiotelephone Communications
+265,Telephone Communications (No Radiotelephone)
+266,Telegraph  Other Message Communications
+267,Radio Broadcasting Stations
+268,Television Broadcasting Stations
+269,Cable  Other Pay Television Services
+270,
+271,Communications Services NEC
+272,Electric Gas  Sanitary Services
+273,Electric Services
+274,Natural Gas Transmission
+275,Natural Gas Transmission  Distribution
+276,Natural Gas Distribution
+277,Electric  Other Services Combined
+278,Gas  Other Services Combined
+279,Water Supply
+280,Sanitary Services
+281,Refuse Systems
+282,Hazardous Waste Management
+283,Steam  Air-Conditioning Supply
+284,Co-generation Services  Small Power Producers
+285,Wholesale-Durable Goods
+286,Wholesale-Motor Vehicles  Motor Vehicle Parts  Supplies
+287,Wholesale-Motor Vehicle Supplies  New Parts
+288,Wholesale-Furniture  Home Furnishings
+289,Wholesale-Lumber  Other Construction Materials
+290,Wholesale-Lumber Plywood millwork  Wood Panels
+291,Wholesale-Professional  Commercial Equipment  Supplies
+292,Wholesale-Computers  Peripheral Equipment  Software
+293,Wholesale-Medical Dental  Hospital Equipment  Supplies
+294,Wholesale-Metals  Minerals (No Petroleum)
+295,Wholesale-Metals Service Centers  Offices
+296,Wholesale-Electrical Apparatus  Equipment Wiring Supplies
+297,Wholesale-Electrical Appliances TV  Radio Sets
+298,Wholesale-Electronic Parts  Equipment NEC
+299,Wholesale-Hardware  Plumbing  Heating Equipment  Supplies
+300,Wholesale-Hardware
+301,Wholesale-Machinery Equipment  Supplies
+302,Wholesale-Construction  Mining (No Petro) Machinery  Equip
+303,Wholesale-Industrial Machinery  Equipment
+304,Wholesale-Misc Durable Goods
+305,Wholesale-Jewelry Watches Precious Stones  Metals
+306,Wholesale-Durable Goods NEC
+307,Wholesale-Paper  Paper Products
+308,Wholesale-Drugs Proprietaries  Druggists' Sundries
+309,
+310,Wholesale-Apparel Piece Goods  Notions
+311,Wholesale-Groceries  Related Products
+312,Wholesale-Groceries General Line (merchandise)
+313,Wholesale-Farm Product Raw Materials
+314,Wholesale-Chemicals  Allied Products
+315,Wholesale-Petroleum Bulk Stations  Terminals
+316,Wholesale-Petroleum  Petroleum Products (No Bulk Stations)
+317,Wholesale-Beer Wine  Distilled Alcoholic Beverages
+318,Wholesale-Miscellaneous Non-durable Goods
+319,Retail-Building Materials Hardware Garden Supply
+320,Retail-Lumber  Other Building Materials Dealers
+321,Retail-Mobile Home Dealers
+322,Retail-Department Stores
+323,Retail-Variety Stores
+324,Retail-Misc General Merchandise Stores
+325,Retail-Food Stores
+326,Retail-Grocery Stores
+327,Retail-Convenience Stores
+328,Retail-Auto Dealers  Gasoline Stations
+329,Retail-Auto  Home Supply Stores
+330,Boat Dealers
+331,Retail-Apparel  Accessory Stores
+332,Retail-Women's Clothing Stores
+333,Retail-Family Clothing Stores
+334,Retail-Shoe Stores
+335,Retail-Home Furniture Furnishings  Equipment Stores
+336,Retail-Furniture Stores
+337,Retail-Radio TV  Consumer Electronics Stores
+338,Retail-Computer  Computer Software Stores
+339,Retail-Record  Prerecorded Tape Stores
+340,Retail-Eating  Drinking Places
+341,Retail-Eating Places
+342,Retail-Miscellaneous Retail
+343,Retail-Drug Stores and Proprietary Stores
+344,Retail-Miscellaneous Shopping Goods Stores
+345,Retail-Jewelry Stores
+346,Retail-Hobby Toy  Game Shops
+347,Retail-Nonstore Retailers
+348,
+349,Retail-Catalog  Mail-Order Houses
+350,Retail-Retail Stores NEC
+351,Pay Day Lenders
+352,National Commercial Banks
+353,State Commercial Banks
+354,Commercial Banks NEC
+355,Savings Institution Federally Chartered
+356,Savings Institutions Not Federally Chartered
+357,Functions Related To Depository Banking NEC
+358,Federal  Federally Sponsored Credit Agencies
+359,Personal Credit Institutions
+360,Short-Term Business Credit Institutions
+361,Miscellaneous Business Credit Institution
+362,Mortgage Bankers  Loan Correspondents
+363,Loan Brokers
+364,Finance Lessors
+365,Asset-Backed Securities
+366,Finance Services
+367,Security  Commodity Brokers Dealers Exchanges  Services
+368,Security Brokers Dealers  Flotation Companies
+369,Commodity Contracts Brokers  Dealers
+370,Investment Advice
+371,Life Insurance
+372,Accident  Health Insurance
+373,Hospital  Medical Service Plans
+374,Fire Marine  Casualty Insurance
+375,Surety Insurance
+376,Title Insurance
+377,Insurance Carriers NEC
+378,Insurance Agents Brokers  Service
+379,Real Estate
+380,Real Estate Operators (No Developers)  Lessors
+381,Operators of Nonresidential Buildings
+382,Operators of Apartment Buildings
+383,Lessors of Real Property NEC
+384,Real Estate Agents  Managers (For Others)
+385,Real Estate Dealers (For Their Own Account)
+386,Land Subdividers  Developers (No Cemeteries)
+387,
+388,Blank Checks
+389,Oil Royalty Traders
+390,Patent Owners  Lessors
+391,Mineral Royalty Traders
+392,Real Estate Investment Trusts
+393,Investors NEC
+394,Hotels Rooming Houses Camps  Other Lodging Places
+395,Hotels  Motels
+396,Services-Personal Services
+397,Services-Advertising
+398,Services-Advertising Agencies
+399,Services-Consumer Credit Reporting Collection Agencies
+400,Services-Mailing Reproduction Commercial Art  Photography
+401,Services-Direct Mail Advertising Services
+402,Services-Photocopying and Duplicating Services
+403,Services-To Dwellings  Other Buildings
+404,Services-Miscellaneous Equipment Rental  Leasing
+405,Services-Equipment Rental  Leasing NEC
+406,Services-Employment Agencies
+407,Services-Help Supply Services
+408,Services-Computer Programming Data Processing Etc.
+409,Services-Computer Programming Services
+410,Services-Prepackaged Software
+411,Services-Computer Integrated Systems Design
+412,Services-Computer Processing  Data Preparation
+413,Services-Computer Rental  Leasing
+414,Services-Miscellaneous Business Services
+415,Services-Detective Guard  Armored Car Services
+416,Services-Photofinishing Laboratories
+417,Services-Telephone Interconnect Systems
+418,Services-Business Services NEC
+419,Services-Automotive Repair Services  Parking
+420,Services-Auto Rental  Leasing (No Drivers)
+421,Services-Miscellaneous Repair Services
+422,Services-Motion Picture  Video Tape Production
+423,Services-Allied To Motion Picture Production
+424,Services-Motion Picture  Video Tape Distribution
+425,Services-Allied To Motion Picture Distribution
+426,
+427,Services-Motion Picture Theaters
+428,Services-Video Tape Rental
+429,Services-Amusement  Recreation Services
+430,Services-Racing Including Track Operation
+431,Services-Miscellaneous Amusement  Recreation
+432,Services-Video Game Arcades
+433,Services-Gambling Transactions
+434,Services-Amusement Parks
+435,Services-Membership Sports  Recreation Clubs
+436,Services-Health Services
+437,Services-Offices  Clinics of Doctors of Medicine
+438,Services-Nursing  Personal Care Facilities
+439,Services-Skilled Nursing Care Facilities
+440,Services-Hospitals
+441,Services-General Medical  Surgical Hospitals NEC
+442,Services-Medical Laboratories
+443,Services-Home Health Care Services
+444,Services-Misc Health  Allied Services NEC
+445,Services-Specialty Outpatient Facilities NEC
+446,Services-Legal Services
+447,Services-Educational Services
+448,Services-Social Services
+449,Services-Child Day Care Services
+450,Services-Membership organizations
+451,Services-Engineering Accounting Research Management
+452,Services-Engineering Services
+453,Services-Commercial Physical  Biological Research
+454,Services-Testing Laboratories
+455,Services-Management Services
+456,Services-Management Consulting Services
+457,Services-Facilities Support Management Services
+458,Business Consulting Services Not Elsewhere Classified
+459,American Depositary Receipts
+460,Foreign Governments
+461,Services-Services NEC
+462,International Affairs
+463,Non-Operating Establishments

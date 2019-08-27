@@ -40,7 +40,7 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         seccontactperson_email = request.POST["2contactperson_email"]
         seccontactperson_number = request.POST["2contactperson_number"]
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO company(company_name,company_address,Industry_Type_industry_type_id,Level_of_engagement_level_of_engagement_id) VALUES ('{}','{}','{}', 1)".format(company_name,company_address,Industry_Type_industrytype_id))
+            cursor.execute("INSERT INTO company(company_name,company_address,Industry_Type_industry_type_id) VALUES ('{}','{}','{}')".format(company_name,company_address,Industry_Type_industrytype_id))
             print("Company inserted")
 
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
@@ -74,10 +74,10 @@ class EditCompanyAsAdmin(View):
         company_id = self.kwargs['company_id']
 
         with connection.cursor() as cursor:
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE contact_person_id IN (SELECT Contact_Person_contact_person_id FROM company_has_contact_person WHERE Company_company_id='{}') AND contact_person_priority='PRIMARY' ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
             contact_id=cursor.fetchone()[0]
 
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE contact_person_id IN (SELECT Contact_Person_contact_person_id FROM company_has_contact_person WHERE Company_company_id='{}') AND contact_person_priority='SECONDARY' ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
             contact_id2=cursor.fetchone()[0]
 
             print('contact ID is here!')
@@ -114,19 +114,19 @@ class EditCompanyAsAdmin(View):
         print(company_name)
 
         with connection.cursor() as cursor:
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE contact_person_id IN (SELECT Contact_Person_contact_person_id FROM company_has_contact_person WHERE Company_company_id='{}') AND contact_person_priority='PRIMARY' ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
             contact_id=cursor.fetchone()[0]
 
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE contact_person_id IN (SELECT Contact_Person_contact_person_id FROM company_has_contact_person WHERE Company_company_id='{}') AND contact_person_priority='SECONDARY' ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
             contact_id2=cursor.fetchone()[0]
 
             print('contact ID is here!')
-            print(contact_id)
+            print(contact_id2)
         
         with connection.cursor() as cursor:
             cursor.execute("UPDATE company SET company_name='{}',company_address='{}' WHERE company_id={}".format(company_name,company_address,company_id))
-            cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
-            cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
+            cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
+            cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
             
             connection.commit()
             print("VALUES INSERTED")
@@ -157,10 +157,10 @@ class ViewCompanyAsAdmin(View):
         company_id = self.kwargs['company_id']
 
         with connection.cursor() as cursor:
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE contact_person_id IN (SELECT Contact_Person_contact_person_id FROM company_has_contact_person WHERE Company_company_id='{}') AND contact_person_priority='PRIMARY' ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
             contact_id=cursor.fetchone()[0]
 
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE contact_person_id IN (SELECT Contact_Person_contact_person_id FROM company_has_contact_person WHERE Company_company_id='{}') AND contact_person_priority='SECONDARY' ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
             contact_id2=cursor.fetchone()[0]
 
             print('contact ID is here!')
