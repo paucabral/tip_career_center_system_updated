@@ -21,10 +21,22 @@ USE `tip_career_center_system_db` ;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Level_of_engagement` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Level_of_engagement` (
-  `level_of_engagement_id` INT NOT NULL,
+  `level_of_engagement_id` INT NOT NULL AUTO_INCREMENT,
   `level_of_engagement_name` VARCHAR(45) NULL,
   `level_of_engagement_required_score` INT NULL,
   PRIMARY KEY (`level_of_engagement_id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `tip_career_center_system_db`.`Industry_Type`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`Industry_Type` ;
+
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Industry_Type` (
+  `industry_type_id` INT NOT NULL AUTO_INCREMENT,
+  `industry_type_name` VARCHAR(45) NULL,
+  PRIMARY KEY (`industry_type_id`))
 ENGINE = InnoDB;
 
 
@@ -34,14 +46,21 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Company` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Company` (
-  `company_id` INT NOT NULL,
+  `company_id` INT NOT NULL AUTO_INCREMENT,
   `company_name` VARCHAR(45) NULL,
   `company_engagement_score` INT NULL,
+  `company_address` VARCHAR(100) NULL,
   `Level_of_engagement_level_of_engagement_id` INT NOT NULL,
+  `Industry_Type_industry_type_id` INT NOT NULL,
   PRIMARY KEY (`company_id`),
-  CONSTRAINT `fk_Company_Level_of_engagement`
+  CONSTRAINT `fk_Company_Level_of_engagement1`
     FOREIGN KEY (`Level_of_engagement_level_of_engagement_id`)
     REFERENCES `tip_career_center_system_db`.`Level_of_engagement` (`level_of_engagement_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_Company_Industry_Type1`
+    FOREIGN KEY (`Industry_Type_industry_type_id`)
+    REFERENCES `tip_career_center_system_db`.`Industry_Type` (`industry_type_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -53,7 +72,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Activity` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Activity` (
-  `activity_id` INT NOT NULL,
+  `activity_id` INT NOT NULL AUTO_INCREMENT,
   `activity_name` VARCHAR(45) NULL,
   PRIMARY KEY (`activity_id`))
 ENGINE = InnoDB;
@@ -65,15 +84,15 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Company_has_Activity` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Company_has_Activity` (
-  `quantity` INT NULL,
   `Company_company_id` INT NOT NULL,
   `Activity_activity_id` INT NOT NULL,
-  CONSTRAINT `fk_Company_has_Activity_Company`
+  `quantity` INT NULL,
+  CONSTRAINT `fk_Company_has_Activity_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Company_has_Activity_Activity`
+  CONSTRAINT `fk_Company_has_Activity_Activity1`
     FOREIGN KEY (`Activity_activity_id`)
     REFERENCES `tip_career_center_system_db`.`Activity` (`activity_id`)
     ON DELETE NO ACTION
@@ -87,7 +106,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Intership` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Intership` (
-  `internship_id` INT NOT NULL,
+  `internship_id` INT NOT NULL AUTO_INCREMENT,
   `internship_student_name` VARCHAR(45) NULL,
   `intership_program` VARCHAR(45) NULL,
   `intership_course` VARCHAR(45) NULL,
@@ -96,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Intership` (
   `Company_company_id` INT NOT NULL,
   `internship_date_added` DATE NULL,
   PRIMARY KEY (`internship_id`),
-  CONSTRAINT `fk_Intership_Company`
+  CONSTRAINT `fk_Intership_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
@@ -110,7 +129,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Externship` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Externship` (
-  `externship_id` INT NOT NULL,
+  `externship_id` INT NOT NULL AUTO_INCREMENT,
   `externship_student_name` VARCHAR(45) NULL,
   `externship_program` VARCHAR(45) NULL,
   `externship_course` VARCHAR(45) NULL,
@@ -119,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Externship` (
   `Company_company_id` INT NOT NULL,
   `externship_date_added` DATE NULL,
   PRIMARY KEY (`externship_id`),
-  CONSTRAINT `fk_Externship_Company`
+  CONSTRAINT `fk_Externship_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
@@ -133,7 +152,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Scholarship` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Scholarship` (
-  `scholarship_id` INT NOT NULL,
+  `scholarship_id` INT NOT NULL AUTO_INCREMENT,
   `scholarship_student_name` VARCHAR(45) NULL,
   `sholarship_program` VARCHAR(45) NULL,
   `scholarship_course` VARCHAR(45) NULL,
@@ -143,7 +162,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Scholarship` (
   `Company_company_id` INT NOT NULL,
   `scholarship_date_added` DATE NULL,
   PRIMARY KEY (`scholarship_id`),
-  CONSTRAINT `fk_Scholarship_Company`
+  CONSTRAINT `fk_Scholarship_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
@@ -157,7 +176,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Career_Fair` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Career_Fair` (
-  `career_fair_id` INT NOT NULL,
+  `career_fair_id` INT NOT NULL AUTO_INCREMENT,
   `career_fair_title` VARCHAR(45) NULL,
   `career_fair_date` DATE NULL,
   `career_fair_participants` INT NULL,
@@ -165,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Career_Fair` (
   `Company_company_id` INT NOT NULL,
   `career_fair_date_added` DATE NULL,
   PRIMARY KEY (`career_fair_id`),
-  CONSTRAINT `fk_Career_Fair_Company`
+  CONSTRAINT `fk_Career_Fair_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
@@ -179,7 +198,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`On_Campus_Recruitment` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`On_Campus_Recruitment` (
-  `on_campus_recruitment_id` INT NOT NULL,
+  `on_campus_recruitment_id` INT NOT NULL AUTO_INCREMENT,
   `on_campus_recruitment_name` VARCHAR(45) NULL,
   `on_campus_recruitment_date` DATE NULL,
   `on_campus_recruitment_participants` INT NULL,
@@ -187,7 +206,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`On_Campus_Recruitment`
   `Company_company_id` INT NOT NULL,
   `on_campus_recruitment_date_added` DATE NULL,
   PRIMARY KEY (`on_campus_recruitment_id`),
-  CONSTRAINT `fk_On_Campus_Recruitment_Company`
+  CONSTRAINT `fk_On_Campus_Recruitment_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
@@ -201,7 +220,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`career_development_training` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`career_development_training` (
-  `career_development_training_id` INT NOT NULL,
+  `career_development_training_id` INT NOT NULL AUTO_INCREMENT,
   `career_development_training_name` VARCHAR(45) NULL,
   `career_development_training_date` DATE NULL,
   `career_development_training_participants` INT NULL,
@@ -209,7 +228,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`career_development_tra
   `Company_company_id` INT NOT NULL,
   `career_development_training_date_added` DATE NULL,
   PRIMARY KEY (`career_development_training_id`),
-  CONSTRAINT `fk_career_development_training_Company`
+  CONSTRAINT `fk_career_development_training_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
@@ -223,13 +242,13 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`mock_job_interview` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`mock_job_interview` (
-  `mock_job_interview_id` INT NOT NULL,
+  `mock_job_interview_id` INT NOT NULL AUTO_INCREMENT,
   `mock_job_interview_date` DATE NULL,
   `mock_job_interview_participants` INT NULL,
   `Company_company_id` INT NOT NULL,
   `mock_job_interviewcol_date_added` DATE NULL,
   PRIMARY KEY (`mock_job_interview_id`),
-  CONSTRAINT `fk_mock_job_interview_Company`
+  CONSTRAINT `fk_mock_job_interview_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
@@ -243,16 +262,16 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Contact_Person` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Contact_Person` (
-  `contact_person_id` INT NOT NULL,
+  `contact_person_id` INT NOT NULL AUTO_INCREMENT,
   `contact_person_fname` VARCHAR(45) NULL,
   `contact_person_lname` VARCHAR(45) NULL,
   `contact_person_email` VARCHAR(45) NULL,
   `contact_person_no` INT NULL,
-  `contact_person_type` ENUM('PRIMARY', 'SECONDARY') NULL,
+  `contact_person_priority` ENUM('PRIMARY', 'SECONDARY') NULL,
   `Company_company_id` INT NOT NULL,
   `contact_person_position` VARCHAR(45) NULL,
   PRIMARY KEY (`contact_person_id`),
-  CONSTRAINT `fk_Contact_Person_Company`
+  CONSTRAINT `fk_Contact_Person_Company1`
     FOREIGN KEY (`Company_company_id`)
     REFERENCES `tip_career_center_system_db`.`Company` (`company_id`)
     ON DELETE NO ACTION
