@@ -18,6 +18,13 @@
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 
     </script>
+
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+
+
     <!-- Font Awesome JS -->
     <!-- <script src="solid.js"></script> -->
     <!-- <script src="fontawesome.js" </script> -->
@@ -117,6 +124,8 @@
     </div>
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
     <!-- Popper.JS -->
     <script src="{% static 'js/popper.js' %}"></script>
@@ -126,6 +135,9 @@
         $('#deletemodal').on('shown.bs.modal', function () {
         $('#deletebtn').trigger('focus')    
     })
+    </script>
+    <script type="text/javascript">
+        $(".custom-select").chosen();
     </script>
 </body>
 </html>

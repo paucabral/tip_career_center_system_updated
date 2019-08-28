@@ -37,16 +37,12 @@
 					</div>
 					<div class="col-sm">
 						<div class="input-group mb-3">
-							<select class="custom-select" id="inputGroupSelect01" name="Industry_Type_industrytype_id" value="{{company.Industry_Type_industrytype_id}}">
-								<option selected>Industry Type...</option>
-								<option value="1">Engineering</option>
-								<option value="2">Admin/Human Resource</option>
-								<option value="3">Building/Construction</option>
-								<option value="4">Accounting/Finance</option>
-								<option value="5">Services</option>
-								<option value="6">Computer/Information Technology</option>
+							<select class="custom-select" id="inputGroupSelect01" name="Industry_Type_industry_type_id" value="{{company.Industry_Type_industrytype_id}}">
+								{% for industrytype in industry_type %}
+								<option value="{{industrytype.industry_type_id}}">{{industrytype.industry_type_name}}</option>
+								{% endfor %}
 							</select>
-							<script type="text/javascript">$("#inputGroupSelect01").val("{{company.Industry_Type_industrytype_id}}").change();</script>
+							<script type="text/javascript">$("#inputGroupSelect01").val("{{company.Industry_Type_industry_type_id}}").change();</script>
 						</div>
 					</div>
 				</div>

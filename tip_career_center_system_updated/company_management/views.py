@@ -18,15 +18,18 @@ class Administrator(View):
 
 class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> contact_person
     def get(self, request, *args, **kwargs):
-        return render(request,template_name='company_management/add_company_AsAdmin.html',context={})
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM industry_type")
+            industry = dictfetchall(cursor)
+        return render(request,template_name='company_management/add_company_AsAdmin.html',context={"industry_type":industry})
     def post(self, request, *args, **kwargs):
         print("POST Function reached")
         # Company
         company_name = request.POST["company_name"]
         company_address = request.POST["company_address"]
-        Industry_Type_industrytype_id = request.POST["Industry_Type_industrytype_id"]
+        Industry_Type_industry_type_id = request.POST["Industry_Type_industry_type_id"]
         print(company_name)
-        print(Industry_Type_industrytype_id)
+        print(Industry_Type_industry_type_id)
         # Contact Person
         contactperson_fname = request.POST["contactperson_fname"]
         contactperson_lname = request.POST["contactperson_lname"]
@@ -40,7 +43,7 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         seccontactperson_email = request.POST["2contactperson_email"]
         seccontactperson_number = request.POST["2contactperson_number"]
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO company(company_name,company_address,Industry_Type_industry_type_id) VALUES ('{}','{}','{}')".format(company_name,company_address,Industry_Type_industrytype_id))
+            cursor.execute("INSERT INTO company(company_name,company_address,Industry_Type_industry_type_id) VALUES ('{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id))
             print("Company inserted")
 
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
@@ -72,7 +75,7 @@ class EditCompanyAsAdmin(View):
     def get(self, request, *args, **kwargs):
         print(self.kwargs['company_id'])
         company_id = self.kwargs['company_id']
-
+        
         with connection.cursor() as cursor:
             cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
             contact_id=cursor.fetchone()[0]
@@ -90,14 +93,16 @@ class EditCompanyAsAdmin(View):
             result2=dictfetchall(cursor)[0]
             cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
             result3=dictfetchall(cursor)[0]
+            cursor.execute("SELECT * FROM industry_type")
+            industry = dictfetchall(cursor)
             print(result1)
-        return render(request,template_name='company_management/edit_company_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3})
+        return render(request,template_name='company_management/edit_company_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3,"industry_type":industry})
     def post(self, request, *args, **kwargs):
         print("POST Function reached")
         company_id = self.kwargs['company_id']
         company_name = request.POST["company_name"]
         company_address = request.POST["company_address"]
-        Industry_Type_industrytype_id = request.POST["Industry_Type_industrytype_id"]
+        Industry_Type_industry_type_id = request.POST["Industry_Type_industry_type_id"]
         print(company_name)
         # Contact Person
         contactperson_fname = request.POST["contactperson_fname"]
