@@ -129,7 +129,7 @@ class EditCompanyAsAdmin(View):
             print(contact_id2)
         
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE company SET company_name='{}',company_address='{}' WHERE company_id={}".format(company_name,company_address,company_id))
+            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id,company_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
             
