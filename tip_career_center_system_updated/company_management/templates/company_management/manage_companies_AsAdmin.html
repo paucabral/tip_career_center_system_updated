@@ -34,9 +34,9 @@
                                   <td>
                                       <i class="button edit"><a href="/company-management/administrator/company-profile/{{ c.company_id }}">view</a></i>
                                       <i class="button edit"><a href="/company-management/administrator/edit-company/{{ c.company_id }}">edit</a></i>
-                                      <!-- <i class="button edit" data-toggle="modal" data-target="#editmodal" id="editbtn">edit</i> -->
-                                      <i class="button delete" data-toggle="modal" data-target="#deletemodal" id="deletebtn">delete</i>
-                                      <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
+                                      <!-- <i class="button edit"><a href="/company-management/administrator/delete-company/{{ c.company_id }}">Delete</a></i> -->
+                                      <i class="button delete" data-toggle="modal" data-target="#deletemodal{{ c.company_id }}" id="deletebtn">delete</i>
+                                      <div class="modal fade" id="deletemodal{{ c.company_id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" data-backdrop="false">
                                           <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content"  style="width:1000px">
                                               <div class="modal-header">
@@ -51,6 +51,7 @@
                                               <div class="modal-footer">
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                                 <form method="POST">{% csrf_token %}<button type="submit" value="{{ c.company_id }}" name="company_id" class="btn btn-danger">Delete</button></form>
+                                                <!-- <button type="button" class="btn btn-danger"><a href="/company-management/administrator/delete-company/{{ c.company_id }}">Delete</a></button> -->
                                               </div>
                                             </div>
                                           </div>

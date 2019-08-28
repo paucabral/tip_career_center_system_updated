@@ -134,13 +134,35 @@ class EditCompanyAsAdmin(View):
 
 class ManageCompaniesAsAdmin(View):
     def post(self, request, *args, **kwargs):
+
+        # companies=cursor.fetchall()
+
+        # for i in companies:
+        #     print(i[0])
+        #     print("First")
+
         company_id = request.POST["company_id"]
         with connection.cursor() as cursor:
-            cursor.execute("SET FOREIGN_KEY_CHECKS = 0")
-            cursor.execute("DELETE FROM contact_person WHERE contact_person_id IN (SELECT Contact_Person_contact_person_id FROM company_has_contact_person WHERE Company_company_id='{}')".format(company_id))
-            cursor.execute("SET FOREIGN_KEY_CHECKS = 1")
-            cursor.execute("DELETE FROM company_has_contact_person WHERE Company_company_id='{}'".format(company_id))
+            cursor.execute("DELETE FROM contact_person WHERE Company_company_id='{}'".format(company_id))
             cursor.execute("DELETE FROM company WHERE company_id='{}'".format(company_id))
+        #         cursor.execute("DELETE FROM company WHERE company_id='{}'".format(cmlen[i]))
+        #     cmlen={}
+        #     j=0
+
+        # for i in companies:
+        #     print(i['company_id'])
+        #     cmlen[j]=i['company_id']
+        #     j+=1
+
+        #     cmcom=[]
+
+        # for i in cmlen:
+        #     print(cmlen[i])
+        #     with connection.cursor() as cursor:
+        #         cursor.execute("DELETE FROM contact_person WHERE Company_company_id='{}'".format(cmlen[i]))
+        #         cursor.execute("DELETE FROM company WHERE company_id='{}'".format(cmlen[i]))
+        #         break
+
             result = dictfetchall(cursor)
         print(result)
         return redirect('/company-management/administrator/manage-companies')
@@ -148,7 +170,10 @@ class ManageCompaniesAsAdmin(View):
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM company")
             result = dictfetchall(cursor)
-        print(result)
+        #     for i in result:
+        #         print(i['company_id'])
+        #         print("First")
+        # print(result[0]['company_id'])
         return render(request,template_name='company_management/manage_companies_AsAdmin.html',context={'companies':result})
 
 class ViewCompanyAsAdmin(View):
@@ -177,3 +202,5 @@ class ViewCompanyAsAdmin(View):
         return render(request,template_name='company_management/company_profile_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3})
     def post(self, request, *args, **kwargs):
         pass
+
+            
