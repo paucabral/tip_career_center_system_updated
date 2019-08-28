@@ -285,12 +285,12 @@ START TRANSACTION;
 USE `tip_career_center_system_db`;
 
 INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'Internship');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'Externship');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'Scholarship');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'Career Fair');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'On-Campus Recruitment');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'Career Development Training');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'Mock Job Interview');
+INSERT INTO `tip_career_center_system_db`.`activity` VALUES(2,'Externship');
+INSERT INTO `tip_career_center_system_db`.`activity` VALUES(3,'Scholarship');
+INSERT INTO `tip_career_center_system_db`.`activity` VALUES(4,'Career Fair');
+INSERT INTO `tip_career_center_system_db`.`activity` VALUES(5,'On-Campus Recruitment');
+INSERT INTO `tip_career_center_system_db`.`activity` VALUES(6,'Career Development Training');
+INSERT INTO `tip_career_center_system_db`.`activity` VALUES(7,'Mock Job Interview');
 
 
 INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (1, 'Agricultural Production-Crops');
