@@ -185,6 +185,7 @@ class ViewCompanyAsAdmin(View):
     def get(self, request, *args, **kwargs):
         print(self.kwargs['company_id'])
         company_id = self.kwargs['company_id']
+        
 
         with connection.cursor() as cursor:
             cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
@@ -206,6 +207,66 @@ class ViewCompanyAsAdmin(View):
             print(result1)
         return render(request,template_name='company_management/company_profile_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3})
     def post(self, request, *args, **kwargs):
-        pass
+        company_id = self.kwargs['company_id']
+        activity_id = request.POST['activity_id']
 
+        print("Activity ID: ",activity_id)
+
+        #INTERNSHIP
+        internship_student_name = request.POST['internship_student_name']
+        internship_program = request.POST['internship_program']
+        internship_course = request.POST['internship_course']
+        internship_school_year = request.POST['internship_school_year']
+        internship_semester = request.POST['internship_semester']
+        
+        #EXTERNSHIP
+        externship_student_name = request.POST['externship_student_name']
+        externship_program = request.POST['externship_program']
+        externship_course = request.POST['externship_course']
+        externship_school_year = request.POST['externship_school_year']
+        externship_semester = request.POST['externship_semester']
+
+        #SCHOLARSHIP
+        scholarship_student_name = request.POST['scholarship_student_name']
+        scholarship_program = request.POST['scholarship_program']
+        scholarship_course = request.POST['scholarship_course']
+        scholarship_school_year = request.POST['scholarship_school_year']
+        scholarship_semester = request.POST['scholarship_semester']
+        scholarship_amount = request.POST['scholarship_amount']
+
+        #CAREER FAIR
+        career_fair_title = request.POST['career_fair_title']
+        career_fair_date = request.POST['career_fair_date']
+        career_fair_participants = request.POST['career_fair_participants']
+
+        #ON-CAMPUS RECRUITMENT
+        on_campus_recruitment_name = request.POST['on_campus_recruitment_name']
+        on_campus_recruitment_date = request.POST['on_campus_recruitment_date']
+        on_campus_recruitment_participants = request.POST['on_campus_recruitment_participants']
+
+        #CAREER DEVELOPMENT TRAINING
+        career_development_training_name = request.POST['career_development_name']
+        career_development_training_date = request.POST['career_development_date']
+        career_development_training_participants = request.POST['career_development_participants']
+
+        #MOCK JOB INTERVIEW
+        mock_job_interview_date = request.POST['mock_job_interview_date']
+        mock_job_interview_participants = request.POST['mock_job_interview_participants']
+
+        with connection.cursor() as cursor:
+            if activity_id=='1':
+                cursor.execute("INSERT INTO intership(internship_student_name,intership_program,intership_course,intership_school_year,internship_semester,Company_company_id,internship_date_added) VALUES('{}','{}','{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(internship_student_name,internship_program,internship_course,internship_school_year,internship_semester,company_id))
+            elif activity_id=='2':
+                cursor.execute("INSERT INTO externship(externship_student_name,externship_program,externship_course,externship_school_year,externship_semester,Company_company_id,externship_date_added) VALUES('{}','{}','{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(externship_student_name,externship_program,externship_course,externship_school_year,externship_semester,company_id))
+            elif activity_id=='3':
+                cursor.execute("INSERT INTO scholarship(scholarship_student_name,sholarship_program,scholarship_course,scholarship_school_year,scholarship_semester,scholarship_amount,Company_company_id,scholarship_date_added) VALUES('{}','{}','{}','{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(scholarship_student_name,scholarship_program,scholarship_course,scholarship_school_year,scholarship_semester,scholarship_amount,company_id))
+            elif activity_id=='4':
+                cursor.execute("INSERT INTO career_fair(career_fair_title,career_fair_date,career_fair_participants,Company_company_id,career_fair_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(career_fair_title,career_fair_date,career_fair_participants,company_id))
+            elif activity_id=='5':
+                cursor.execute("INSERT INTO on_campus_recruitment(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,Company_company_id,on_campus_recruitment_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,company_id))
+            elif activity_id=='6':
+                cursor.execute("INSERT INTO career_development_training(career_development_training_name,career_development_training_date,career_development_training_participants,Company_company_id,career_development_training_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(career_development_training_name,career_development_training_date,career_development_training_participants,company_id))
+            elif activity_id=='7':
+                cursor.execute("INSERT INTO mock_job_interview(mock_job_interview_date,mock_job_interview_participants,Company_company_id,mock_job_interviewcol_date_added) VALUES('{}','{}','{}',CURRENT_TIMESTAMP)".format(mock_job_interview_date,mock_job_interview_participants,company_id))
+        return redirect('/company-management/administrator/company-profile/{}'.format(company_id))
             

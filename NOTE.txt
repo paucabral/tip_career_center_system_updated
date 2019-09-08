@@ -1,3 +1,4 @@
+09/09/19 - Specific company activities are now connected to the database. Some modification on html forms are added as well. Company_has_activity table is yet to be linked. --pau
 08/29/19 - Updated inserts on activities table. Added autocomplete for industry type dropdown selection as well. --pau
 08/27/19 - Updated database and views for connection. Please forward engineer the newly updated sql file. --pau
 08/24/19 - Updated some html files and added views and urls for 'view-company' --pau

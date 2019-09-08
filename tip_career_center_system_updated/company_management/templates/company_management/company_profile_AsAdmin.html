@@ -50,10 +50,10 @@
         <h5>Icon</h5>
     </div>
     <div class='center'>
-        <h5>Company Name:</h5>
-        <h5>Company Address:</h5>
-        <h5>Company Contact Person:</h5>
-        <h5>Company Other Contact Person:</h5>
+        <h5>Company Name: {{ company.company_name }}</h5>
+        <h5>Company Address: {{ company.company_address }}</h5>
+        <h5>Primary Contact Person: {{ contact_person.contact_person_fname }} {{ contact_person.contact_person_lname }}</h5>
+        <h5>Secondary Contact Person: {{ 2contact_person.contact_person_fname }} {{ 2contact_person.contact_person_lname }}</h5>
     </div>
     <div class="row"></div>
     <div class="col" style="padding-left:100px;padding-right:100px;padding-top:50px;padding-bottom:50px">
@@ -85,7 +85,8 @@
     <button type="btn" class="btn btn-warning" style="float:right"data-toggle="modal" data-target="#modalform">Add an Activity</button>
     </div>
     </div>
-    <div class="modal fade" id="modalform" style="margin-top:100px;overflow:unset" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false" data-keyboard="false">
+    <div class="modal fade" id="modalform" style="margin-top:20px;overflow:unset;z-index:20000000;" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false" data-keyboard="false">
+        <form method="POST">{% csrf_token %}
         <div class="modal-dialog cascading-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -152,7 +153,7 @@
                                     Semester
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-warning">Submit</button>
+                            <button type="submit" class="btn btn-warning" name="activity_id" value="1">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity2" role="tabpanel"> <!----------------------------EXTERNSHIP FORM--------------------------------->
@@ -187,7 +188,7 @@
                                     Semester
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-warning">Submit</button>
+                            <button type="submit" class="btn btn-warning" name="activity_id" value="2">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity3" role="tabpanel"> <!----------------------------SCHOLARSHIP FORM--------------------------------->
@@ -222,7 +223,13 @@
                                     Semester
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-warning">Submit</button>
+                            <div class="form-group">
+                                <input type="text" id="scholarship_amount" name="scholarship_amount" class="form-control">
+                                <label for="scholarship_amount">
+                                    Amount
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-warning" name="activity_id" value="3">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity4" role="tabpanel"> <!----------------------------CAREER FAIR FORM--------------------------------->
@@ -234,7 +241,7 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <input type="text" id="career_fair_date" name="career_fair_date" class="form-control">
+                                <input type="text" id="career_fair_date" name="career_fair_date" placeholder="YYYY-MM-DD" class="form-control">
                                 <label for="career_fair_date">
                                     Date
                                 </label>
@@ -251,7 +258,7 @@
                                     Attachment
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-warning">Submit</button>
+                            <button type="submit" class="btn btn-warning" name="activity_id" value="4">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity5" role="tabpanel"> <!----------------------------ON CAMPUS RECRUITMENT FORM--------------------------------->
@@ -263,7 +270,7 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <input type="text" id="on_campus_recruitment_date" name="on_campus_recruitment_date" class="form-control">
+                                <input type="text" id="on_campus_recruitment_date" name="on_campus_recruitment_date" placeholder="YYYY-MM-DD" class="form-control">
                                 <label for="on_campus_recruitment_date">
                                     Date
                                 </label>
@@ -280,7 +287,7 @@
                                     Attachment
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-warning">Submit</button>
+                            <button type="submit" class="btn btn-warning" name="activity_id" value="5">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity6" role="tabpanel"> <!----------------------------CAREER DEVELOPMENT FORM--------------------------------->
@@ -292,7 +299,7 @@
                                 </label>
                             </div>
                             <div class="form-group">
-                                <input type="text" id="career_development_date" name="career_development_date" class="form-control">
+                                <input type="text" id="career_development_date" name="career_development_date" placeholder="YYYY-MM-DD" class="form-control">
                                 <label for="career_development_date">
                                     Date
                                 </label>
@@ -309,13 +316,13 @@
                                     Attachment
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-warning">Submit</button>
+                            <button type="submit" class="btn btn-warning" name="activity_id" value="6">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity7" role="tabpanel"> <!----------------------------MOCK JOB INTERVIEW FORM--------------------------------->
                         <div class="tab-content">
                             <div class="form-group">
-                                <input type="text" id="mock_job_interview_date" name="mock_job_interview_date" class="form-control">
+                                <input type="text" id="mock_job_interview_date" name="mock_job_interview_date" placeholder="YYYY-MM-DD" class="form-control">
                                 <label for="mock_job_interview_date">
                                     Date
                                 </label>
@@ -326,13 +333,14 @@
                                     Participants
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-warning">Submit</button>
+                            <button type="submit" class="btn btn-warning" name="activity_id" value="7">Submit</button>
                         </div>
                     </div>
                 </div>
                 </div>
             </div>
         </div>
+        </form>
     </div>
     <style>
     body.modal-open {
