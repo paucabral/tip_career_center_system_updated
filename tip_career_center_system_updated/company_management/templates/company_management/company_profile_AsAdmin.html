@@ -66,19 +66,33 @@
                 <tr>
                     <th>Activity ID</th>
                     <th>Activity Type</th>
-                    <th></th>
+                    <th>Quantity</th>
                 </tr>
         </thead>
         <tbody>
-            <!--<tr>
-                <td>1</td>
-                <td>Seminar</td>
-                <td>
-                    <i class="button edit"><a href="#">view</a></i>
-                    <i class="button edit"><a href="#">edit</a></i>
-                    <i class="button delete"><a href="#">delete</a></i>
-                </td>
-            </tr> -->
+            {% for act in companyActs %}
+            <tr>
+                <td>{{ act.Activity_activity_id }}</td>
+                {% if act.Activity_activity_id == 1 %}
+                    <td>{{ activities.0.activity_name }}</td>
+                {% elif act.Activity_activity_id == 2 %}
+                    <td>{{ activities.1.activity_name }}</td>
+                {% elif act.Activity_activity_id == 3 %}
+                    <td>{{ activities.2.activity_name }}</td>
+                {% elif act.Activity_activity_id == 4 %}
+                    <td>{{ activities.3.activity_name }}</td>
+                {% elif act.Activity_activity_id == 5 %}
+                    <td>{{ activities.4.activity_name }}</td>
+                {% elif act.Activity_activity_id == 6 %}
+                    <td>{{ activities.5.activity_name }}</td>
+                {% elif act.Activity_activity_id == 7 %}
+                    <td>{{ activities.6.activity_name }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                <td>{{ act.quantity }}</td>
+            </tr>
+            {% endfor %}
         </tbody>
     </table>
     </div><br><br>
