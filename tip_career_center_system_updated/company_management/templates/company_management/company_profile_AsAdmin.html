@@ -10,45 +10,38 @@
         text-align:center;
         text-decoration:underline;
     }
-    .rectangle{
-        position:absolute;
-        height:20%;
-        width:4%;
-        z-index:10000;
-        right:10%;
-        top:0px;
-        border: 3px solid;
-        padding 10%;
-    }
-    .square{
-        position:absolute;
-        height:20%;
-        width:10%;
-        border: 3px solid;
-        padding 10px;
-        top:17%;
-        z-index:10000;
-        left:13%;
-    }
+	.nav-pills>li>a{
+		padding-left:5%;
+		padding-right:5%;
+	}
+	.profiles
+	{
+		position:absolute;
+		top:60%;
+		left:5%;
+	}
+	.Banners
+	{
+		position:relative;
+		top:0px;
+		left:0px;
+		width:100%;
+		height:200px;
+	}
+	.engagements
+	{
+		position:absolute;
+		top:0;
+		right:5%;
+	}
     </style>
     <div class="container-fluid" style="background-color:#f8f9fa">
 	<header class="header2">
-        <div style="background-image:url(banner.img); z-index:0">
-            BRUCE BANNER
-        </div>
-        <div style="background-image:url(engagement.img); z-index:2;">
-            LOGO    
-        </div>
-        <div>
-            CONTACT DETAILS
-        </div>
+        <img src="/static/img/Banner.jpg" style="z-index:0" height="100%" width="100%" class="Banners"/>
+        <img src="/static/img/engagement.jpg" height="80%" width="5%" style="z-index:2" class="engagements"/>
+		<img src="/static/img/profile.png" height="80%" width="10%" class="profiles"/>
     </header>
-    <div class="rectangle">
-            <h5>LEVEL OF ENGAGEMENT ICON</h5>
-    </div>
-    <div class="square">
-        <h5>Icon</h5>
-    </div>
+
     <div class='center'>
         <h5>Company Name: {{ company.company_name }}</h5>
         <h5>Company Address: {{ company.company_address }}</h5>
@@ -101,8 +94,8 @@
     </div>
     <div class="modal fade" id="modalform" style="margin-top:20px;overflow:unset;z-index:20000000;" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false" data-keyboard="false">
         <form method="POST">{% csrf_token %}
-        <div class="modal-dialog cascading-modal" role="document">
-            <div class="modal-content">
+        <div class="modal-dialog cascading-modal modal-lg" style="width:100%" role="document">
+            <div class="modal-content" style="width:125%">
                 <div class="modal-header">
                         Company Activities
                         <button type="button" style="float:right" class="close" data-dismiss="modal" aria-label="Close">
@@ -110,8 +103,8 @@
                         </button>
                 </div>
                 <div class="modal-tabs"> 
-                    <ul class="nav nav-tabs" role="tablist">
-                        <li class="nav-item">
+                    <ul class="nav nav-pills nav-justified" style="margin-left:1%; margin-right:1%" role="tablist">
+                        <li class="nav-item" style="width:5px">
                             <a class="nav-link active" data-toggle="tab" href="#activity1" role="tab">Internship</a>
                         </li>
                         <li class="nav-item">
