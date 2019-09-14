@@ -750,3 +750,5 @@ INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `
 
 COMMIT;
 
+-- Additional Code
+CREATE TABLE adminAccount(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(50), last_name VARCHAR(50), username VARCHAR(50) NOT NULL, email VARCHAR(50), password TEXT NOT NULL);
