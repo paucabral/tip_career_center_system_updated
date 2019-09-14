@@ -43,7 +43,7 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         seccontactperson_email = request.POST["2contactperson_email"]
         seccontactperson_number = request.POST["2contactperson_number"]
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO company(company_name,company_address,Industry_Type_industry_type_id) VALUES ('{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id))
+            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id) VALUES ('{}','{}',0,'{}')".format(company_name,company_address,Industry_Type_industry_type_id))
             print("Company inserted")
 
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
@@ -276,46 +276,74 @@ class ViewCompanyAsAdmin(View):
         with connection.cursor() as cursor:
             quantity=0
             if activity_id=='1':
+                cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
+                company_engagement_score=cursor.fetchone()[0]
                 cursor.execute("SELECT quantity FROM company_has_activity WHERE Company_company_id={} AND Activity_activity_id=1".format(company_id))
                 quantity=cursor.fetchone()[0]
                 quantity+=1
+                company_engagement_score+=(5)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=1".format(quantity,company_id))
+                cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
                 cursor.execute("INSERT INTO intership(internship_student_name,intership_program,intership_course,intership_school_year,internship_semester,Company_company_id,internship_date_added) VALUES('{}','{}','{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(internship_student_name,internship_program,internship_course,internship_school_year,internship_semester,company_id))
             elif activity_id=='2':
+                cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
+                company_engagement_score=cursor.fetchone()[0]
                 cursor.execute("SELECT quantity FROM company_has_activity WHERE Company_company_id={} AND Activity_activity_id=2".format(company_id))
                 quantity=cursor.fetchone()[0]
                 quantity+=1
+                company_engagement_score+=(6)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=2".format(quantity,company_id))
+                cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
                 cursor.execute("INSERT INTO externship(externship_student_name,externship_program,externship_course,externship_school_year,externship_semester,Company_company_id,externship_date_added) VALUES('{}','{}','{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(externship_student_name,externship_program,externship_course,externship_school_year,externship_semester,company_id))
             elif activity_id=='3':
+                cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
+                company_engagement_score=cursor.fetchone()[0]
                 cursor.execute("SELECT quantity FROM company_has_activity WHERE Company_company_id={} AND Activity_activity_id=3".format(company_id))
                 quantity=cursor.fetchone()[0]
                 quantity+=1
+                company_engagement_score+=(7)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=3".format(quantity,company_id))
+                cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
                 cursor.execute("INSERT INTO scholarship(scholarship_student_name,sholarship_program,scholarship_course,scholarship_school_year,scholarship_semester,scholarship_amount,Company_company_id,scholarship_date_added) VALUES('{}','{}','{}','{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(scholarship_student_name,scholarship_program,scholarship_course,scholarship_school_year,scholarship_semester,scholarship_amount,company_id))
             elif activity_id=='4':
+                cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
+                company_engagement_score=cursor.fetchone()[0]
                 cursor.execute("SELECT quantity FROM company_has_activity WHERE Company_company_id={} AND Activity_activity_id=4".format(company_id))
                 quantity=cursor.fetchone()[0]
                 quantity+=1
+                company_engagement_score+=(8)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=4".format(quantity,company_id))
+                cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
                 cursor.execute("INSERT INTO career_fair(career_fair_title,career_fair_date,career_fair_participants,Company_company_id,career_fair_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(career_fair_title,career_fair_date,career_fair_participants,company_id))
             elif activity_id=='5':
+                cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
+                company_engagement_score=cursor.fetchone()[0]
                 cursor.execute("SELECT quantity FROM company_has_activity WHERE Company_company_id={} AND Activity_activity_id=5".format(company_id))
                 quantity=cursor.fetchone()[0]
                 quantity+=1
+                company_engagement_score+=(9)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=5".format(quantity,company_id))
+                cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
                 cursor.execute("INSERT INTO on_campus_recruitment(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,Company_company_id,on_campus_recruitment_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,company_id))
             elif activity_id=='6':
+                cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
+                company_engagement_score=cursor.fetchone()[0]
                 cursor.execute("SELECT quantity FROM company_has_activity WHERE Company_company_id={} AND Activity_activity_id=6".format(company_id))
                 quantity=cursor.fetchone()[0]
                 quantity+=1
+                company_engagement_score+=(10)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=6".format(quantity,company_id))
+                cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
                 cursor.execute("INSERT INTO career_development_training(career_development_training_name,career_development_training_date,career_development_training_participants,Company_company_id,career_development_training_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(career_development_training_name,career_development_training_date,career_development_training_participants,company_id))
             elif activity_id=='7':
+                cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
+                company_engagement_score=cursor.fetchone()[0]
                 cursor.execute("SELECT quantity FROM company_has_activity WHERE Company_company_id={} AND Activity_activity_id=7".format(company_id))
                 quantity=cursor.fetchone()[0]
                 quantity+=1
+                company_engagement_score+=(11)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=7".format(quantity,company_id))
+                cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
                 cursor.execute("INSERT INTO mock_job_interview(mock_job_interview_date,mock_job_interview_participants,Company_company_id,mock_job_interviewcol_date_added) VALUES('{}','{}','{}',CURRENT_TIMESTAMP)".format(mock_job_interview_date,mock_job_interview_participants,company_id))
             quantity=0
         return redirect('/company-management/administrator/company-profile/{}'.format(company_id))
