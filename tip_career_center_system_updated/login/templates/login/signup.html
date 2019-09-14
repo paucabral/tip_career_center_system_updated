@@ -54,7 +54,7 @@
 	<div class="split right parallax4">
 	<div class="row">
 		<div class="col" style="background-color:rgba(60, 60, 60, 0.7);padding-left:75px;padding-right:75px;padding-top:50px;padding-bottom:50px">
-		<label style="color:#ececec">Log in as:</label>
+		<label style="color:#ececec">Register as:</label>
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="nav-item">
 				<a class="nav-link active show" style="color:#333333" data-toggle="tab" href="#Admin" role="tab" aria-selected="true">Admin</a>
@@ -67,20 +67,20 @@
 			<br>
 			<div class="tab-pane fade in active show" id="Admin" role="tabpanel">
 				<div class="tab-content">
-					<form action="/" method="POST">
+					<form action="{% url 'login:registerAdmin' %}" method="POST">
 					{% csrf_token %}
 						<div class="form-group">
 							<label for="Uname"style="color:#ececec">Admin Username</label>
-							<input name="username" type="text" class="form-control" id="Uname">
+							<input name="username" type="text" class="form-control" id="Uname" required>
 						</div>
 						<div class="form-group">
 							<label for="Pass"style="color:#ececec">Admin Password</label>
-							<input name="password" type="password" class="form-control" id="Pass">
+							<input name="password" type="password" class="form-control" id="Pass" required>
 						</div>
-						<div class="text-right" id="loginAdmin">
-							<input type="submit" class="btn btn-dark btn-block" value="Log in"/>
+						<div class="text-center" id="loginAdmin">
+							<input type="submit" class="btn btn-dark btn-block" value="Register">
 						</div>
-					</form>		
+					</form>
 				</div>
 			</div>
 			<div class="tab-pane fade" id="OJT" role="tabpanel">
