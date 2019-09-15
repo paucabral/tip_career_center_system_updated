@@ -24,7 +24,7 @@ class Login(View):
         password = request.POST.get("password")
 
         with connection.cursor() as cursor:
-            sql = "SELECT username, password FROM adminAccount WHERE username='{}'".format(username)
+            sql = "SELECT username, password FROM accounts WHERE username='{}'".format(username)
             cursor.execute(sql)
             result = dictfetchall(cursor)[0]
             print(result)
