@@ -347,4 +347,73 @@ class ViewCompanyAsAdmin(View):
                 cursor.execute("INSERT INTO mock_job_interview(mock_job_interview_date,mock_job_interview_participants,Company_company_id,mock_job_interviewcol_date_added) VALUES('{}','{}','{}',CURRENT_TIMESTAMP)".format(mock_job_interview_date,mock_job_interview_participants,company_id))
             quantity=0
         return redirect('/company-management/administrator/company-profile/{}'.format(company_id))
-            
+    
+class ViewCompanyInternshipAsAdmin(View):
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT*FROM intership WHERE Company_company_id={}".format(company_id))
+            internships=dictfetchall(cursor)
+        return render(request,template_name='company_management/company_profile_internships_AsAdmin.html',context={"internships":internships})
+
+class ViewCompanyExternshipAsAdmin(View):
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+        
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT*FROM externship WHERE Company_company_id={}".format(company_id))
+            externships=dictfetchall(cursor)
+        return render(request,template_name='company_management/company_profile_externships_AsAdmin.html',context={"externships":externships})
+
+class ViewCompanyScholarshipAsAdmin(View):
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+        
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT*FROM scholarship WHERE Company_company_id={}".format(company_id))
+            scholarships=dictfetchall(cursor)
+        return render(request,template_name='company_management/company_profile_scholarships_AsAdmin.html',context={"scholarships":scholarships})
+
+class ViewCompanyCareerFairAsAdmin(View):
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+        
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
+            career_fairs=dictfetchall(cursor)
+        return render(request,template_name='company_management/company_profile_career_fairs_AsAdmin.html',context={"career_fairs":career_fairs})
+
+class ViewCompanyOnCampusRecruitmentAsAdmin(View):
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+        
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
+            on_campus_recruitments=dictfetchall(cursor)
+        return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsAdmin.html',context={"on_campus_recruitments":on_campus_recruitments})
+
+class ViewCompanyCareerDevelopmentTrainingAsAdmin(View):
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+        
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
+            career_development_trainings=dictfetchall(cursor)
+        return render(request,template_name='company_management/company_profile_career_development_trainings_AsAdmin.html',context={"career_development_trainings":career_development_trainings})
+
+class ViewCompanyMockJobInterviewAsAdmin(View):
+    def get(self, request, *args, **kwargs):
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+        
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT*FROM mock_job_interview WHERE Company_company_id={}".format(company_id))
+            mock_job_interviews=dictfetchall(cursor)
+        return render(request,template_name='company_management/company_profile_mock_job_interviews_AsAdmin.html',context={"mock_job_interviews":mock_job_interviews})

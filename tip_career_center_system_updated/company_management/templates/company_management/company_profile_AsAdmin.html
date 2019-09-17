@@ -59,12 +59,13 @@
     <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
         <thead>
                 <tr>
-                    <th colspan="3" style="text-align:center;color:#1e1e1e">Company Activities</th>
+                    <th colspan="4" style="text-align:center;color:#1e1e1e;">Company Activities</th>
                 </tr>
                 <tr>
                     <th>Activity ID</th>
                     <th>Activity Type</th>
                     <th>Count</th>
+                    <th></th>
                 </tr>
         </thead>
         <tbody>
@@ -89,6 +90,9 @@
                     <td></td>
                 {% endif %}
                 <td>{{ act.quantity }}</td>
+                <td>
+                    <i class="button edit"><a href="/company-management/administrator/company-profile/{{ act.Company_company_id }}/{{ act.Activity_activity_id }}"><img width="30" height="30" src="{% static 'img/view.png' %}"></a></i>
+                </td>
             </tr>
             {% endfor %}
         </tbody>

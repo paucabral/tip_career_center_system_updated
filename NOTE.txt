@@ -1,4 +1,5 @@
-09/09/19 - All company linkages are now connected to the company_has_activity table. Pointing System is soon to be implemented --pau
+09/17/19 - Each company activity is now viewable. Check updated url patterns.
+09/14/19 - All company linkages are now connected to the company_has_activity table. Pointing System is soon to be implemented --pau
 09/09/19 - Specific company activities are now connected to the database. Some modification on html forms are added as well. Company_has_activity table is yet to be linked. --pau
 08/29/19 - Updated inserts on activities table. Added autocomplete for industry type dropdown selection as well. --pau
 08/27/19 - Updated database and views for connection. Please forward engineer the newly updated sql file. --pau
@@ -12,4 +13,5 @@ administrator - localhost:8000/company-management/administrator
 view/edit/delete (as admin) - localhost:8000/administrator/company-mangement/manage-companies
 update a specific company (as admin) - http://localhost:8000/company-management/administrator/edit-company/<company_id>
 view a specific company (as admin) - http://localhost:8000/company-management/administrator/view-company/<company_id>
+view each company activity (as admin) - http://localhost:8000/company-management/administrator/view-company/<company_id>/<activity_id>
 add a company (as admin) - http://localhost:8000/company-management/administrator/add-company

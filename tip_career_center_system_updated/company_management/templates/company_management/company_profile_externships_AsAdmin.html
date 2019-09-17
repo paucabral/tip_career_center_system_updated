@@ -1,0 +1,40 @@
+{% extends 'template.html' %}
+{% load static %}
+    {% block content %}
+
+    <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
+        <thead>
+                <tr>
+                    <th colspan="6" style="text-align:center;color:#1e1e1e">Externships</th>
+                </tr>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Program</th>
+                    <th>Course</th>
+                    <th>School Year</th>
+                    <th>Semester</th>
+                    <th>Date Added</th>
+                </tr>
+        </thead>
+        <tbody>
+            {% for i in externships %}
+            <tr>
+                <td>{{ i.externship_student_name }}</td>
+                <td>{{ i.externship_program }}</td>
+                <td>{{ i.externship_course }}</td>
+                <td>{{ i.externship_school_year }}</td>
+                <td>{{ i.externship_semester }}</td>
+                <td>{{ i.externship_date_added }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+    <script>
+        $(document).ready( function () {
+        $('#tableID').DataTable();
+    } );
+    </script>
+    {% endblock %}

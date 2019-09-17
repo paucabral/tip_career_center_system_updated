@@ -1,0 +1,34 @@
+{% extends 'template.html' %}
+{% load static %}
+    {% block content %}
+
+    <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
+        <thead>
+                <tr>
+                    <th colspan="3" style="text-align:center;color:#1e1e1e">Mock Job Interviews</th>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <th>No. of Participants</th>
+                    <th>Date Added</th>
+                </tr>
+        </thead>
+        <tbody>
+            {% for i in mock_job_interviews %}
+            <tr>
+                <td>{{ i.mock_job_interview_date }}</td>
+                <td>{{ i.mock_job_interview_participants }}</td>
+                <td>{{ i.mock_job_interviewcol_date_added }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+    <script>
+        $(document).ready( function () {
+        $('#tableID').DataTable();
+    } );
+    </script>
+    {% endblock %}
