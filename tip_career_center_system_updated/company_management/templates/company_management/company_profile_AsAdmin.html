@@ -39,12 +39,26 @@
 		max-width:100%;
 		height:auto;
 	}
+	img.rounded-corners{
+		border-radius:100%;
+	}
+	.modal-backdrop{
+		z-index:-1;
+	}
+	.nav>li{
+		margin-left:20px;
+	}
+	.nav-item > a:hover {
+	  color: white;
+	  background-color:black;
+	  font-weight:bold;
+	 }
     </style>
     <div class="container-fluid" style="background-color:#f8f9fa">
 	<header class="header2">
-        <img src="/static/img/Banner.jpg" style="z-index:0" height="100%" width="100%" class="Banners"/>
+		<img src="/static/img/Banner.jpg" style="z-index:0" height="100%" width="100%" class="Banners"/>
         <img src="/static/img/engagement.jpg" height="80%" width="5%" style="z-index:2" class="engagements"/>
-		<img src="/static/img/profile.png" height="80%" width="10%" class="profiles"/>
+		<img src="/static/img/profile.png" height="80%" width="10%" class="profiles rounded-corners"/>
     </header>
 
     <div class='center'>
@@ -98,22 +112,24 @@
         </tbody>
     </table>
     </div><br><br>
-    <button type="btn" class="btn btn-warning" style="float:right"data-toggle="modal" data-target="#modalform">Add an Activity</button>
+    <button type="btn" class="btn btn-warning" style="float:right" data-toggle="modal" data-target="#modalform">Add an Activity</button>
     </div>
     </div>
-    <div class="modal fade" id="modalform" style="margin-top:20px;overflow:unset;z-index:20000000;" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false" data-keyboard="false">
+    <div class="modal fade" id="modalform" style="margin-top:20px;overflow:unset;" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false" data-keyboard="false">
         <form method="POST">{% csrf_token %}
-        <div class="modal-dialog cascading-modal modal-lg" style="width:100%" role="document">
+        <div class="modal-dialog cascading-modal modal-dialog-centered modal-xl" style="width:100%" role="document">
             <div class="modal-content" style="width:125%">
                 <div class="modal-header">
+					<div style="position:relative; left:45%; font-weight:bold;">
                         Company Activities
+					</div>
                         <button type="button" style="float:right" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-idden="true">&times;</span>
                         </button>
                 </div>
                 <div class="modal-tabs"> 
                     <ul class="nav nav-pills nav-justified" style="margin-left:1%; margin-right:1%" role="tablist">
-                        <li class="nav-item" style="width:5px">
+                        <li class="nav-item">
                             <a class="nav-link active" data-toggle="tab" href="#activity1" role="tab">Internship</a>
                         </li>
                         <li class="nav-item">
@@ -134,222 +150,320 @@
                          <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#activity7" role="tab">Mock Job Interview</a>
                         </li>
-                        
                     </ul>
                     <div class="tab-content" style="padding:20px"> 
                     <div class="tab-pane fade in active show" id ="activity1" role="tabpanel"> <!----------------------------INTERNSHIP FORM--------------------------------->
                         <div class="tab-content">
-                            <div class="form-group">
-                                <input type="text" id="internship_student_name" name="internship_student_name" class="form-control">
-                                <label for="internship_student_name">
-                                    Student's Name
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="internship_program" name="internship_program" class="form-control">
-                                <label for="internship_program">
-                                    Program
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="internship_course" name="internship_course" class="form-control">
-                                <label for="internship_course">
-                                    Course <!-- What does course mean here if there's a program? -->
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="internship_school_year" name="internship_school_year" class="form-control">
-                                <label for="internship_school_year">
-                                    School Year
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="internship_semester" name="internship_semester" class="form-control">
-                                <label for="internship_semester">
-                                    Semester
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-warning" name="activity_id" value="1">Submit</button>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="internship_student_name" name="internship_student_name" class="form-control input-lg"/>
+										<label for="internship_student_name">
+											Student's Name
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="internship_program" name="internship_program" class="form-control input-lg"/>
+										<label for="internship_program">
+											Program
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="internship_course" name="internship_course" class="form-control input-lg"/>
+										<label for="internship_course">
+											Course <!-- What does course mean here if there's a program? -->
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="internship_school_year" name="internship_school_year" class="form-control input-lg" pattern="[0-9]{4}" required>
+										<label for="internship_school_year">
+											School Year
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<select class="form-control" name="internship_semester" id="internship_semester">
+											<option value="1st Semester">1st Semester</option>
+											<option value="2nd Semester">2nd Semester</option>
+											<option value="Summer">Summer</option>
+										</select>
+										<label for="internship_semester">
+											Semester
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="1">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity2" role="tabpanel"> <!----------------------------EXTERNSHIP FORM--------------------------------->
                         <div class="tab-content">
-                            <div class="form-group">
-                                <input type="text" id="externship_student_name" name="externship_student_name" class="form-control">
-                                <label for="externship_student_name">
-                                    Student's Name
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="externship_program" name="externship_program" class="form-control">
-                                <label for="externship_program">
-                                    Program
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="externship_course" name="externship_course" class="form-control">
-                                <label for="externship_course">
-                                    Course <!-- What does course mean here if there's a program? -->
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="externship_school_year" name="externship_school_year" class="form-control">
-                                <label for="externship_school_year">
-                                    School Year
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="externship_semester" name="externship_semester" class="form-control">
-                                <label for="externship_semester">
-                                    Semester
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-warning" name="activity_id" value="2">Submit</button>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="externship_student_name" name="externship_student_name" class="form-control"/>
+										<label for="externship_student_name">
+											Student's Name
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="externship_program" name="externship_program" class="form-control"/>
+										<label for="externship_program">
+											Program
+										</label>
+									</div>
+								</div>
+							</div>
+								<div class="form-row">
+									<div class="col-lg-4">
+										<div class="form-group">
+											<input type="text" id="externship_course" name="externship_course" class="form-control"/>
+											<label for="externship_course">
+												Course <!-- What does course mean here if there's a program? -->
+											</label>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<input type="text" id="externship_school_year" name="externship_school_year" class="form-control" pattern="[0-9]{4}" required>
+											<label for="externship_school_year">
+												School Year
+											</label>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<select class="form-control" name="externship_semester" id="externship_semester">
+											<option value="1st Semester">1st Semester</option>
+											<option value="2nd Semester">2nd Semester</option>
+											<option value="Summer">Summer</option>
+											</select>
+											<label for="externship_semester">
+												Semester
+											</label>
+										</div>
+									</div>
+								</div>
+							
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="2">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity3" role="tabpanel"> <!----------------------------SCHOLARSHIP FORM--------------------------------->
-                         <div class="tab-content">
-                            <div class="form-group">
-                                <input type="text" id="scholarship_student_name" name="scholarship_student_name" class="form-control">
-                                <label for="scholarship_student_name">
-                                    Student's Name
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="scholarship_program" name="scholarship_program" class="form-control">
-                                <label for="scholarship_program">
-                                    Program
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="scholarship_course" name="scholarship_course" class="form-control">
-                                <label for="scholarship_course">
-                                    Course <!-- What does course mean here if there's a program? -->
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="scholarship_school_year" name="scholarship_school_year" class="form-control">
-                                <label for="scholarship_school_year">
-                                    School Year
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="scholarship_semester" name="scholarship_semester" class="form-control">
-                                <label for="scholarship_semester">
-                                    Semester
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="scholarship_amount" name="scholarship_amount" class="form-control">
-                                <label for="scholarship_amount">
-                                    Amount
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-warning" name="activity_id" value="3">Submit</button>
-                        </div>
+						<div class="tab-content">
+							<div class="form-row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="scholarship_student_name" name="scholarship_student_name" class="form-control"/>
+										<label for="scholarship_student_name">
+											Student's Name
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="scholarship_program" name="scholarship_program" class="form-control"/>
+										<label for="scholarship_program">
+											Program
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="scholarship_course" name="scholarship_course" class="form-control"/>
+										<label for="scholarship_course">
+											Course <!-- What does course mean here if there's a program? -->
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="scholarship_school_year" name="scholarship_school_year" class="form-control"	pattern="[0-9]{4}" required>
+										<label for="scholarship_school_year">
+											School Year
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<select class="form-control" name="scholarship_semester" id="scholarship_semester">
+											<option value="1st Semester">1st Semester</option>
+											<option value="2nd Semester">2nd Semester</option>
+											<option value="Summer">Summer</option>
+											</select>
+										<label for="scholarship_semester">
+										Semester
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="number" id="scholarship_amount" name="scholarship_amount" class="form-control" />
+										<label for="scholarship_amount">
+											Amount
+										</label>
+									</div>
+								</div>
+							</div>
+							<button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="3">Submit</button>
+						</div>
                     </div>
                     <div class="tab-pane fade" id ="activity4" role="tabpanel"> <!----------------------------CAREER FAIR FORM--------------------------------->
                         <div class="tab-content">
-                            <div class="form-group">
-                                <input type="text" id="career_fair_title" name="career_fair_title" class="form-control">
-                                <label for="career_fair_title">
-                                    Title
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="career_fair_date" name="career_fair_date" placeholder="YYYY-MM-DD" class="form-control">
-                                <label for="career_fair_date">
-                                    Date
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="career_fair_participants" name="career_fair_participants" class="form-control">
-                                <label for="career_fair_participants">
-                                    Participants
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="career_fair_attachment" name="career_fair_attachment" class="form-control">
-                                <label for="career_fair_attachment">
-                                    Attachment
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-warning" name="activity_id" value="4">Submit</button>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="career_fair_title" name="career_fair_title" class="form-control"/>
+										<label for="career_fair_title">
+											Title
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="career_fair_date" name="career_fair_date" placeholder="YYYY-MM-DD" class="form-control"/>
+										<label for="career_fair_date">
+											Date
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="number" id="career_fair_participants" name="career_fair_participants" class="form-control"/>
+										<label for="career_fair_participants">
+											No. of Participants
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="file" id="career_fair_attachment" name="career_fair_attachment" class="custom-file-input"/>
+										<label class="custom-file-label" for="career_fair_attachment">
+											Attachment
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="4">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity5" role="tabpanel"> <!----------------------------ON CAMPUS RECRUITMENT FORM--------------------------------->
                         <div class="tab-content">
-                            <div class="form-group">
-                                <input type="text" id="on_campus_recruitment_name" name="on_campus_recruitment_name" class="form-control">
-                                <label for="on_campus_recruitment_name">
-                                    Title
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="on_campus_recruitment_date" name="on_campus_recruitment_date" placeholder="YYYY-MM-DD" class="form-control">
-                                <label for="on_campus_recruitment_date">
-                                    Date
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="on_campus_recruitment_participants" name="on_campus_recruitment_participants" class="form-control">
-                                <label for="on_campus_recruitment_participants">
-                                    Participants
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="on_campus_recruitment_attachment" name="on_campus_recruitment_attachment" class="form-control">
-                                <label for="on_campus_recruitment_attachment">
-                                    Attachment
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-warning" name="activity_id" value="5">Submit</button>
-                        </div>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="on_campus_recruitment_name" name="on_campus_recruitment_name" class="form-control"/>
+										<label for="on_campus_recruitment_name">
+											Title
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="on_campus_recruitment_date" name="on_campus_recruitment_date" placeholder="YYYY-MM-DD" class="form-control"/>
+										<label for="on_campus_recruitment_date">
+											Date
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="number" id="on_campus_recruitment_participants" name="on_campus_recruitment_participants" class="form-control"/>
+										<label for="on_campus_recruitment_participants">
+											No. of Participants
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="file" id="on_campus_recruitment_attachment" name="on_campus_recruitment_attachment" class="custom-file-input"/>
+										<label class="custom-file-label" for="on_campus_recruitment_attachment">
+											Attachment
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="5">Submit</button>
+						</div>
                     </div>
                     <div class="tab-pane fade" id ="activity6" role="tabpanel"> <!----------------------------CAREER DEVELOPMENT FORM--------------------------------->
                         <div class="tab-content">
-                            <div class="form-group">
-                                <input type="text" id="career_development_name" name="career_development_name" class="form-control">
-                                <label for="career_development_name">
-                                    Title
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="career_development_date" name="career_development_date" placeholder="YYYY-MM-DD" class="form-control">
-                                <label for="career_development_date">
-                                    Date
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="career_development_participants" name="career_development_participants" class="form-control">
-                                <label for="career_development_participants">
-                                    Participants
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="career_development_attachments" name="career_development_attachments" class="form-control">
-                                <label for="career_development_attachments">
-                                    Attachment
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-warning" name="activity_id" value="6">Submit</button>
+						<div class="form-row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<input type="text" id="career_development_name" name="career_development_name" class="form-control"/>
+									<label for="career_development_name">
+										Title
+									</label>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<input type="text" id="career_development_date" name="career_development_date" placeholder="YYYY-MM-DD" class="form-control"/>
+									<label for="career_development_date">
+										Date
+									</label>
+								</div>
+							</div>
+						</div>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="number" id="career_development_participants" name="career_development_participants" class="form-control"/>
+										<label for="career_development_participants">
+											No. of Participants
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="file" id="career_development_attachments" name="career_development_attachments" class="custom-file-input"/>
+										<label class="custom-file-label" for="career_development_attachments">
+											Attachment
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="6">Submit</button>
                         </div>
                     </div>
                     <div class="tab-pane fade" id ="activity7" role="tabpanel"> <!----------------------------MOCK JOB INTERVIEW FORM--------------------------------->
                         <div class="tab-content">
-                            <div class="form-group">
-                                <input type="text" id="mock_job_interview_date" name="mock_job_interview_date" placeholder="YYYY-MM-DD" class="form-control">
-                                <label for="mock_job_interview_date">
-                                    Date
-                                </label>
-                            </div>
-                            <div class="form-group">
-                                <input type="text" id="mock_job_interview_participants" name="mock_job_interview_participants" class="form-control">
-                                <label for="mock_job_interview_participants">
-                                    Participants
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-warning" name="activity_id" value="7">Submit</button>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="mock_job_interview_date" name="mock_job_interview_date" placeholder="YYYY-MM-DD" class="form-control"/>
+										<label for="mock_job_interview_date">
+											Date
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="number" id="mock_job_interview_participants" name="mock_job_interview_participants" class="form-control"/>
+										<label for="mock_job_interview_participants">
+											No. of Participants
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="7">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -372,5 +486,18 @@
                 $('#tableID').DataTable();
             } );
             </script>
-</div>
+			<script>
+				 $(function() {
+				$("#career_fair_date").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#on_campus_recruitment_date").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#career_development_date").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#mock_job_interview_date").datepicker({ dateFormat: 'yy-mm-dd' });
+				});
+			</script>
+			<script>
+				$(".custom-file-input").on("change", function() {
+				  var fileName = $(this).val().split("\\").pop();
+				  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+				});
+			</script>
 	{% endblock %}
