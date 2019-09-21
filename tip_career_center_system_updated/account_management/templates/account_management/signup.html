@@ -32,7 +32,7 @@
 			width:35%;
 			position: inline-block;
 			padding: 5%;
-			padding-top:10%;
+			padding-top:6%;
 		}
 		.centered{
 			position:absolute;
@@ -45,7 +45,7 @@
 	</style>
 </head>
 <body>
-    <header class="header">TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES</header>
+	<header class="header">TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES</header>
 	<div class="split left parallax5">
 		<div class="centered">
 			<!--<h1><img class="logo" src="{% static 'img/TIPLogo.jpg' %}" alt="Logo">This will have a design soon hehehe</h1>-->
@@ -53,7 +53,7 @@
 	</div>
 	<div class="split right parallax4">
 	<div class="row">
-		<div class="col" style="background-color:rgba(60, 60, 60, 0.7);padding-left:75px;padding-right:75px;padding-top:50px;padding-bottom:50px">
+		<div class="col" style="background-color:rgba(60, 60, 60, 0.7);padding-left:35px;padding-right:35px;padding-top:15px;padding-bottom:0px">
 		<label style="color:#ececec">Register as:</label>
 		<ul class="nav nav-tabs" role="tablist">
 			<li class="nav-item">
@@ -69,18 +69,26 @@
 				<div class="tab-content">
 					<form action="{% url 'account_management:registerAdmin' %}" method="POST">
 					{% csrf_token %}
+					<div class="form-group">
+							<label for="first_name"style="color:#ececec">Admin First Name</label>
+							<input name="first_name" type="text" class="form-control" id="first_name" required>
+					</div>	
+					<div class="form-group">
+							<label for="last_name"style="color:#ececec">Admin Last Name</label>
+							<input name="last_name" type="text" class="form-control" id="last_name" required>
+					</div>
 						<div class="form-group">
 							<label for="Uname"style="color:#ececec">Admin Username</label>
 							<input type="hidden" name="isAdmin" value="1" />
 							<input name="username" type="text" class="form-control" id="Uname" required>
 						</div>
 						<div class="form-group">
+								<label for="email"style="color:#ececec">Admin Email</label>
+								<input name="email" type="email" class="form-control" id="email" required>
+						</div>	
+						<div class="form-group">
 							<label for="Pass"style="color:#ececec">Admin Password</label>
 							<input name="password" type="password" class="form-control" id="Pass" required>
-						</div>
-						<div class="form-group">
-							<label for="Pass2"style="color:#ececec">Confirm Admin Password</label>
-							<input name="password2" type="password" class="form-control" id="Pass2" required>
 						</div>
 						<div class="text-center" id="loginAdmin">
 							<input type="submit" class="btn btn-dark btn-block" value="Register">
@@ -91,18 +99,26 @@
 			<div class="tab-pane fade" id="OJT" role="tabpanel">
 				<div class="tab-content">
 					<form action="{% url 'account_management:registerAdmin' %}" method="POST">
-					{% csrf_token %}
+					{% csrf_token %}				
+					<div class="form-group">
+							<label for="first_name"style="color:#ececec">OJT First Name</label>
+							<input name="first_name" type="text" class="form-control" id="first_name" required>
+					</div>	
+					<div class="form-group">
+							<label for="last_name"style="color:#ececec">OJT Last Name</label>
+							<input name="last_name" type="text" class="form-control" id="last_name" required>
+					</div>
 					<div class="form-group">
 						<label for="Uname"style="color:#ececec">OJT Username</label>
 						<input name="username" type="text" class="form-control" id="Uname" required>
 					</div>
 					<div class="form-group">
-						<label for="Pass"style="color:#ececec">OJT Password</label>
-						<input name="password" type="password" class="form-control" id="Pass" required>
+							<label for="email"style="color:#ececec">Admin Email</label>
+							<input name="email" type="email" class="form-control" id="email" required>
 					</div>
 					<div class="form-group">
-						<label for="Pass2"style="color:#ececec">Confirm OJT Password</label>
-						<input name="password2" type="password" class="form-control" id="Pass2" required>
+						<label for="Pass"style="color:#ececec">OJT Password</label>
+						<input name="password" type="password" class="form-control" id="Pass" required>
 					</div>
 					<div class="text-center" id="loginAdmin">
 						<input type="submit" class="btn btn-dark btn-block" value="Register">
