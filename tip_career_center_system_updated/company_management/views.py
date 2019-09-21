@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views import View
 from django.db import connection
+#for FilSystemsStorage
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
+import os
 
 # Create your views here.
 def dictfetchall(cursor): 
@@ -42,8 +46,24 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         seccontactperson_position = request.POST["2contactperson_position"]
         seccontactperson_email = request.POST["2contactperson_email"]
         seccontactperson_number = request.POST["2contactperson_number"]
+
+        picture = request.FILES["Profile"]
+        banner = request.FILES["Banner"]
+        fs = FileSystemStorage()
+        pfn = fs.save(picture.name, picture)
+        bfn = fs.save(banner.name, banner)
+
+        pictureFileName = fs.url(pfn)
+        bannerFileName = fs.url(bfn)
+
+
+        # fs = FileSystemStorage()
+        # filename = fs.save(stpicture.name, stpicture)<-gets name of file
+        # picurl = fs.url(filename)<-gets url of file
+        # print(picurl)
+
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id) VALUES ('{}','{}',0,'{}')".format(company_name,company_address,Industry_Type_industry_type_id))
+            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id,profile_image,banner_image) VALUES ('{}','{}',0,'{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id,pictureFileName,bannerFileName))
             print("Company inserted")
 
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
