@@ -130,7 +130,7 @@
     </div>
     </div>
     <div class="modal fade" id="modalform" style="margin-top:20px;overflow:unset;" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false" data-keyboard="false">
-        <form method="POST">{% csrf_token %}
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div class="modal-dialog cascading-modal modal-dialog-centered modal-xl" style="width:100%" role="document">
             <div class="modal-content" style="width:125%">
                 <div class="modal-header">
