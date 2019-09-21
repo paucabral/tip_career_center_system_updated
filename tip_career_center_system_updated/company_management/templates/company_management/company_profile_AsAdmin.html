@@ -56,9 +56,18 @@
     </style>
     <div class="container-fluid" style="background-color:#f8f9fa">
 	<header class="header2">
+		{% if company.banner_image != NULL %}
 		<img src="{{ company.banner_image }}" style="z-index:0" height="100%" width="100%" class="Banners"/>
-        <img src="/static/img/engagement.jpg" height="80%" width="5%" style="z-index:2" class="engagements"/>
+		{% else %}
+		<img src="/static/img/profile.png" style="z-index:0" height="100%" width="100%" class="Banners"/>
+		{% endif %}
+		<img src="/static/img/engagement.jpg" height="80%" width="5%" style="z-index:2" class="engagements"/>
+		
+		{% if company.profile_image != NULL %}
 		<img src="{{ company.profile_image }}" height="80%" width="10%" class="profiles rounded-corners"/>
+		{% else %}
+		<img src="/static/img/profile.png" height="80%" width="10%" class="profiles rounded-corners"/>
+		{% endif %}
     </header>
 
     <div class='center'>
