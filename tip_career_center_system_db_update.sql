@@ -52,6 +52,8 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Company` (
   `company_address` VARCHAR(100) NULL,
   `Level_of_engagement_level_of_engagement_id` INT NULL,
   `Industry_Type_industry_type_id` INT NOT NULL,
+  `profile_image` VARCHAR(100),
+  `banner_image` VARCHAR(100),
   PRIMARY KEY (`company_id`),
   CONSTRAINT `fk_Company_Level_of_engagement1`
     FOREIGN KEY (`Level_of_engagement_level_of_engagement_id`)
