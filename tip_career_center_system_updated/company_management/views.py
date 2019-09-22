@@ -5,6 +5,7 @@ from django.db import connection
 #for FilSystemsStorage
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+# from django.utils.datastructures import MultiValueDictError
 import os
 
 # Create your views here.
@@ -47,15 +48,27 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         seccontactperson_email = request.POST["2contactperson_email"]
         seccontactperson_number = request.POST["2contactperson_number"]
 
-        picture = request.FILES["Profile"]
-        banner = request.FILES["Banner"]
+        picture = request.FILES.get("Profile")
+        banner = request.FILES.get("Banner")
+
         fs = FileSystemStorage()
-        pfn = fs.save(picture.name, picture)
-        bfn = fs.save(banner.name, banner)
+        
+        pictureFileName = None
+        bannerFileName = None
 
-        pictureFileName = fs.url(pfn)
-        bannerFileName = fs.url(bfn)
+        if picture is not None:
+            pfn = fs.save(picture.name, picture)
+            pictureFileName = fs.url(pfn)
+        else:
+            pictureFileName = "/static/img/profile.png"
+        if banner is not None:
+            bfn = fs.save(banner.name, banner)
+            bannerFileName = fs.url(bfn)
+        else:
+            bannerFileName = "/static/img/Banner.jpg"
 
+        print(pictureFileName)
+        print(bannerFileName)
 
         # fs = FileSystemStorage()
         # filename = fs.save(stpicture.name, stpicture)<-gets name of file
@@ -140,6 +153,25 @@ class EditCompanyAsAdmin(View):
         seccontactperson_number = request.POST["2contactperson_number"]
         print(company_name)
 
+        picture = request.FILES.get("Profile")
+        banner = request.FILES.get("Banner")
+
+        fs = FileSystemStorage()
+        
+        pictureFileName = None
+        bannerFileName = None
+
+        if picture is not None:
+            pfn = fs.save(picture.name, picture)
+            pictureFileName = fs.url(pfn)
+        else:
+            pictureFileName = "/static/img/profile.png"
+        if banner is not None:
+            bfn = fs.save(banner.name, banner)
+            bannerFileName = fs.url(bfn)
+        else:
+            bannerFileName = "/static/img/Banner.jpg"
+
         with connection.cursor() as cursor:
             cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
             contact_id=cursor.fetchone()[0]
@@ -151,7 +183,7 @@ class EditCompanyAsAdmin(View):
             print(contact_id2)
         
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id,company_id))
+            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}', profile_image='{}', banner_image='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id, pictureFileName, bannerFileName, company_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
             
