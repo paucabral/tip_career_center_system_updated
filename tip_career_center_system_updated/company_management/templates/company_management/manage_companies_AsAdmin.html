@@ -28,7 +28,16 @@
                                   <td>{{ c.company_name }}</td>
                                   <td>{{ c.company_address }}</td>
                                   <td>{{ c.company_engagement_score }}</td>
-                                  <td>Icon (TBA)</td>
+                                  <!-- <td>Icon (TBA)</td> -->
+                                  {% if c.company_engagement_score >= 5 and c.company_engagement_score <= 25 %}
+                                    <td>Confederate Partner</td>
+                                  {% elif c.company_engagement_score >= 26 and c.company_engagement_score <= 46 %}
+                                    <td>Associate Partner</td>
+                                  {% elif c.company_engagement_score >= 47%}
+                                    <td>Executive Partner</td>
+                                  {% else %}
+                                    <td>NA</td>
+                                  {% endif %}
                                   <td>
                                       <i class="button edit"><a href="/company-management/administrator/company-profile/{{ c.company_id }}"><img width="30" height="30" src="{% static 'img/view.png' %}"></a></i>
                                       <i class="button edit"><a href="/company-management/administrator/edit-company/{{ c.company_id }}"><img width="30" height="30" src="{% static 'img/edit.png' %}"></a></i>

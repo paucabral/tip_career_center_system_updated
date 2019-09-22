@@ -6,7 +6,6 @@
         margin:auto;
         padding-left: 3%;
         width:30%;
-        padding 10px;
 		position:relative;
 		right:20%;
     }
@@ -37,6 +36,7 @@
 	img.rounded-corners{
 		border-radius:100%;
 		width:12%;
+		object-fit:contain;
 	}
 	.modal-backdrop{
 		z-index:-1;
@@ -58,11 +58,18 @@
     <div class="container-fluid" style="background-color:#f8f9fa">
 	<header class="header2">
 		{% if company.banner_image != NULL %}
-		<img src="{{ company.banner_image }}" style="z-index:0" height="100%" width="100%" class="Banners"/>
+		<img src="{{ company.banner_image }}" style="z-index:0;object-fit:contain;" height="100%" width="100%" class="Banners"/>
 		{% else %}
-		<img src="/static/img/profile.png" style="z-index:0" height="100%" width="100%" class="Banners"/>
+		<img src="/static/img/Banner.jpg" style="z-index:0" height="100%" width="100%" class="Banners"/>
 		{% endif %}
-		<img src="/static/img/engagement.jpg" height="80%" width="5%" style="z-index:2" class="engagements"/>
+
+		{% if company.company_engagement_score >= 5 and company.company_engagement_score <= 25 %}
+			<img src="/static/img/engagementConfederate.png" height="80%" width="5%" style="z-index:2;object-fit:contain;" class="engagements"/>
+        {% elif company.company_engagement_score >= 26 and company.company_engagement_score <= 46 %}
+			<img src="/static/img/engagementAssociate.png" height="80%" width="5%" style="z-index:2;object-fit:contain;" class="engagements"/>
+        {% elif company.company_engagement_score >= 47%}
+			<img src="/static/img/engagementExecutive.png" height="80%" width="5%" style="z-index:2;object-fit:contain;" class="engagements"/>
+        {% endif %}
 		
 		{% if company.profile_image != NULL %}
 		<img src="{{ company.profile_image }}" height="80%" width="10%" class="profiles rounded-corners"/>
@@ -184,14 +191,7 @@
 								</div>
 							</div>
 							<div class="form-row">
-								<div class="col-lg-4">
-									<div class="form-group">
-										<input type="text" id="internship_course" name="internship_course" class="form-control input-lg"/>
-										<label for="internship_course">
-											Course <!-- What does course mean here if there's a program? -->
-										</label>
-									</div>
-								</div>
+								
 								<div class="col-lg-4">
 									<div class="form-group">
 										<input type="text" id="internship_school_year" name="internship_school_year" class="form-control input-lg" pattern="[0-9]{4}">
@@ -237,14 +237,7 @@
 								</div>
 							</div>
 								<div class="form-row">
-									<div class="col-lg-4">
-										<div class="form-group">
-											<input type="text" id="externship_course" name="externship_course" class="form-control"/>
-											<label for="externship_course">
-												Course <!-- What does course mean here if there's a program? -->
-											</label>
-										</div>
-									</div>
+									
 									<div class="col-lg-4">
 										<div class="form-group">
 											<input type="text" id="externship_school_year" name="externship_school_year" class="form-control" pattern="[0-9]{4}">
@@ -289,14 +282,7 @@
 										</label>
 									</div>
 								</div>
-								<div class="col-lg-4">
-									<div class="form-group">
-										<input type="text" id="scholarship_course" name="scholarship_course" class="form-control"/>
-										<label for="scholarship_course">
-											Course <!-- What does course mean here if there's a program? -->
-										</label>
-									</div>
-								</div>
+								
 							</div>
 							<div class="form-row">
 								<div class="col-lg-4">
