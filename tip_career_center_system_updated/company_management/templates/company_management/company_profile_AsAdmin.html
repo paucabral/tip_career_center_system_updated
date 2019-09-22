@@ -57,7 +57,7 @@
     </style>
     <div class="container-fluid" style="background-color:#f8f9fa">
 	<header class="header2">
-		{% if company.banner_image != NULL %}
+		{% if company.banner_image != None %}
 		<img src="{{ company.banner_image }}" style="z-index:0;object-fit:contain;" height="100%" width="100%" class="Banners"/>
 		{% else %}
 		<img src="/static/img/Banner.jpg" style="z-index:0" height="100%" width="100%" class="Banners"/>
@@ -71,7 +71,7 @@
 			<img src="/static/img/engagementExecutive.png" height="80%" width="5%" style="z-index:2;object-fit:contain;" class="engagements"/>
         {% endif %}
 		
-		{% if company.profile_image != NULL %}
+		{% if company.profile_image != None %}
 		<img src="{{ company.profile_image }}" height="80%" width="10%" class="profiles rounded-corners"/>
 		{% else %}
 		<img src="/static/img/profile.png" height="80%" width="10%" class="profiles rounded-corners"/>
