@@ -67,6 +67,32 @@
                     }
                     } // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Up to this script
 </script>
+<style>
+
+.button {
+  border-radius: 4px;
+  background-color: #FFFF00;
+  border: none;
+  color: #000000;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 100%;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin-right:20%;
+  margin-top:20%;
+  height:100%;
+}
+
+
+.button:hover {background-color: #CCCC00}
+.button:active {
+  background-color: ##CCCC00;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+</style>
 </head>
 <body style="font-family: 'Poppins'">
     <header class="header">TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES</header>
@@ -74,11 +100,20 @@
 	
 	
 	<div class="container parallax1">
-            <div class="jumbtron">
-                <h1>OJT page test</h1>
-                <p>ojt @ "ojt/ojt.html" url pattern is working</p>
-            </div>
-        </div>
+        <div class="jumbtron">
+			<div class="row">
+				<div class="col-xl-6">
+					<button type="button" class="button"><span>Add Companies</span></button>
+				</div>
+				<div class="col-xl-6">
+					<button class="button" type="button"><span>Manage Companies</span></button>
+				</div>
+			</div>
+			<div class="row" style="margin-left:20%">
+				<button class="button" type="button"><span>LOGOUT</span></button>
+			</div>
+		</div>		
+    </div>
 	
 	
 	
