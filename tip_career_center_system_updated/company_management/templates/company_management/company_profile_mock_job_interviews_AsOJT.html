@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TIP Career Center</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}"/>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+
+
+    <!-- Font Awesome JS -->
+    <!-- <script src="solid.js"></script> -->
+    <!-- <script src="fontawesome.js" </script> -->
+    <script> // !!!!!!!!!!!!!!!!!!!!!These scripts should be transfered to Admin.html after linking this file to base template (Admin.html)
+        (function() {
+                    'use strict';
+                    window.addEventListener('load', function() {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                    }, false);
+                    });
+                    }, false);
+                    })();
+                    function relocate_home()
+                    {
+                        location.href = "Admin.html";
+                    } 
+                    function relocate_next()
+                    {
+                        location.href = "linkageform2.html";
+                    } 
+                    window.onscroll = function() {myFunction()};
+
+                    var header = document.getElementById("myHeader");
+                    var sticky = header.offsetTop;
+
+                    function myFunction() {
+                    if (window.pageYOffset > sticky) {
+                        header.classList.add("sticky");
+                    } else {
+                        header.classList.remove("sticky");
+                    }
+                    } // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Up to this script
+</script>
+</head>
+<body style="font-family: 'Poppins'">
+    <header class="header">TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES</header>
+    </body>
+    
+    
+    <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
+            <thead>
+                    <tr>
+                        <th colspan="3" style="text-align:center;color:#1e1e1e">Mock Job Interviews</th>
+                    </tr>
+                    <tr>
+                        <th>Date</th>
+                        <th>No. of Participants</th>
+                        <th>Date Added</th>
+                    </tr>
+            </thead>
+            <tbody>
+                {% for i in mock_job_interviews %}
+                <tr>
+                    <td>{{ i.mock_job_interview_date }}</td>
+                    <td>{{ i.mock_job_interview_participants }}</td>
+                    <td>{{ i.mock_job_interviewcol_date_added }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    
+        <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+        <script>
+            $(document).ready( function () {
+            $('#tableID').DataTable();
+        } );
+        </script>
+    
+    
+    
+    
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+    <!-- Popper.JS -->
+    <script src="{% static 'js/popper.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+        $('#deletemodal').on('shown.bs.modal', function () {
+        $('#deletebtn').trigger('focus')    
+    })
+    </script>
+    <script type="text/javascript">
+        $(".custom-select").chosen();
+    </script>
+    </body>
+</html>
+
+

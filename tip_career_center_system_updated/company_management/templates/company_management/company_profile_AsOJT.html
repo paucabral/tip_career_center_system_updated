@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="IE=edge">
+                <title>TIP Career Center</title>
+                <!-- Bootstrap CSS CDN -->
+                <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+                <!-- Our Custom CSS -->
+                <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+                <link rel="stylesheet" href="{% static 'css/style.css' %}">
+                <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+                <link rel="stylesheet" href="{% static 'css/table.css' %}">
+            
+                <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}"/>
+                <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+            
+                </script>
+            
+                <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+                <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+                <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
+                <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+            
+            
+                <!-- Font Awesome JS -->
+                <!-- <script src="solid.js"></script> -->
+                <!-- <script src="fontawesome.js" </script> -->
+                <script> // !!!!!!!!!!!!!!!!!!!!!These scripts should be transfered to Admin.html after linking this file to base template (Admin.html)
+                    (function() {
+                                'use strict';
+                                window.addEventListener('load', function() {
+                                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                var forms = document.getElementsByClassName('needs-validation');
+                                // Loop over them and prevent submission
+                                var validation = Array.prototype.filter.call(forms, function(form) {
+                                form.addEventListener('submit', function(event) {
+                                if (form.checkValidity() === false) {
+                                event.preventDefault();
+                                event.stopPropagation();
+                                }
+                                form.classList.add('was-validated');
+                                }, false);
+                                });
+                                }, false);
+                                })();
+                                function relocate_home()
+                                {
+                                    location.href = "Admin.html";
+                                } 
+                                function relocate_next()
+                                {
+                                    location.href = "linkageform2.html";
+                                } 
+                                window.onscroll = function() {myFunction()};
+            
+                                var header = document.getElementById("myHeader");
+                                var sticky = header.offsetTop;
+            
+                                function myFunction() {
+                                if (window.pageYOffset > sticky) {
+                                    header.classList.add("sticky");
+                                } else {
+                                    header.classList.remove("sticky");
+                                }
+                                } // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Up to this script
+            </script>
+</head>
+<body style="font-family: 'Poppins'">
+{% load static %}
+ <!--------------------------- This page includes the names of the fields according to the updated SQL File ----------------------------------->
+    <style>
+    .center{
+        margin:auto;
+        padding-left: 3%;
+        width:30%;
+		position:relative;
+		right:20%;
+    }
+	.nav-pills>li>a{
+		padding-left:5%;
+		padding-right:5%;
+	}
+	.profiles
+	{
+		position:absolute;
+		top:65%;
+		left:5%;
+	}
+	.Banners
+	{
+		position:relative;
+		top:0px;
+		left:0px;
+		width:1600px;
+		height:250px;
+	}
+	.engagements
+	{
+		position:absolute;
+		top:0;
+		right:5%;
+	}
+	img.rounded-corners{
+		border-radius:100%;
+		width:12%;
+		object-fit:contain;
+	}
+	.modal-backdrop{
+		z-index:-1;
+	}
+	.nav>li{
+		margin-left:20px;
+	}
+	.nav-item > a:hover {
+	  color: white;
+	  background-color:black;
+	  font-weight:bold;
+	 }
+	 #Generate_PDF{
+	 position:absolute;
+		top:80%;
+		left:222%;
+	 }
+    </style>
+    <header class="header" style="z-index: 200000;">TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES</header>
+    <div class="container-fluid" style="background-color:#f8f9fa">
+	<header class="header2">
+		{% if company.banner_image != None %}
+		<img src="{{ company.banner_image }}" style="z-index:0;object-fit:contain;" height="100%" width="100%" class="Banners"/>
+		{% else %}
+		<img src="/static/img/Banner.jpg" style="z-index:0" height="100%" width="100%" class="Banners"/>
+		{% endif %}
+
+		{% if company.company_engagement_score >= 5 and company.company_engagement_score <= 25 %}
+			<img src="/static/img/engagementConfederate.png" height="80%" width="5%" style="z-index:2;object-fit:contain;" class="engagements"/>
+        {% elif company.company_engagement_score >= 26 and company.company_engagement_score <= 46 %}
+			<img src="/static/img/engagementAssociate.png" height="80%" width="5%" style="z-index:2;object-fit:contain;" class="engagements"/>
+        {% elif company.company_engagement_score >= 47%}
+			<img src="/static/img/engagementExecutive.png" height="80%" width="5%" style="z-index:2;object-fit:contain;" class="engagements"/>
+        {% endif %}
+		
+		{% if company.profile_image != None %}
+		<img src="{{ company.profile_image }}" height="80%" width="10%" class="profiles rounded-corners"/>
+		{% else %}
+		<img src="/static/img/profile.png" height="80%" width="10%" class="profiles rounded-corners"/>
+		{% endif %}
+    </header>
+    <div class='center'>
+        <h5><b>Company Name:</b> {{ company.company_name }}</h5>
+        <h5><b>Company Address:</b> {{ company.company_address }}</h5>
+		<button type="btn" class="btn btn-warning" id="Generate_PDF" name="Generate_PDF">Generate PDF</button>
+        <h5><b>Primary Contact Person:</b> {{ contact_person.contact_person_fname }} {{ contact_person.contact_person_lname }}</h5>
+        <h5><b>Secondary Contact Person:</b> {{ 2contact_person.contact_person_fname }} {{ 2contact_person.contact_person_lname }}</h5>
+		
+    </div>
+    <div class="row"></div>
+    <div class="col" style="padding-left:100px;padding-right:100px;padding-top:50px;padding-bottom:50px">
+    <div class="table-responsive">
+    <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
+        <thead>
+                <tr>
+                    <th colspan="4" style="text-align:center;color:#1e1e1e;">Company Activities</th>
+                </tr>
+                <tr>
+                    <th>Activity ID</th>
+                    <th>Activity Type</th>
+                    <th>Count</th>
+                    <th></th>
+                </tr>
+        </thead>
+        <tbody>
+            {% for act in companyActs %}
+            <tr>
+                <td>{{ act.Activity_activity_id }}</td>
+                {% if act.Activity_activity_id == 1 %}
+                    <td>{{ activities.0.activity_name }}</td>
+                {% elif act.Activity_activity_id == 2 %}
+                    <td>{{ activities.1.activity_name }}</td>
+                {% elif act.Activity_activity_id == 3 %}
+                    <td>{{ activities.2.activity_name }}</td>
+                {% elif act.Activity_activity_id == 4 %}
+                    <td>{{ activities.3.activity_name }}</td>
+                {% elif act.Activity_activity_id == 5 %}
+                    <td>{{ activities.4.activity_name }}</td>
+                {% elif act.Activity_activity_id == 6 %}
+                    <td>{{ activities.5.activity_name }}</td>
+                {% elif act.Activity_activity_id == 7 %}
+                    <td>{{ activities.6.activity_name }}</td>
+                {% else %}
+                    <td></td>
+                {% endif %}
+                <td>{{ act.quantity }}</td>
+                <td>
+                    <i class="button edit"><a href="/company-management/administrator/company-profile/{{ act.Company_company_id }}/{{ act.Activity_activity_id }}"><img width="30" height="30" src="{% static 'img/view.png' %}"></a></i>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div><br><br>
+    <button type="btn" class="btn btn-warning" style="float:right" data-toggle="modal" data-target="#modalform">Add an Activity</button>
+    </div>
+    </div>
+    <div class="modal fade" id="modalform" style="margin-top:20px;overflow:unset;" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false" data-keyboard="false">
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+        <div class="modal-dialog cascading-modal modal-dialog-centered modal-xl" style="width:100%" role="document">
+            <div class="modal-content" style="width:125%">
+                <div class="modal-header">
+					<div style="position:relative; left:45%; font-weight:bold;">
+                        Company Activities
+					</div>
+                        <button type="button" style="float:right" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-idden="true">&times;</span>
+                        </button>
+                </div>
+                <div class="modal-tabs"> 
+                    <ul class="nav nav-pills nav-justified" style="margin-left:1%; margin-right:1%" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#activity1" role="tab">Internship</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#activity2" role="tab">Externship</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#activity3" role="tab">Scholarship</a>
+                        </li>
+                        <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#activity4" role="tab">Career Fair</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#activity5" role="tab">On-Campus Recruitment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#activity6" role="tab">Career Development Training</a>
+                         </li>
+                         <li class="nav-item">
+                            <a class="nav-link" data-toggle="tab" href="#activity7" role="tab">Mock Job Interview</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" style="padding:20px"> 
+                    <div class="tab-pane fade in active show" id ="activity1" role="tabpanel"> <!----------------------------INTERNSHIP FORM--------------------------------->
+                        <div class="tab-content">
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="internship_student_name" name="internship_student_name" class="form-control input-lg"/>
+										<label for="internship_student_name">
+											Student's Name
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="internship_program" name="internship_program" class="form-control input-lg"/>
+										<label for="internship_program">
+											Program
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="internship_school_year" name="internship_school_year" class="form-control input-lg" pattern="[0-9]{4}">
+										<label for="internship_school_year">
+											School Year
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<select class="form-control" name="internship_semester" id="internship_semester">
+											<option value="1st Semester">1st Semester</option>
+											<option value="2nd Semester">2nd Semester</option>
+											<option value="Summer">Summer</option>
+										</select>
+										<label for="internship_semester">
+											Semester
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="1">Submit</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id ="activity2" role="tabpanel"> <!----------------------------EXTERNSHIP FORM--------------------------------->
+                        <div class="tab-content">
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="externship_student_name" name="externship_student_name" class="form-control"/>
+										<label for="externship_student_name">
+											Student's Name
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="externship_program" name="externship_program" class="form-control"/>
+										<label for="externship_program">
+											Program
+										</label>
+									</div>
+								</div>
+							</div>
+								<div class="form-row">
+									
+									<div class="col-lg-4">
+										<div class="form-group">
+											<input type="text" id="externship_school_year" name="externship_school_year" class="form-control" pattern="[0-9]{4}">
+											<label for="externship_school_year">
+												School Year
+											</label>
+										</div>
+									</div>
+									<div class="col-lg-4">
+										<div class="form-group">
+											<select class="form-control" name="externship_semester" id="externship_semester">
+											<option value="1st Semester">1st Semester</option>
+											<option value="2nd Semester">2nd Semester</option>
+											<option value="Summer">Summer</option>
+											</select>
+											<label for="externship_semester">
+												Semester
+											</label>
+										</div>
+									</div>
+								</div>
+							
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="2">Submit</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id ="activity3" role="tabpanel"> <!----------------------------SCHOLARSHIP FORM--------------------------------->
+						<div class="tab-content">
+							<div class="form-row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="scholarship_student_name" name="scholarship_student_name" class="form-control"/>
+										<label for="scholarship_student_name">
+											Student's Name
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="scholarship_program" name="scholarship_program" class="form-control"/>
+										<label for="scholarship_program">
+											Program
+										</label>
+									</div>
+								</div>
+								
+							</div>
+							<div class="form-row">
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="text" id="scholarship_school_year" name="scholarship_school_year" class="form-control"	pattern="[0-9]{4}">
+										<label for="scholarship_school_year">
+											School Year
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<select class="form-control" name="scholarship_semester" id="scholarship_semester">
+											<option value="1st Semester">1st Semester</option>
+											<option value="2nd Semester">2nd Semester</option>
+											<option value="Summer">Summer</option>
+											</select>
+										<label for="scholarship_semester">
+										Semester
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-4">
+									<div class="form-group">
+										<input type="number" id="scholarship_amount" name="scholarship_amount" class="form-control" />
+										<label for="scholarship_amount">
+											Amount
+										</label>
+									</div>
+								</div>
+							</div>
+							<button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="3">Submit</button>
+						</div>
+                    </div>
+                    <div class="tab-pane fade" id ="activity4" role="tabpanel"> <!----------------------------CAREER FAIR FORM--------------------------------->
+                        <div class="tab-content">
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="career_fair_title" name="career_fair_title" class="form-control"/>
+										<label for="career_fair_title">
+											Title
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="career_fair_date" name="career_fair_date" placeholder="YYYY-MM-DD" class="form-control"/>
+										<label for="career_fair_date">
+											Date
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="number" id="career_fair_participants" name="career_fair_participants" class="form-control"/>
+										<label for="career_fair_participants">
+											No. of Participants
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="file" id="career_fair_attachment" name="career_fair_attachment" class="custom-file-input"/>
+										<label class="custom-file-label" for="career_fair_attachment">
+											Attachment
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="4">Submit</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id ="activity5" role="tabpanel"> <!----------------------------ON CAMPUS RECRUITMENT FORM--------------------------------->
+                        <div class="tab-content">
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="on_campus_recruitment_name" name="on_campus_recruitment_name" class="form-control"/>
+										<label for="on_campus_recruitment_name">
+											Title
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="on_campus_recruitment_date" name="on_campus_recruitment_date" placeholder="YYYY-MM-DD" class="form-control"/>
+										<label for="on_campus_recruitment_date">
+											Date
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="number" id="on_campus_recruitment_participants" name="on_campus_recruitment_participants" class="form-control"/>
+										<label for="on_campus_recruitment_participants">
+											No. of Participants
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="file" id="on_campus_recruitment_attachment" name="on_campus_recruitment_attachment" class="custom-file-input"/>
+										<label class="custom-file-label" for="on_campus_recruitment_attachment">
+											Attachment
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="5">Submit</button>
+						</div>
+                    </div>
+                    <div class="tab-pane fade" id ="activity6" role="tabpanel"> <!----------------------------CAREER DEVELOPMENT FORM--------------------------------->
+                        <div class="tab-content">
+						<div class="form-row">
+							<div class="col-lg-6">
+								<div class="form-group">
+									<input type="text" id="career_development_name" name="career_development_name" class="form-control"/>
+									<label for="career_development_name">
+										Title
+									</label>
+								</div>
+							</div>
+							<div class="col-lg-6">
+								<div class="form-group">
+									<input type="text" id="career_development_date" name="career_development_date" placeholder="YYYY-MM-DD" class="form-control"/>
+									<label for="career_development_date">
+										Date
+									</label>
+								</div>
+							</div>
+						</div>
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="number" id="career_development_participants" name="career_development_participants" class="form-control"/>
+										<label for="career_development_participants">
+											No. of Participants
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="file" id="career_development_attachments" name="career_development_attachments" class="custom-file-input"/>
+										<label class="custom-file-label" for="career_development_attachments">
+											Attachment
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="6">Submit</button>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id ="activity7" role="tabpanel"> <!----------------------------MOCK JOB INTERVIEW FORM--------------------------------->
+                        <div class="tab-content">
+							<div class="form-row">
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="text" id="mock_job_interview_date" name="mock_job_interview_date" placeholder="YYYY-MM-DD" class="form-control"/>
+										<label for="mock_job_interview_date">
+											Date
+										</label>
+									</div>
+								</div>
+								<div class="col-lg-6">
+									<div class="form-group">
+										<input type="number" id="mock_job_interview_participants" name="mock_job_interview_participants" class="form-control"/>
+										<label for="mock_job_interview_participants">
+											No. of Participants
+										</label>
+									</div>
+								</div>
+							</div>
+                            <button type="submit" style="float:right;margin-bottom:1%;" class="btn btn-warning" name="activity_id" value="7">Submit</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+    <style>
+    body.modal-open {
+    overflow: hidden;
+    position:fixed;
+    width: 100%;
+    }
+    </style>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+            <script>
+                $(document).ready( function () {
+                $('#tableID').DataTable();
+            } );
+            </script>
+			<script>
+				 $(function() {
+				$("#career_fair_date").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#on_campus_recruitment_date").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#career_development_date").datepicker({ dateFormat: 'yy-mm-dd' });
+				$("#mock_job_interview_date").datepicker({ dateFormat: 'yy-mm-dd' });
+				});
+			</script>
+			<script>
+				$(".custom-file-input").on("change", function() {
+				  var fileName = $(this).val().split("\\").pop();
+				  $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+				});
+            </script>
+            
+            <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+            <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+            <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+            <!-- Popper.JS -->
+            <script src="{% static 'js/popper.js' %}"></script>
+            <!-- Bootstrap JS -->
+            <script src="{% static 'js/bootstrap.min.js' %}"></script>
+            <script>
+                $('#deletemodal').on('shown.bs.modal', function () {
+                $('#deletebtn').trigger('focus')    
+            })
+            </script>
+            <script type="text/javascript">
+                $(".custom-select").chosen();
+            </script>
+</body>

@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>TIP Career Center</title>
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style4.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/w3.css' %}">
+    <link rel="stylesheet" href="{% static 'css/table.css' %}">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}"/>
+    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+
+    </script>
+
+    <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+
+
+    <!-- Font Awesome JS -->
+    <!-- <script src="solid.js"></script> -->
+    <!-- <script src="fontawesome.js" </script> -->
+    <script> // !!!!!!!!!!!!!!!!!!!!!These scripts should be transfered to Admin.html after linking this file to base template (Admin.html)
+		(function() {
+                    'use strict';
+                    window.addEventListener('load', function() {
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    var forms = document.getElementsByClassName('needs-validation');
+                    // Loop over them and prevent submission
+                    var validation = Array.prototype.filter.call(forms, function(form) {
+                    form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                    }, false);
+                    });
+                    }, false);
+                    })();
+                    function relocate_home()
+                    {
+                        location.href = "Admin.html";
+                    } 
+                    function relocate_next()
+                    {
+                        location.href = "linkageform2.html";
+                    } 
+                    window.onscroll = function() {myFunction()};
+
+                    var header = document.getElementById("myHeader");
+                    var sticky = header.offsetTop;
+
+                    function myFunction() {
+                    if (window.pageYOffset > sticky) {
+                        header.classList.add("sticky");
+                    } else {
+                        header.classList.remove("sticky");
+                    }
+                    } // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!Up to this script
+</script>
+</head>
+<body style="font-family: 'Poppins'">
+    <header class="header">TECHNOLOGICAL INSTITUTE OF THE PHILIPPINES</header>
+	</body>
+	
+	<div class="container-fluid parallax1" style="padding-left:125px;padding-right:125px;padding-bottom:75px;padding-top:75px">
+            <div class="row">
+                <div class="col-md"style="background-color:rgba(60, 60, 60, 0.7);padding-left:75px;padding-right:75px;padding-top:50px;padding-bottom:50px" method="POST">{% csrf_token %}
+                    <button class="w3-button w3-amber w3-border w3-border-black w3-round-medium" onclick="window.location.href='/company-management/administrator/manage-companies/'" style="font-family: 'Poppins', sans-serif;float:right;">Return</button>
+                    <form class="needs-validation form-horizontal" autocomplete="off" novalidate method="POST" enctype="multipart/form-data">{% csrf_token %}
+                      <label style="text-align:left;font-family: 'Poppins', sans-serif;font-size:22px;color:#fae806"> Enter Industry details below: </label>
+    
+                      <div class="row">
+                        <div class="col-sm">
+                            <label class="label">Company Name</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Company Address</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Industry Type</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm">
+                          <input type="text" class="form-control" id="CN" placeholder="Company Name" name="company_name" value="{{company.company_name}}" required>
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                            <input type="text" class="form-control" id="Address" placeholder="Company Address" name="company_address" value="{{company.company_address}}" required>
+                            <div class="valid-feedback">
+                            Valid Input
+                            </div>
+                            <div class="invalid-feedback">
+                                Invalid Input
+                            </div>
+                        </div>
+                        <div class="col-sm">
+                            <div class="input-group mb-3">
+                                <select class="custom-select" id="inputGroupSelect01" name="Industry_Type_industry_type_id" value="{{company.Industry_Type_industry_type_id}}">
+                                    {% for industrytype in industry_type %}
+                                    <option value="{{industrytype.industry_type_id}}">{{industrytype.industry_type_name}}</option>
+                                    {% endfor %}
+                                </select>
+                                <script type="text/javascript">$("#inputGroupSelect01").val("{{company.Industry_Type_industry_type_id}}").change();</script>
+                            </div>
+                        </div>
+                    </div>
+                    <label style="text-align:left;padding-top:20px;font-family: 'Poppins', sans-serif;font-size:22px;color:#fae806"> Enter Contact Person's details below: </label>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label class="label">First Name</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Last Name</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Position</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Email Address</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Contact Number</label>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-sm">
+                          <input type="text" class="form-control" id="ContactPerson" placeholder="First Name" name="contactperson_fname" value="{{contact_person.contact_person_fname}}" required>
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <input type="text" class="form-control" id="ContactPerson" placeholder="Last Name" name="contactperson_lname" value="{{contact_person.contact_person_lname}}" required>
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <input type="text" class="form-control" id="Position" placeholder="Position" name="contactperson_position" value="{{contact_person.contact_person_position}}" required>
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <input type="email" class="form-control" id="EA" placeholder="Email Address" name="contactperson_email" value="{{contact_person.contact_person_email}}" required>
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <input type="number" class="form-control" id="CNumber" placeholder="Contact Number" name="contactperson_number" value="{{contact_person.contact_person_no}}" required>
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                      </div>
+                    <div class="row">
+                        <div class="col-sm">
+                            <label class="label">First Name</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Last Name</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Position</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Email Address</label>
+                        </div>
+                        <div class="col-sm">
+                            <label class="label">Contact Number</label>
+                        </div>
+                    </div>
+                      <div class="form-row">
+                        <div class="col-sm">
+                          <input type="text" class="form-control" id="OTP" placeholder="First Name" name="2contactperson_fname" value="{{2contact_person.contact_person_fname}}" required>
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                          <input type="text" class="form-control" id="ContactPerson" placeholder="Last Name" name="2contactperson_lname" value="{{2contact_person.contact_person_lname}}" required>
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                              <input type="text" class="form-control" id="Position" placeholder="Position" name="2contactperson_position" value="{{2contact_person.contact_person_position}}" required>
+                              <div class="valid-feedback">
+                                Valid Input
+                              </div>
+                              <div class="invalid-feedback">
+                                Invalid Input
+                              </div>
+                        </div>
+                        <div class="col-sm">
+                          <input type="email" class="form-control" id="EA2" placeholder="Email Address" name="2contactperson_email" value="{{2contact_person.contact_person_email}}" required> 
+                          <div class="valid-feedback">
+                            Valid Input
+                          </div>
+                          <div class="invalid-feedback">
+                            Invalid Input
+                          </div>
+                        </div>
+                        <div class="col-sm">
+                              <input type="number" class="form-control" id="CNumber" placeholder="Contact Number" name="2contactperson_number" value="{{2contact_person.contact_person_no}}" required>
+                              <div class="valid-feedback">
+                                Valid Input
+                              </div>
+                              <div class="invalid-feedback">
+                                Invalid Input
+                              </div>
+                        </div>
+                      </div>
+                      <div class="form-row" style="margin-top:2%;">
+                        <div class="col-sm-3" style="margin-right:1%;">
+                            <input type="file" id="Profile" name="Profile" class="custom-file-input"/>
+                            <label class="custom-file-label" for="Profile">Profile Image</label>
+                        </div>
+                        <div class="col-sm-3" style="margin-right:1%;">
+                            <input type="file" id="Banner" name="Banner" class="custom-file-input"/>
+                            <label class="custom-file-label" for="Banner">Banner Image</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="file" id="Memorandum_Agreement" name="Memorandum_Agreement" class="custom-file-input"/>
+                            <label class="custom-file-label" for="Memorandum_Agreement">Memorandum Agreement</label>
+                        </div>
+                      </div>
+                      <div class="row" style="font-weight:bold; font-style:italic;">
+                        <div class="col-sm-3">
+                            <label class="label">Recommended Size xx.kb</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <label class="label">Recommended Size xx.kb <br>*1600x200 Pixels</label>
+                        </div>
+                        <div class="col-sm-1">
+                            <label class="label">&nbsp;&nbsp;&nbsp;Recommended Size 5mb</label>
+                        </div>
+                      </div>
+                      <br>
+                          <label class="form-check-label" for="invalidCheck" style="font-family: 'Poppins', sans-serif;font-size:14px;color: rgb(255,232,10)">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                            I have read and agree to the Terms and Conditions
+                          </label>
+                          <div class="invalid-feedback" style="font-family: 'Poppins', sans-serif;font-size:14px;color: rgb(255,232,10)">
+                            Please read first the Terms and Conditions
+                          </div><br><br>
+                          <button class="w3-button w3-amber w3-border w3-border-black w3-round-medium" type="submit"style="font-family: 'Poppins', sans-serif">Save Form</button>
+                        </div>
+                      </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+	
+	
+	
+	
+	
+	<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/chosen.jquery.min.js' %}"></script>
+    <script src="{% static 'js/jquery-ui.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+    <!-- Popper.JS -->
+    <script src="{% static 'js/popper.js' %}"></script>
+    <!-- Bootstrap JS -->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+        $('#deletemodal').on('shown.bs.modal', function () {
+        $('#deletebtn').trigger('focus')    
+    })
+    </script>
+    <script type="text/javascript">
+        $(".custom-select").chosen();
+    </script>
+	</body>
+</html>
+
+
