@@ -750,4 +750,4 @@ INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `
 COMMIT;
 
 -- Additional Code
-CREATE TABLE Accounts(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(50), last_name VARCHAR(50), username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(50), password TEXT NOT NULL, isAdmin tinyint(1), datecreated DATETIME default NOW());
+CREATE TABLE Accounts(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(50), last_name VARCHAR(50), username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(50), password TEXT NOT NULL, isAdmin tinyint(1), datecreated DATETIME default NOW(), session_id varchar(40));
