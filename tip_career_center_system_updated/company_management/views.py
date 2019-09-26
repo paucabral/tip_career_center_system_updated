@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views import View
 from django.db import connection
 #for FilSystemsStorage
@@ -19,14 +19,57 @@ def dictfetchall(cursor):
 
 class Administrator(View):
     def get(self, request, *args, **kwargs):
-        return render(request,template_name='company_management/administrator.html',context={})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                giveSesh = "UPDATE accounts SET session_id='{}' WHERE isAdmin = 1 AND username = '{}'".format(session_id,username)
+                cursor.execute(giveSesh) 
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return render(request,template_name='company_management/administrator.html',context={})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/')
+        else:
+            return redirect('/')
 
 class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> contact_person
     def get(self, request, *args, **kwargs):
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM industry_type")
-            industry = dictfetchall(cursor)
-        return render(request,template_name='company_management/add_company_AsAdmin.html',context={"industry_type":industry})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM industry_type")
+                industry = dictfetchall(cursor)
+            return render(request,template_name='company_management/add_company_AsAdmin.html',context={"industry_type":industry})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect ('/company-management/ojt/add-company/')
+        else:
+            return redirect('/')
+
     def post(self, request, *args, **kwargs):
         print("POST Function reached")
         # Company
@@ -108,30 +151,51 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
 
 class EditCompanyAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
-            contact_id=cursor.fetchone()[0]
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
-            contact_id2=cursor.fetchone()[0]
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+                contact_id=cursor.fetchone()[0]
 
-            print('contact ID is here!')
-            print(contact_id)
+                cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+                contact_id2=cursor.fetchone()[0]
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
-            result1=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
-            result2=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
-            result3=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM industry_type")
-            industry = dictfetchall(cursor)
-            print(result1)
-        return render(request,template_name='company_management/edit_company_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3,"industry_type":industry})
+                print('contact ID is here!')
+                print(contact_id)
+
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
+                result1=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
+                result2=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
+                result3=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM industry_type")
+                industry = dictfetchall(cursor)
+                print(result1)
+            return render(request,template_name='company_management/edit_company_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3,"industry_type":industry})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect ('/company-management/ojt/edit-company/')
+        else:
+            return redirect('/')
+
     def post(self, request, *args, **kwargs):
         print("POST Function reached")
         company_id = self.kwargs['company_id']
@@ -236,48 +300,90 @@ class ManageCompaniesAsAdmin(View):
             result = dictfetchall(cursor)
         print(result)
         return redirect('/company-management/administrator/manage-companies')
+
     def get(self, request, *args, **kwargs):
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM company")
-            result = dictfetchall(cursor)
-        #     for i in result:
-        #         print(i['company_id'])
-        #         print("First")
-        # print(result[0]['company_id'])
-        return render(request,template_name='company_management/manage_companies_AsAdmin.html',context={'companies':result})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM company")
+                result = dictfetchall(cursor)
+            #     for i in result:
+            #         print(i['company_id'])
+            #         print("First")
+            # print(result[0]['company_id'])
+            return render(request,template_name='company_management/manage_companies_AsAdmin.html',context={'companies':result})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else:
+            return redirect ('/')
 
 class ViewCompanyAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
-            contact_id=cursor.fetchone()[0]
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
 
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
-            contact_id2=cursor.fetchone()[0]
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+                contact_id=cursor.fetchone()[0]
 
-            print('contact ID is here!')
-            print(contact_id)
+                cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+                contact_id2=cursor.fetchone()[0]
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
-            result1=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
-            result2=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
-            result3=dictfetchall(cursor)[0]
-            print(result1)
-            cursor.execute("SELECT * FROM company_has_activity WHERE Company_company_id={}".format(company_id))
-            actResults=dictfetchall(cursor)
-            print(actResults)
+                print('contact ID is here!')
+                print(contact_id)
 
-            cursor.execute("SELECT*FROM activity")
-            activities=dictfetchall(cursor)
-            print(activities[0])
-        return render(request,template_name='company_management/company_profile_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3, "companyActs":actResults, "activities":activities})
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
+                result1=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
+                result2=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
+                result3=dictfetchall(cursor)[0]
+                print(result1)
+                cursor.execute("SELECT * FROM company_has_activity WHERE Company_company_id={}".format(company_id))
+                actResults=dictfetchall(cursor)
+                print(actResults)
+
+                cursor.execute("SELECT*FROM activity")
+                activities=dictfetchall(cursor)
+                print(activities[0])
+            return render(request,template_name='company_management/company_profile_AsAdmin.html',context={"company":result1,"contact_person":result2,"2contact_person":result3, "companyActs":actResults, "activities":activities})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else: 
+            return redirect ('/')
+
     def post(self, request, *args, **kwargs):
         company_id = self.kwargs['company_id']
         activity_id = request.POST['activity_id']
@@ -399,106 +505,267 @@ class ViewCompanyAsAdmin(View):
     
 class ViewCompanyInternshipAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM intership WHERE Company_company_id={}".format(company_id))
-            internships=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_internships_AsAdmin.html',context={"internships":internships})
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM intership WHERE Company_company_id={}".format(company_id))
+                internships=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_internships_AsAdmin.html',context={"internships":internships})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else:
+            return redirect ('/')
 
 class ViewCompanyExternshipAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM externship WHERE Company_company_id={}".format(company_id))
-            externships=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_externships_AsAdmin.html',context={"externships":externships})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM externship WHERE Company_company_id={}".format(company_id))
+                externships=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_externships_AsAdmin.html',context={"externships":externships})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else:
+            return redirect ('/')
 
 class ViewCompanyScholarshipAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM scholarship WHERE Company_company_id={}".format(company_id))
-            scholarships=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_scholarships_AsAdmin.html',context={"scholarships":scholarships})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM scholarship WHERE Company_company_id={}".format(company_id))
+                scholarships=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_scholarships_AsAdmin.html',context={"scholarships":scholarships})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else:
+            return redirect('/')
 
 class ViewCompanyCareerFairAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
-            career_fairs=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_career_fairs_AsAdmin.html',context={"career_fairs":career_fairs})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
+                career_fairs=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_career_fairs_AsAdmin.html',context={"career_fairs":career_fairs})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else:
+            return redirect('/')
 
 class ViewCompanyOnCampusRecruitmentAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
-            on_campus_recruitments=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsAdmin.html',context={"on_campus_recruitments":on_campus_recruitments})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
+                on_campus_recruitments=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsAdmin.html',context={"on_campus_recruitments":on_campus_recruitments})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else:
+            return redirect('/')
 
 class ViewCompanyCareerDevelopmentTrainingAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
-            career_development_trainings=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_career_development_trainings_AsAdmin.html',context={"career_development_trainings":career_development_trainings})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
+                career_development_trainings=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_career_development_trainings_AsAdmin.html',context={"career_development_trainings":career_development_trainings})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else:
+            return redirect('/')
+            
 class ViewCompanyMockJobInterviewAsAdmin(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM mock_job_interview WHERE Company_company_id={}".format(company_id))
-            mock_job_interviews=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_mock_job_interviews_AsAdmin.html',context={"mock_job_interviews":mock_job_interviews})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM mock_job_interview WHERE Company_company_id={}".format(company_id))
+                mock_job_interviews=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_mock_job_interviews_AsAdmin.html',context={"mock_job_interviews":mock_job_interviews})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/ojt/manage-companies/')
+        else:
+            return redirect ('/')
+            
 class ViewCompanyAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
-            contact_id=cursor.fetchone()[0]
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
 
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
-            contact_id2=cursor.fetchone()[0]
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+                contact_id=cursor.fetchone()[0]
 
-            print('contact ID is here!')
-            print(contact_id)
+                cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+                contact_id2=cursor.fetchone()[0]
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
-            result1=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
-            result2=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
-            result3=dictfetchall(cursor)[0]
-            print(result1)
-            cursor.execute("SELECT * FROM company_has_activity WHERE Company_company_id={}".format(company_id))
-            actResults=dictfetchall(cursor)
-            print(actResults)
+                print('contact ID is here!')
+                print(contact_id)
 
-            cursor.execute("SELECT*FROM activity")
-            activities=dictfetchall(cursor)
-            print(activities[0])
-        return render(request,template_name='company_management/company_profile_AsOJT.html',context={"company":result1,"contact_person":result2,"2contact_person":result3, "companyActs":actResults, "activities":activities})
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
+                result1=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
+                result2=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
+                result3=dictfetchall(cursor)[0]
+                print(result1)
+                cursor.execute("SELECT * FROM company_has_activity WHERE Company_company_id={}".format(company_id))
+                actResults=dictfetchall(cursor)
+                print(actResults)
+
+                cursor.execute("SELECT*FROM activity")
+                activities=dictfetchall(cursor)
+                print(activities[0])
+            return render(request,template_name='company_management/company_profile_AsOJT.html',context={"company":result1,"contact_person":result2,"2contact_person":result3, "companyActs":actResults, "activities":activities})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else:
+            return redirect('/')
+    
     def post(self, request, *args, **kwargs):
         company_id = self.kwargs['company_id']
         activity_id = request.POST['activity_id']
@@ -620,14 +887,57 @@ class ViewCompanyAsOJT(View):
 
 class OJT(View):
     def get(self, request, *args, **kwargs):
-        return render(request,template_name='company_management/ojt.html',context={})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                giveSesh = "UPDATE accounts SET session_id='{}' WHERE isAdmin = 0 AND username = '{}'".format(session_id,username)
+                cursor.execute(giveSesh) 
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            return render(request,template_name='company_management/ojt.html',context={})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/')
+        else:
+            return redirect('/')
 
 class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact_person
     def get(self, request, *args, **kwargs):
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM industry_type")
-            industry = dictfetchall(cursor)
-        return render(request,template_name='company_management/add_company_AsOJT.html',context={"industry_type":industry})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM industry_type")
+                industry = dictfetchall(cursor)
+            return render(request,template_name='company_management/add_company_AsOJT.html',context={"industry_type":industry})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect ('/company-management/administrator/add-company')
+        else:
+            return redirect('/')
+
     def post(self, request, *args, **kwargs):
         print("POST Function reached")
         # Company
@@ -709,30 +1019,51 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
 
 class EditCompanyAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
-            contact_id=cursor.fetchone()[0]
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
-            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
-            contact_id2=cursor.fetchone()[0]
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+                contact_id=cursor.fetchone()[0]
 
-            print('contact ID is here!')
-            print(contact_id)
+                cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+                contact_id2=cursor.fetchone()[0]
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
-            result1=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
-            result2=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
-            result3=dictfetchall(cursor)[0]
-            cursor.execute("SELECT * FROM industry_type")
-            industry = dictfetchall(cursor)
-            print(result1)
-        return render(request,template_name='company_management/edit_company_AsOJT.html',context={"company":result1,"contact_person":result2,"2contact_person":result3,"industry_type":industry})
+                print('contact ID is here!')
+                print(contact_id)
+
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
+                result1=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
+                result2=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
+                result3=dictfetchall(cursor)[0]
+                cursor.execute("SELECT * FROM industry_type")
+                industry = dictfetchall(cursor)
+                print(result1)
+            return render(request,template_name='company_management/edit_company_AsOJT.html',context={"company":result1,"contact_person":result2,"2contact_person":result3,"industry_type":industry})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect ('/company-management/ojt/edit-company/')
+        else:
+            return redirect ('/')
+
     def post(self, request, *args, **kwargs):
         print("POST Function reached")
         company_id = self.kwargs['company_id']
@@ -825,81 +1156,238 @@ class ManageCompaniesAsOJT(View):
         print(result)
         return redirect('/company-management/ojt/manage-companies')
     def get(self, request, *args, **kwargs):
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM company")
-            result = dictfetchall(cursor)
-        #     for i in result:
-        #         print(i['company_id'])
-        #         print("First")
-        # print(result[0]['company_id'])
-        return render(request,template_name='company_management/manage_companies_AsOJT.html',context={'companies':result})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM company")
+                result = dictfetchall(cursor)
+            #     for i in result:
+            #         print(i['company_id'])
+            #         print("First")
+            # print(result[0]['company_id'])
+            return render(request,template_name='company_management/manage_companies_AsOJT.html',context={'companies':result})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else:
+            return redirect ('/')
 class ViewCompanyCareerDevelopmentTrainingAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
-            career_development_trainings=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_career_development_trainings_AsOJT.html',context={"career_development_trainings":career_development_trainings})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
+                career_development_trainings=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_career_development_trainings_AsOJT.html',context={"career_development_trainings":career_development_trainings})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else:
+            return redirect ('/')
 
 class ViewCompanyCareerFairAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
-            career_fairs=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_career_fairs_AsOJT.html',context={"career_fairs":career_fairs})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
+                career_fairs=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_career_fairs_AsOJT.html',context={"career_fairs":career_fairs})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else:
+            return redirect ('/')
 
 class ViewCompanyExternshipAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM externship WHERE Company_company_id={}".format(company_id))
-            externships=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_externships_AsOJT.html',context={"externships":externships})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM externship WHERE Company_company_id={}".format(company_id))
+                externships=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_externships_AsOJT.html',context={"externships":externships})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else:
+            return redirect('/')
 
 class ViewCompanyInternshipAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM intership WHERE Company_company_id={}".format(company_id))
-            internships=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_internships_AsOJT.html',context={"internships":internships})
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
 
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM intership WHERE Company_company_id={}".format(company_id))
+                internships=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_internships_AsOJT.html',context={"internships":internships})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else: 
+            return redirect ('/')
 class ViewCompanyMockJobInterviewAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM mock_job_interview WHERE Company_company_id={}".format(company_id))
-            mock_job_interviews=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_mock_job_interviews_AsOJT.html',context={"mock_job_interviews":mock_job_interviews})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
 
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM mock_job_interview WHERE Company_company_id={}".format(company_id))
+                mock_job_interviews=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_mock_job_interviews_AsOJT.html',context={"mock_job_interviews":mock_job_interviews})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else:
+            return redirect ('/')
 class ViewCompanyOnCampusRecruitmentAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
-            on_campus_recruitments=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsOJT.html',context={"on_campus_recruitments":on_campus_recruitments})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
+                on_campus_recruitments=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsOJT.html',context={"on_campus_recruitments":on_campus_recruitments})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else:
+            return redirect('/')
 
 class ViewCompanyScholarshipAsOJT(View):
     def get(self, request, *args, **kwargs):
-        print(self.kwargs['company_id'])
-        company_id = self.kwargs['company_id']
-        
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT*FROM scholarship WHERE Company_company_id={}".format(company_id))
-            scholarships=dictfetchall(cursor)
-        return render(request,template_name='company_management/company_profile_scholarships_AsOJT.html',context={"scholarships":scholarships})
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+            print(self.kwargs['company_id'])
+            company_id = self.kwargs['company_id']
+            
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT*FROM scholarship WHERE Company_company_id={}".format(company_id))
+                scholarships=dictfetchall(cursor)
+            return render(request,template_name='company_management/company_profile_scholarships_AsOJT.html',context={"scholarships":scholarships})
+        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            return redirect('/company-management/administrator/manage-companies/')
+        else:
+            return redirect ('/')

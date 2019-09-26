@@ -103,14 +103,14 @@
         <div class="jumbtron">
 			<div class="row">
 				<div class="col-xl-6">
-					<button type="button" class="button"><span>Add Companies</span></button>
+					<a href="/company-management/ojt/add-company/"><button type="button" class="button"><span>Add Companies</span></button></a>
 				</div>
 				<div class="col-xl-6">
-					<button class="button" type="button"><span>Manage Companies</span></button>
+					<a href="/company-management/ojt/manage-companies/"><button class="button" type="button"><span>Manage Companies</span></button></a>
 				</div>
 			</div>
 			<div class="row" style="margin-left:20%">
-				<button class="button" type="button"><span>LOGOUT</span></button>
+				<button class="button" type="button"><span><a href="{% url 'logout' %}">LOGOUT</a></span></button>
 			</div>
 		</div>		
     </div>
