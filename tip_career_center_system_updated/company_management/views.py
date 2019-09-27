@@ -413,20 +413,41 @@ class ViewCompanyAsAdmin(View):
         career_fair_title = request.POST['career_fair_title']
         career_fair_date = request.POST['career_fair_date']
         career_fair_participants = request.POST['career_fair_participants']
+        career_fair_attachment = request.FILES.get('career_fair_attachment')
 
         #ON-CAMPUS RECRUITMENT
         on_campus_recruitment_name = request.POST['on_campus_recruitment_name']
         on_campus_recruitment_date = request.POST['on_campus_recruitment_date']
         on_campus_recruitment_participants = request.POST['on_campus_recruitment_participants']
+        on_campus_recruitment_attachment = request.FILES.get("on_campus_recruitment_attachment")
 
         #CAREER DEVELOPMENT TRAINING
         career_development_training_name = request.POST['career_development_name']
         career_development_training_date = request.POST['career_development_date']
         career_development_training_participants = request.POST['career_development_participants']
+        career_development_training_attachments = request.FILES.get("career_development_attachments")
 
         #MOCK JOB INTERVIEW
         mock_job_interview_date = request.POST['mock_job_interview_date']
         mock_job_interview_participants = request.POST['mock_job_interview_participants']
+
+        fs = FileSystemStorage()
+      
+        cfa_path = None #career fair attachment path
+        ocr_path = None #on campus recruitment attachment path
+        cdt_path = None #career development training attachment path
+
+        if career_fair_attachment is not None:
+            cfa_filename = fs.save(career_fair_attachment.name, career_fair_attachment)
+            cfa_path = fs.url(cfa_filename)
+
+        if on_campus_recruitment_attachment is not None:
+            ocr_filename = fs.save(on_campus_recruitment_attachment.name, on_campus_recruitment_attachment)
+            ocr_path = fs.url(ocr_filename)
+        
+        if career_development_training_attachments is not None:
+            cdt_filename = fs.save(career_development_training_attachments.name, career_development_training_attachments)
+            cdt_path = fs.url(cdt_filename)
 
         with connection.cursor() as cursor:
             quantity=0
@@ -469,7 +490,7 @@ class ViewCompanyAsAdmin(View):
                 company_engagement_score+=(3)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=4".format(quantity,company_id))
                 cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
-                cursor.execute("INSERT INTO career_fair(career_fair_title,career_fair_date,career_fair_participants,Company_company_id,career_fair_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(career_fair_title,career_fair_date,career_fair_participants,company_id))
+                cursor.execute("INSERT INTO career_fair(career_fair_title,career_fair_date,career_fair_participants,Company_company_id,career_fair_date_added,career_fair_attachment) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP,'{}')".format(career_fair_title,career_fair_date,career_fair_participants,company_id,cfa_path))
             elif activity_id=='5':
                 cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
                 company_engagement_score=cursor.fetchone()[0]
@@ -479,7 +500,7 @@ class ViewCompanyAsAdmin(View):
                 company_engagement_score+=(3)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=5".format(quantity,company_id))
                 cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
-                cursor.execute("INSERT INTO on_campus_recruitment(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,Company_company_id,on_campus_recruitment_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,company_id))
+                cursor.execute("INSERT INTO on_campus_recruitment(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,Company_company_id,on_campus_recruitment_date_added,on_campus_recruitment_attachment) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP,'{}')".format(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,company_id,ocr_path))
             elif activity_id=='6':
                 cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
                 company_engagement_score=cursor.fetchone()[0]
@@ -489,7 +510,7 @@ class ViewCompanyAsAdmin(View):
                 company_engagement_score+=(3)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=6".format(quantity,company_id))
                 cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
-                cursor.execute("INSERT INTO career_development_training(career_development_training_name,career_development_training_date,career_development_training_participants,Company_company_id,career_development_training_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(career_development_training_name,career_development_training_date,career_development_training_participants,company_id))
+                cursor.execute("INSERT INTO career_development_training(career_development_training_name,career_development_training_date,career_development_training_participants,Company_company_id,career_development_training_date_added,career_development_training_attachment) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP,'{}')".format(career_development_training_name,career_development_training_date,career_development_training_participants,company_id,cdt_path))
             elif activity_id=='7':
                 cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
                 company_engagement_score=cursor.fetchone()[0]
@@ -795,20 +816,41 @@ class ViewCompanyAsOJT(View):
         career_fair_title = request.POST['career_fair_title']
         career_fair_date = request.POST['career_fair_date']
         career_fair_participants = request.POST['career_fair_participants']
+        career_fair_attachment = request.FILES.get('career_fair_attachment')
 
         #ON-CAMPUS RECRUITMENT
         on_campus_recruitment_name = request.POST['on_campus_recruitment_name']
         on_campus_recruitment_date = request.POST['on_campus_recruitment_date']
         on_campus_recruitment_participants = request.POST['on_campus_recruitment_participants']
+        on_campus_recruitment_attachment = request.FILES.get("on_campus_recruitment_attachment")
 
         #CAREER DEVELOPMENT TRAINING
         career_development_training_name = request.POST['career_development_name']
         career_development_training_date = request.POST['career_development_date']
         career_development_training_participants = request.POST['career_development_participants']
+        career_development_training_attachments = request.FILES.get("career_development_attachments")
 
         #MOCK JOB INTERVIEW
         mock_job_interview_date = request.POST['mock_job_interview_date']
         mock_job_interview_participants = request.POST['mock_job_interview_participants']
+
+        fs = FileSystemStorage()
+      
+        cfa_path = None #career fair attachment path
+        ocr_path = None #on campus recruitment attachment path
+        cdt_path = None #career development training attachment path
+
+        if career_fair_attachment is not None:
+            cfa_filename = fs.save(career_fair_attachment.name, career_fair_attachment)
+            cfa_path = fs.url(cfa_filename)
+
+        if on_campus_recruitment_attachment is not None:
+            ocr_filename = fs.save(on_campus_recruitment_attachment.name, on_campus_recruitment_attachment)
+            ocr_path = fs.url(ocr_filename)
+        
+        if career_development_training_attachments is not None:
+            cdt_filename = fs.save(career_development_training_attachments.name, career_development_training_attachments)
+            cdt_path = fs.url(cdt_filename)
 
         with connection.cursor() as cursor:
             quantity=0
@@ -851,7 +893,7 @@ class ViewCompanyAsOJT(View):
                 company_engagement_score+=(3)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=4".format(quantity,company_id))
                 cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
-                cursor.execute("INSERT INTO career_fair(career_fair_title,career_fair_date,career_fair_participants,Company_company_id,career_fair_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(career_fair_title,career_fair_date,career_fair_participants,company_id))
+                cursor.execute("INSERT INTO career_fair(career_fair_title,career_fair_date,career_fair_participants,Company_company_id,career_fair_date_added,career_fair_attachment) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP,'{}')".format(career_fair_title,career_fair_date,career_fair_participants,company_id,cfa_path))
             elif activity_id=='5':
                 cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
                 company_engagement_score=cursor.fetchone()[0]
@@ -861,7 +903,7 @@ class ViewCompanyAsOJT(View):
                 company_engagement_score+=(3)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=5".format(quantity,company_id))
                 cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
-                cursor.execute("INSERT INTO on_campus_recruitment(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,Company_company_id,on_campus_recruitment_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,company_id))
+                cursor.execute("INSERT INTO on_campus_recruitment(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,Company_company_id,on_campus_recruitment_date_added,on_campus_recruitment_attachment) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP,'{}')".format(on_campus_recruitment_name,on_campus_recruitment_date,on_campus_recruitment_participants,company_id,ocr_path))
             elif activity_id=='6':
                 cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
                 company_engagement_score=cursor.fetchone()[0]
@@ -871,7 +913,7 @@ class ViewCompanyAsOJT(View):
                 company_engagement_score+=(3)
                 cursor.execute("UPDATE company_has_activity SET quantity={} WHERE Company_company_id={} AND Activity_activity_id=6".format(quantity,company_id))
                 cursor.execute("UPDATE company SET company_engagement_score={} WHERE company_id={}".format(company_engagement_score,company_id))
-                cursor.execute("INSERT INTO career_development_training(career_development_training_name,career_development_training_date,career_development_training_participants,Company_company_id,career_development_training_date_added) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP)".format(career_development_training_name,career_development_training_date,career_development_training_participants,company_id))
+                cursor.execute("INSERT INTO career_development_training(career_development_training_name,career_development_training_date,career_development_training_participants,Company_company_id,career_development_training_date_added,career_development_training_attachment) VALUES('{}','{}','{}','{}',CURRENT_TIMESTAMP,'{}')".format(career_development_training_name,career_development_training_date,career_development_training_participants,company_id,cdt_path))
             elif activity_id=='7':
                 cursor.execute("SELECT company_engagement_score FROM company WHERE company_id={}".format(company_id))
                 company_engagement_score=cursor.fetchone()[0]
