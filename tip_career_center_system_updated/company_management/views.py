@@ -8,6 +8,12 @@ from django.conf import settings
 # from django.utils.datastructures import MultiValueDictError
 import os
 
+# ------------------------- For PDF Generation ---------------------------------
+import copy
+from django.views.generic.base import TemplateResponseMixin, ContextMixin, View
+from .PDFrendering import render_to_pdf_response
+# -----------------------------------------------------------------------------
+
 # Create your views here.
 def dictfetchall(cursor): 
     "Returns all rows from a cursor as a dict" 
@@ -1226,6 +1232,7 @@ class ManageCompaniesAsOJT(View):
             return redirect('/company-management/administrator/manage-companies/')
         else:
             return redirect ('/')
+        
 class ViewCompanyCareerDevelopmentTrainingAsOJT(View):
     def get(self, request, *args, **kwargs):
         try:
@@ -1345,6 +1352,7 @@ class ViewCompanyInternshipAsOJT(View):
             return redirect('/company-management/administrator/manage-companies/')
         else: 
             return redirect ('/')
+        
 class ViewCompanyMockJobInterviewAsOJT(View):
     def get(self, request, *args, **kwargs):
         try:
@@ -1374,6 +1382,7 @@ class ViewCompanyMockJobInterviewAsOJT(View):
             return redirect('/company-management/administrator/manage-companies/')
         else:
             return redirect ('/')
+        
 class ViewCompanyOnCampusRecruitmentAsOJT(View):
     def get(self, request, *args, **kwargs):
         try:
@@ -1433,3 +1442,32 @@ class ViewCompanyScholarshipAsOJT(View):
             return redirect('/company-management/administrator/manage-companies/')
         else:
             return redirect ('/')
+
+# --- New views ~Zeus ---
+
+class PDFTemplateResponseMixin(TemplateResponseMixin):
+    pdf_kwargs = None
+    def get_pdf_kwargs(self):
+        if self.pdf_kwargs is None:
+            return {}
+        return copy.copy(self.pdf_kwargs)
+
+    def get_pdf_response(self, context, **response_kwargs):
+        return render_to_pdf_response(
+            request=self.request,
+            template=self.get_template_names(),
+            context=context,
+            using=self.template_engine,
+            **self.get_pdf_kwargs()
+        )
+
+    def render_to_response(self, context, **response_kwargs):
+        return self.get_pdf_response(context, **response_kwargs)
+
+
+class PDFTemplateView(PDFTemplateResponseMixin, ContextMixin, View):
+    template_name = 'PDF/profilePDF.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        return self.render_to_response(context)
