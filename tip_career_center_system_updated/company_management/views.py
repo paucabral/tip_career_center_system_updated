@@ -106,12 +106,14 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         bannerFileName = None
 
         if picture is not None:
-            pfn = fs.save(picture.name, picture)
+            picfiledir = str(company_name)+"/"+picture.name
+            pfn = fs.save(picfiledir, picture)
             pictureFileName = fs.url(pfn)
         else:
             pictureFileName = "/static/img/profile.png"
         if banner is not None:
-            bfn = fs.save(banner.name, banner)
+            bannerfiledir = str(company_name)+"/"+banner.name
+            bfn = fs.save(bannerfiledir, banner)
             bannerFileName = fs.url(bfn)
         else:
             bannerFileName = "/static/img/Banner.jpg"
@@ -232,12 +234,14 @@ class EditCompanyAsAdmin(View):
         bannerFileName = None
 
         if picture is not None:
-            pfn = fs.save(picture.name, picture)
+            picfiledir = str(company_name)+"/"+picture.name
+            pfn = fs.save(picfiledir, picture)
             pictureFileName = fs.url(pfn)
         else:
             pictureFileName = "/static/img/profile.png"
         if banner is not None:
-            bfn = fs.save(banner.name, banner)
+            bannerfiledir = str(company_name)+"/"+banner.name
+            bfn = fs.save(bannerfiledir, banner)
             bannerFileName = fs.url(bfn)
         else:
             bannerFileName = "/static/img/Banner.jpg"
@@ -392,6 +396,7 @@ class ViewCompanyAsAdmin(View):
 
     def post(self, request, *args, **kwargs):
         company_id = self.kwargs['company_id']
+        company_name = None
         activity_id = request.POST['activity_id']
 
         print("Activity ID: ",activity_id)
@@ -438,22 +443,30 @@ class ViewCompanyAsAdmin(View):
         mock_job_interview_participants = request.POST['mock_job_interview_participants']
 
         fs = FileSystemStorage()
-      
         cfa_path = None #career fair attachment path
         ocr_path = None #on campus recruitment attachment path
         cdt_path = None #career development training attachment path
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT company_name FROM company where company_id = {}".format(company_id))
+            result = dictfetchall(cursor)
+            company_name = str(result[0].get("company_name"))
+            print("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            print(company_name)
+            print(company_id)
+            if career_fair_attachment is not None:
+                cfadir = company_name+"/"+career_fair_attachment.name
+                cfa_filename = fs.save(cfadir, career_fair_attachment)
+                cfa_path = fs.url(cfa_filename)
 
-        if career_fair_attachment is not None:
-            cfa_filename = fs.save(career_fair_attachment.name, career_fair_attachment)
-            cfa_path = fs.url(cfa_filename)
-
-        if on_campus_recruitment_attachment is not None:
-            ocr_filename = fs.save(on_campus_recruitment_attachment.name, on_campus_recruitment_attachment)
-            ocr_path = fs.url(ocr_filename)
-        
-        if career_development_training_attachments is not None:
-            cdt_filename = fs.save(career_development_training_attachments.name, career_development_training_attachments)
-            cdt_path = fs.url(cdt_filename)
+            if on_campus_recruitment_attachment is not None:
+                ocrdir = company_name+"/"+on_campus_recruitment_attachment.name
+                ocr_filename = fs.save(ocrdir, on_campus_recruitment_attachment)
+                ocr_path = fs.url(ocr_filename)
+            
+            if career_development_training_attachments is not None:
+                cdtdir = company_name+"/"+career_development_training_attachments.name
+                cdt_filename = fs.save(cdtdir, career_development_training_attachments)
+                cdt_path = fs.url(cdt_filename)
 
         with connection.cursor() as cursor:
             quantity=0
@@ -771,6 +784,7 @@ class ViewCompanyAsOJT(View):
 
                 print('contact ID is here!')
                 print(contact_id)
+                
 
             with connection.cursor() as cursor:
                 cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
@@ -841,22 +855,30 @@ class ViewCompanyAsOJT(View):
         mock_job_interview_participants = request.POST['mock_job_interview_participants']
 
         fs = FileSystemStorage()
-      
         cfa_path = None #career fair attachment path
         ocr_path = None #on campus recruitment attachment path
         cdt_path = None #career development training attachment path
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT company_name FROM company where company_id = {}".format(company_id))
+            result = dictfetchall(cursor)
+            company_name = str(result[0].get("company_name"))
+            print("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+            print(company_name)
+            print(company_id)
+            if career_fair_attachment is not None:
+                cfadir = company_name+"/"+career_fair_attachment.name
+                cfa_filename = fs.save(cfadir, career_fair_attachment)
+                cfa_path = fs.url(cfa_filename)
 
-        if career_fair_attachment is not None:
-            cfa_filename = fs.save(career_fair_attachment.name, career_fair_attachment)
-            cfa_path = fs.url(cfa_filename)
-
-        if on_campus_recruitment_attachment is not None:
-            ocr_filename = fs.save(on_campus_recruitment_attachment.name, on_campus_recruitment_attachment)
-            ocr_path = fs.url(ocr_filename)
-        
-        if career_development_training_attachments is not None:
-            cdt_filename = fs.save(career_development_training_attachments.name, career_development_training_attachments)
-            cdt_path = fs.url(cdt_filename)
+            if on_campus_recruitment_attachment is not None:
+                ocrdir = company_name+"/"+on_campus_recruitment_attachment.name
+                ocr_filename = fs.save(ocrdir, on_campus_recruitment_attachment)
+                ocr_path = fs.url(ocr_filename)
+            
+            if career_development_training_attachments is not None:
+                cdtdir = company_name+"/"+career_development_training_attachments.name
+                cdt_filename = fs.save(cdtdir, career_development_training_attachments)
+                cdt_path = fs.url(cdt_filename)
 
         with connection.cursor() as cursor:
             quantity=0
@@ -1016,12 +1038,14 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
         bannerFileName = None
 
         if picture is not None:
-            pfn = fs.save(picture.name, picture)
+            picfiledir = str(company_name)+"/"+picture.name
+            pfn = fs.save(picfiledir, picture)
             pictureFileName = fs.url(pfn)
         else:
             pictureFileName = "/static/img/profile.png"
         if banner is not None:
-            bfn = fs.save(banner.name, banner)
+            bannerfiledir = str(company_name)+"/"+banner.name
+            bfn = fs.save(bannerfiledir, banner)
             bannerFileName = fs.url(bfn)
         else:
             bannerFileName = "/static/img/Banner.jpg"
@@ -1142,12 +1166,14 @@ class EditCompanyAsOJT(View):
         bannerFileName = None
 
         if picture is not None:
-            pfn = fs.save(picture.name, picture)
+            picfiledir = str(company_name)+"/"+picture.name
+            pfn = fs.save(picfiledir, picture)
             pictureFileName = fs.url(pfn)
         else:
             pictureFileName = "/static/img/profile.png"
         if banner is not None:
-            bfn = fs.save(banner.name, banner)
+            bannerfiledir = str(company_name)+"/"+banner.name
+            bfn = fs.save(bannerfiledir, banner)
             bannerFileName = fs.url(bfn)
         else:
             bannerFileName = "/static/img/Banner.jpg"
@@ -1232,7 +1258,6 @@ class ManageCompaniesAsOJT(View):
             return redirect('/company-management/administrator/manage-companies/')
         else:
             return redirect ('/')
-        
 class ViewCompanyCareerDevelopmentTrainingAsOJT(View):
     def get(self, request, *args, **kwargs):
         try:
@@ -1352,7 +1377,6 @@ class ViewCompanyInternshipAsOJT(View):
             return redirect('/company-management/administrator/manage-companies/')
         else: 
             return redirect ('/')
-        
 class ViewCompanyMockJobInterviewAsOJT(View):
     def get(self, request, *args, **kwargs):
         try:
@@ -1382,7 +1406,6 @@ class ViewCompanyMockJobInterviewAsOJT(View):
             return redirect('/company-management/administrator/manage-companies/')
         else:
             return redirect ('/')
-        
 class ViewCompanyOnCampusRecruitmentAsOJT(View):
     def get(self, request, *args, **kwargs):
         try:
@@ -1463,7 +1486,6 @@ class PDFTemplateResponseMixin(TemplateResponseMixin):
 
     def render_to_response(self, context, **response_kwargs):
         return self.get_pdf_response(context, **response_kwargs)
-
 
 class PDFTemplateView(PDFTemplateResponseMixin, ContextMixin, View):
     template_name = 'PDF/profilePDF.html'
