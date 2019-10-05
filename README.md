@@ -22,6 +22,7 @@
   <li>Django 2.1.4 (or latest)</li>
   <li>MySQLClient</li>
   <li>PyMySQL</li>
+  <li>xhtml2pdf</li>
   <li>MySQL or XAMPP</li>
   <li>MySQL Workbench (optional)</li>
   <li>Git</li>
