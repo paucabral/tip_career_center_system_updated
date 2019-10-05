@@ -99,11 +99,13 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
 
         picture = request.FILES.get("Profile")
         banner = request.FILES.get("Banner")
+        moa = request.FILES.get("Memorandum_Agreement")
 
         fs = FileSystemStorage()
         
         pictureFileName = None
         bannerFileName = None
+        moaFileName = None
 
         if picture is not None:
             picfiledir = str(company_name)+"/"+picture.name
@@ -117,6 +119,13 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
             bannerFileName = fs.url(bfn)
         else:
             bannerFileName = "/static/img/Banner.jpg"
+        
+        if moa is not None:
+            moafiledir= str(company_name)+"/"+moa.name
+            mfn = fs.save(moafiledir, moa)
+            moaFileName = fs.url(mfn)
+        else:
+            moaFileName = "static/defaultPDF.pdf"
 
         print(pictureFileName)
         print(bannerFileName)
@@ -127,7 +136,7 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         # print(picurl)
 
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id,profile_image,banner_image) VALUES ('{}','{}',0,'{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id,pictureFileName,bannerFileName))
+            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id,profile_image,banner_image, company_attachment) VALUES ('{}','{}',0,'{}','{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id,pictureFileName,bannerFileName,moaFileName))
             print("Company inserted")
 
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
@@ -227,24 +236,14 @@ class EditCompanyAsAdmin(View):
 
         picture = request.FILES.get("Profile")
         banner = request.FILES.get("Banner")
+        moa = request.FILES.get("Memorandum_Agreement")
 
         fs = FileSystemStorage()
         
         pictureFileName = None
         bannerFileName = None
+        moaFileName = None
 
-        if picture is not None:
-            picfiledir = str(company_name)+"/"+picture.name
-            pfn = fs.save(picfiledir, picture)
-            pictureFileName = fs.url(pfn)
-        else:
-            pictureFileName = "/static/img/profile.png"
-        if banner is not None:
-            bannerfiledir = str(company_name)+"/"+banner.name
-            bfn = fs.save(bannerfiledir, banner)
-            bannerFileName = fs.url(bfn)
-        else:
-            bannerFileName = "/static/img/Banner.jpg"
 
         with connection.cursor() as cursor:
             cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
@@ -255,9 +254,40 @@ class EditCompanyAsAdmin(View):
 
             print('contact ID is here!')
             print(contact_id2)
+
+            cursor.execute("SELECT banner_image FROM company WHERE (company_id='{}') LIMIT 1".format(company_id))
+            banner_image=cursor.fetchone()[0]
+
+            cursor.execute("SELECT profile_image FROM company WHERE (company_id='{}') LIMIT 1".format(company_id))
+            profile_image=cursor.fetchone()[0]
+
+            cursor.execute("SELECT company_attachment FROM company WHERE (company_id='{}') LIMIT 1".format(company_id))
+            moaFile=cursor.fetchone()[0]
+
+        print(profile_image)
+
+        if picture is not None:
+            picfiledir = str(company_name)+"/"+picture.name
+            pfn = fs.save(picfiledir, picture)
+            pictureFileName = fs.url(pfn)
+        else:
+            pictureFileName = profile_image
         
+        if banner is not None:
+            bannerfiledir = str(company_name)+"/"+banner.name
+            bfn = fs.save(bannerfiledir, banner)
+            bannerFileName = fs.url(bfn)
+        else:
+            bannerFileName = banner_image
+        if moa is not None:
+            moafiledir = str(company_name)+"/"+moa.name
+            mfn = fs.save(moafiledir, moa)
+            moaFileName = fs.url(mfn)
+        else:
+            moaFileName = moaFile
+
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}', profile_image='{}', banner_image='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id, pictureFileName, bannerFileName, company_id))
+            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}', profile_image='{}', banner_image='{}', company_attachment='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName, company_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
             
@@ -770,7 +800,7 @@ class ViewCompanyAsOJT(View):
         except KeyError:
             return redirect('/')
 
-        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             print(self.kwargs['company_id'])
             company_id = self.kwargs['company_id']
             
@@ -802,8 +832,6 @@ class ViewCompanyAsOJT(View):
                 activities=dictfetchall(cursor)
                 print(activities[0])
             return render(request,template_name='company_management/company_profile_AsOJT.html',context={"company":result1,"contact_person":result2,"2contact_person":result3, "companyActs":actResults, "activities":activities})
-        elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
-            return redirect('/company-management/administrator/manage-companies/')
         else:
             return redirect('/')
     
@@ -1031,11 +1059,13 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
 
         picture = request.FILES.get("Profile")
         banner = request.FILES.get("Banner")
+        moa = request.FILES.get("Memorandum_Agreement")
 
         fs = FileSystemStorage()
         
         pictureFileName = None
         bannerFileName = None
+        moaFileName = None
 
         if picture is not None:
             picfiledir = str(company_name)+"/"+picture.name
@@ -1049,6 +1079,13 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
             bannerFileName = fs.url(bfn)
         else:
             bannerFileName = "/static/img/Banner.jpg"
+        
+        if moa is not None:
+            moafiledir= str(company_name)+"/"+moa.name
+            mfn = fs.save(moafiledir, moa)
+            moaFileName = fs.url(mfn)
+        else:
+            moaFileName = "static/defaultPDF.pdf"
 
         print(pictureFileName)
         print(bannerFileName)
@@ -1059,8 +1096,7 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
         # print(picurl)
 
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id,profile_image,banner_image) VALUES ('{}','{}',0,'{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id,pictureFileName,bannerFileName))
-            print("Company inserted")
+            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id,profile_image,banner_image, company_attachment) VALUES ('{}','{}',0,'{}','{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id,pictureFileName,bannerFileName,moaFileName))
 
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
             compny_id=cursor.fetchone()[0]
@@ -1159,24 +1195,14 @@ class EditCompanyAsOJT(View):
 
         picture = request.FILES.get("Profile")
         banner = request.FILES.get("Banner")
+        moa = request.FILES.get("Memorandum_Agreement")
 
         fs = FileSystemStorage()
         
         pictureFileName = None
         bannerFileName = None
+        moaFileName = None
 
-        if picture is not None:
-            picfiledir = str(company_name)+"/"+picture.name
-            pfn = fs.save(picfiledir, picture)
-            pictureFileName = fs.url(pfn)
-        else:
-            pictureFileName = "/static/img/profile.png"
-        if banner is not None:
-            bannerfiledir = str(company_name)+"/"+banner.name
-            bfn = fs.save(bannerfiledir, banner)
-            bannerFileName = fs.url(bfn)
-        else:
-            bannerFileName = "/static/img/Banner.jpg"
 
         with connection.cursor() as cursor:
             cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
@@ -1187,9 +1213,40 @@ class EditCompanyAsOJT(View):
 
             print('contact ID is here!')
             print(contact_id2)
+
+            cursor.execute("SELECT banner_image FROM company WHERE (company_id='{}') LIMIT 1".format(company_id))
+            banner_image=cursor.fetchone()[0]
+
+            cursor.execute("SELECT profile_image FROM company WHERE (company_id='{}') LIMIT 1".format(company_id))
+            profile_image=cursor.fetchone()[0]
+
+            cursor.execute("SELECT company_attachment FROM company WHERE (company_id='{}') LIMIT 1".format(company_id))
+            moaFile=cursor.fetchone()[0]
+
+        print(profile_image)
+
+        if picture is not None:
+            picfiledir = str(company_name)+"/"+picture.name
+            pfn = fs.save(picfiledir, picture)
+            pictureFileName = fs.url(pfn)
+        else:
+            pictureFileName = profile_image
         
+        if banner is not None:
+            bannerfiledir = str(company_name)+"/"+banner.name
+            bfn = fs.save(bannerfiledir, banner)
+            bannerFileName = fs.url(bfn)
+        else:
+            bannerFileName = banner_image
+        if moa is not None:
+            moafiledir = str(company_name)+"/"+moa.name
+            mfn = fs.save(moafiledir, moa)
+            moaFileName = fs.url(mfn)
+        else:
+            moaFileName = moaFile
+
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}', profile_image='{}', banner_image='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id, pictureFileName, bannerFileName, company_id))
+            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}', profile_image='{}', banner_image='{}', company_attachment='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName, company_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
             

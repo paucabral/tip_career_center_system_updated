@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Company` (
   `Industry_Type_industry_type_id` INT NOT NULL,
   `profile_image` VARCHAR(100) NULL,
   `banner_image` VARCHAR(100) NULL,
+  `company_attachment` VARCHAR(100) NULL,
   PRIMARY KEY (`company_id`),
   CONSTRAINT `fk_Company_Level_of_engagement1`
     FOREIGN KEY (`Level_of_engagement_level_of_engagement_id`)
@@ -751,3 +752,15 @@ COMMIT;
 
 -- Additional Code
 CREATE TABLE Accounts(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(50), last_name VARCHAR(50), username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(50), password TEXT NOT NULL, isAdmin tinyint(1), datecreated DATETIME default NOW(), session_id varchar(40));
+
+COMMIT;
+
+-- STORED PROC
+DELIMITER //
+CREATE PROCEDURE uspAddCompany(IN Qcompany_name varchar(45),IN Qcompany_address varchar(100),IN QIndustry_Type_industry_type_id int,IN QpictureFileName varchar(100),IN QbannerFileName varchar(100),IN QmoaFileName varchar(100))
+BEGIN
+  INSERT INTO company(company_name,company_address,Industry_Type_industry_type_id,profile_image,banner_image,company_attachment) VALUES(IN Qcompany_name,IN Qcompany_address,IN QIndustry_Type_industry_type_id,IN QpictureFileName,IN QbannerFileName,IN QmoaFileName);
+END //
+DELIMITER;
+
+COMMIT;
