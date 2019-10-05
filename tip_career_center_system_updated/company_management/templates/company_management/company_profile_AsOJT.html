@@ -151,7 +151,7 @@
     <div class='center'>
         <h5><b>Company Name:</b> {{ company.company_name }}</h5>
         <h5><b>Company Address:</b> {{ company.company_address }}</h5>
-		<button type="btn" class="btn btn-warning" id="Generate_PDF" name="Generate_PDF">Generate PDF</button>
+		<button type="btn" class="btn btn-warning" id="Generate_PDF" name="Generate_PDF"><a href="/company-management/administrator/company-profile/{{ company.company_id }}/PDF">Generate PDF</a></button>
         <h5><b>Primary Contact Person:</b> {{ contact_person.contact_person_fname }} {{ contact_person.contact_person_lname }}</h5>
         <h5><b>Secondary Contact Person:</b> {{ 2contact_person.contact_person_fname }} {{ 2contact_person.contact_person_lname }}</h5>
 		
