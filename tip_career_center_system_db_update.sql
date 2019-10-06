@@ -780,7 +780,7 @@ COMMIT//
 
 CREATE PROCEDURE uspUpdateCompany(IN Qcompany_name varchar(45), IN Qcompany_address varchar(100), IN QIndustry_Type_industry_type_id int, IN QpictureFileName varchar(100), IN QbannerFileName varchar(100), IN QmoaFileName varchar(100),Qcompany_id int)
 BEGIN
-UPDATE company SET company_name=Qcompany_name, company_address=Qcompany_address, Industry_Type_industry_type_id=QIndustry_Type_industry_type_id, profile_image=QpictureFileName, banner_image=QbannerFileName, company_attachment=QmoaFileName 
+UPDATE company SET company_name=Qcompany_name, company_address= Qcompany_address, Industry_Type_industry_type_id=QIndustry_Type_industry_type_id, profile_image=QpictureFileName, banner_image=QbannerFileName, company_attachment=QmoaFileName 
 WHERE company_id = Qcompany_id;
 END //
 COMMIT//
