@@ -1137,7 +1137,7 @@ class EditCompanyAsOJT(View):
                 cursor.execute(sqlAdmin)
                 resultAdmin = dictfetchall(cursor)[0]
         except KeyError:
-            return redirect('/')
+            return redirect('/') 
 
         if (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             print(self.kwargs['company_id'])

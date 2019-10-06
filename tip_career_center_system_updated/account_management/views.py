@@ -41,9 +41,6 @@ class Login(View):
                 allPass = "SELECT password FROM accounts"
                 cursor.execute(allPass)
                 resultAllPass = dictfetchall(cursor)
-                print("THE PASS")
-                print(resultPass)
-                print("COUNT STAR")
 
                 sqlSessions = "SELECT COUNT(*) FROM django_session"
                 cursor.execute(sqlSessions)
@@ -56,7 +53,7 @@ class Login(View):
         if result is None:
             return redirect ('/')
 
-        elif not (check_password(password,result['password'])) :
+        elif not (check_password(password,result['password'])):
             return redirect ('/')
 
         else:
