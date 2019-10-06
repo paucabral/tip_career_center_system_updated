@@ -755,12 +755,36 @@ CREATE TABLE Accounts(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(50),
 
 COMMIT;
 
--- STORED PROC
-DELIMITER //
-CREATE PROCEDURE uspAddCompany(IN Qcompany_name varchar(45),IN Qcompany_address varchar(100),IN QIndustry_Type_industry_type_id int,IN QpictureFileName varchar(100),IN QbannerFileName varchar(100),IN QmoaFileName varchar(100))
-BEGIN
-  INSERT INTO company(company_name,company_address,Industry_Type_industry_type_id,profile_image,banner_image,company_attachment) VALUES(IN Qcompany_name,IN Qcompany_address,IN QIndustry_Type_industry_type_id,IN QpictureFileName,IN QbannerFileName,IN QmoaFileName);
-END //
-DELIMITER;
+
+-- Additional Code
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`Accounts` ;
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Accounts`(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, first_name VARCHAR(50), last_name VARCHAR(50), username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(50), password TEXT NOT NULL, isAdmin tinyint(1), datecreated DATETIME default NOW(), session_id varchar(40));
 
 COMMIT;
+
+-- STORED PROC
+DELIMITER //
+CREATE PROCEDURE uspAddCompany(IN Qcompany_name varchar(45), IN Qcompany_address varchar(100), IN QIndustry_Type_industry_type_id int, IN QpictureFileName varchar(100), IN QbannerFileName varchar(100), IN QmoaFileName varchar(100))
+BEGIN
+INSERT INTO company(company_name, company_address, Industry_Type_industry_type_id, profile_image, banner_image, company_attachment)
+VALUES(Qcompany_name, Qcompany_address, QIndustry_Type_industry_type_id, QpictureFileName, QbannerFileName, QmoaFileName);
+END //
+COMMIT//
+
+CREATE PROCEDURE uspInsertContact(IN Qcontact_person_fname varchar(45) , IN Qcontact_person_lname varchar(45), IN Qcontact_person_position varchar(45),IN Qcontact_person_email varchar(45), IN Qcontact_person_no int, IN Qcontact_person_priority enum('PRIMARY','SECONDARY'), IN QCompany_company_id int)
+BEGIN
+INSERT INTO contact_person(contact_person_fname,contact_person_lname,contact_person_position,contact_person_email,contact_person_no,contact_person_priority,Company_company_id)
+VALUES(Qcontact_person_fname,Qcontact_person_lname,Qcontact_person_position,Qcontact_person_email,Qcontact_person_no,Qcontact_person_priority,QCompany_company_id);
+END //
+COMMIT//
+
+CREATE PROCEDURE uspUpdateCompany(IN Qcompany_name varchar(45), IN Qcompany_address varchar(100), IN QIndustry_Type_industry_type_id int, IN QpictureFileName varchar(100), IN QbannerFileName varchar(100), IN QmoaFileName varchar(100),Qcompany_id int)
+BEGIN
+UPDATE company SET company_name=Qcompany_name, company_address=Qcompany_address, Industry_Type_industry_type_id=QIndustry_Type_industry_type_id, profile_image=QpictureFileName, banner_image=QbannerFileName, company_attachment=QmoaFileName 
+WHERE company_id = Qcompany_id;
+END //
+COMMIT//
+
+
+
+DELIMITER ;

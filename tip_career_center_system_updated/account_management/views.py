@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.views import View
 from django.db import connection
 from django.contrib.auth.hashers import make_password, check_password
+from operator import itemgetter
 
 # Create your views here.
 def dictfetchall(cursor): 
@@ -20,7 +21,7 @@ class Login(View):
     def post(self, request, *args, **kwargs):
         username = request.POST.get("username") 
         password = request.POST.get("password")
-
+        session_id = request.session.session_key
         try:
             with connection.cursor() as cursor:
                 sql = "SELECT username, password FROM accounts WHERE username='{}'".format(username)
@@ -32,10 +33,30 @@ class Login(View):
                 sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
                 cursor.execute(sqlAdmin)
                 resultAdmin = dictfetchall(cursor)[0]
-        except IndexError:
+
+                getPass = "SELECT password FROM accounts WHERE username ='{}'".format(username)
+                cursor.execute(getPass)
+                resultPass = dictfetchall(cursor)[0]
+
+                allPass = "SELECT password FROM accounts"
+                cursor.execute(allPass)
+                resultAllPass = dictfetchall(cursor)
+                print("THE PASS")
+                print(resultPass)
+                print("COUNT STAR")
+
+                sqlSessions = "SELECT COUNT(*) FROM django_session"
+                cursor.execute(sqlSessions)
+                resultAllSessions = dictfetchall(cursor)
+                print(resultAllSessions)
+
+        except (IndexError, ValueError):
             result = None
         
         if result is None:
+            return redirect ('/')
+
+        elif not (check_password(password,result['password'])) :
             return redirect ('/')
 
         else:
@@ -57,7 +78,6 @@ class Register(View):
             print("PRINTED RESULTS FROM COUNT")
             print(result)
 
-         
             print("REGISTER REQUEST USER ADMIN")
             print(request.user)
             return render(request,template_name='account_management/signup.html',context={})
@@ -76,7 +96,7 @@ class Register(View):
             result = dictfetchall(cursor)
         if {'username':username} in result:
             print ("Username exists")
-            return redirect ("http://127.0.0.1:8000/registerAdmin/")
+            return redirect ("http://127.0.0.1:8000/register/")
             
         else:
             hashed_pass = make_password(password)

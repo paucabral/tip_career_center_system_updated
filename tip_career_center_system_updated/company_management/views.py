@@ -136,7 +136,7 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         # print(picurl)
 
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id,profile_image,banner_image, company_attachment) VALUES ('{}','{}',0,'{}','{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id,pictureFileName,bannerFileName,moaFileName))
+            cursor.callproc('uspAddCompany', [company_name, company_address, Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName])
             print("Company inserted")
 
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
@@ -146,9 +146,9 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
 
             cursor.execute("INSERT INTO company_has_activity VALUES({},1,0), ({},2,0), ({},3,0), ({},4,0), ({},5,0), ({},6,0), ({},7,0)".format(compny_id,compny_id,compny_id,compny_id,compny_id,compny_id,compny_id))
 
-            cursor.execute("INSERT INTO contact_person(contact_person_fname,contact_person_lname,contact_person_position,contact_person_email,contact_person_no,contact_person_priority,Company_company_id) VALUES ('{}','{}','{}','{}','{}','PRIMARY','{}')".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,compny_id))
+            cursor.callproc('uspInsertContact', [contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,'PRIMARY',compny_id])
             print("contact 1 inserted")
-            cursor.execute("INSERT INTO contact_person(contact_person_fname,contact_person_lname,contact_person_position,contact_person_email,contact_person_no,contact_person_priority,Company_company_id) VALUES ('{}','{}','{}','{}','{}','SECONDARY','{}')".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,compny_id))
+            cursor.callproc('uspInsertContact', [contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,'SECONDARY',compny_id])
             print("contact 2 inserted")
  #           connection.commit()
 
@@ -287,9 +287,9 @@ class EditCompanyAsAdmin(View):
             moaFileName = moaFile
 
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}', profile_image='{}', banner_image='{}', company_attachment='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName, company_id))
+            cursor.callproc('uspUpdateCompany',[company_name, company_address, Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName,company_id])
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
-            cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
+            cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))       
             
             connection.commit()
             print("VALUES INSERTED")
@@ -1096,21 +1096,18 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
         # print(picurl)
 
         with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO company(company_name,company_address,company_engagement_score,Industry_Type_industry_type_id,profile_image,banner_image, company_attachment) VALUES ('{}','{}',0,'{}','{}','{}','{}')".format(company_name,company_address,Industry_Type_industry_type_id,pictureFileName,bannerFileName,moaFileName))
-
+            cursor.callproc('uspAddCompany', [company_name, company_address, Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName])
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
             compny_id=cursor.fetchone()[0]
             print("COMPANY ID IS HERE")
             print(compny_id)
 
             cursor.execute("INSERT INTO company_has_activity VALUES({},1,0), ({},2,0), ({},3,0), ({},4,0), ({},5,0), ({},6,0), ({},7,0)".format(compny_id,compny_id,compny_id,compny_id,compny_id,compny_id,compny_id))
-
-            cursor.execute("INSERT INTO contact_person(contact_person_fname,contact_person_lname,contact_person_position,contact_person_email,contact_person_no,contact_person_priority,Company_company_id) VALUES ('{}','{}','{}','{}','{}','PRIMARY','{}')".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,compny_id))
-            print("contact 1 inserted")
-            cursor.execute("INSERT INTO contact_person(contact_person_fname,contact_person_lname,contact_person_position,contact_person_email,contact_person_no,contact_person_priority,Company_company_id) VALUES ('{}','{}','{}','{}','{}','SECONDARY','{}')".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,compny_id))
-            print("contact 2 inserted")
  #           connection.commit()
-
+            cursor.callproc('uspInsertContact', [contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,'PRIMARY',compny_id])
+            print("contact 1 inserted")
+            cursor.callproc('uspInsertContact', [contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,'SECONDARY',compny_id])
+            print("contact 2 inserted")
 #company_has_contact_person is removed in our new database.
 #            cursor.execute("SELECT contact_person_id FROM contact_person WHERE contact_person_priority='PRIMARY' ORDER BY contact_person_id DESC LIMIT 1")
 #            contact_id=cursor.fetchone()[0]
@@ -1246,7 +1243,7 @@ class EditCompanyAsOJT(View):
             moaFileName = moaFile
 
         with connection.cursor() as cursor:
-            cursor.execute("UPDATE company SET company_name='{}',company_address='{}', Industry_Type_industry_type_id='{}', profile_image='{}', banner_image='{}', company_attachment='{}' WHERE company_id={}".format(company_name,company_address,Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName, company_id))
+            cursor.callproc('uspUpdateCompany',[company_name, company_address, Industry_Type_industry_type_id, profile_image, banner_image, company_attachment])
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
             
