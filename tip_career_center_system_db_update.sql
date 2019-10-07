@@ -284,6 +284,11 @@ ENGINE = InnoDB;
 START TRANSACTION;
 USE `tip_career_center_system_db`;
 
+INSERT INTO `tip_career_center_system_db`.`level_of_engagement` VALUES(1,'Confederate Partner',5);
+INSERT INTO `tip_career_center_system_db`.`level_of_engagement` VALUES(2,'Associate Partner',26);
+INSERT INTO `tip_career_center_system_db`.`level_of_engagement` VALUES(3,'Executive Partner',47);
+
+
 INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'Internship');
 INSERT INTO `tip_career_center_system_db`.`activity` VALUES(2,'Externship');
 INSERT INTO `tip_career_center_system_db`.`activity` VALUES(3,'Scholarship');
@@ -785,6 +790,20 @@ WHERE company_id = Qcompany_id;
 END //
 COMMIT//
 
-
+DELIMITER //
+CREATE TRIGGER updateLevelOfEngagement 
+BEFORE UPDATE 
+ON Company
+FOR EACH ROW
+BEGIN 
+  IF company_engagement_score BETWEEN 4 AND 26 THEN
+  UPDATE Company SET Level_of_engagement_level_of_engagement_id = 1 WHERE company_id = (SELECT company_id FROM inserted); 
+  ELSEIF  company_engagement_score BETWEEN 25 AND 47 THEN
+  UPDATE Company SET Level_of_engagement_level_of_engagement_id = 2 WHERE company_id = (SELECT company_id FROM inserted);
+  ELSEIF company_engagement_score > 47 THEN
+  UPDATE Company SET Level_of_engagement_level_of_engagement_id = 3 WHERE company_id = (SELECT company_id FROM inserted);
+  END IF;
+END//
+COMMIT//
 
 DELIMITER ;
