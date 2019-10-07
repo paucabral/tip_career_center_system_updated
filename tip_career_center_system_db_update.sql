@@ -771,8 +771,8 @@ COMMIT;
 DELIMITER //
 CREATE PROCEDURE uspAddCompany(IN Qcompany_name varchar(45), IN Qcompany_address varchar(100), IN QIndustry_Type_industry_type_id int, IN QpictureFileName varchar(100), IN QbannerFileName varchar(100), IN QmoaFileName varchar(100))
 BEGIN
-INSERT INTO company(company_name, company_address, Industry_Type_industry_type_id, profile_image, banner_image, company_attachment)
-VALUES(Qcompany_name, Qcompany_address, QIndustry_Type_industry_type_id, QpictureFileName, QbannerFileName, QmoaFileName);
+INSERT INTO company(company_engagement_score,company_name, company_address, Industry_Type_industry_type_id, profile_image, banner_image, company_attachment)
+VALUES(0,Qcompany_name, Qcompany_address, QIndustry_Type_industry_type_id, QpictureFileName, QbannerFileName, QmoaFileName);
 END //
 COMMIT//
 
@@ -789,21 +789,40 @@ UPDATE company SET company_name=Qcompany_name, company_address= Qcompany_address
 WHERE company_id = Qcompany_id;
 END //
 COMMIT//
-
+/*
 DELIMITER //
-CREATE TRIGGER updateLevelOfEngagement 
+CREATE TRIGGER updateLevelOfEngagement123
 BEFORE UPDATE 
 ON Company
 FOR EACH ROW
 BEGIN 
-  IF company_engagement_score BETWEEN 4 AND 26 THEN
-  UPDATE Company SET Level_of_engagement_level_of_engagement_id = 1 WHERE company_id = (SELECT company_id FROM inserted); 
-  ELSEIF  company_engagement_score BETWEEN 25 AND 47 THEN
-  UPDATE Company SET Level_of_engagement_level_of_engagement_id = 2 WHERE company_id = (SELECT company_id FROM inserted);
-  ELSEIF company_engagement_score > 47 THEN
-  UPDATE Company SET Level_of_engagement_level_of_engagement_id = 3 WHERE company_id = (SELECT company_id FROM inserted);
+  IF NEW.company_engagement_score BETWEEN 4 AND 26 THEN
+  UPDATE company SET Level_of_engagement_level_of_engagement_id = 1 WHERE company_id = (NEW.company_id);
+  ELSEIF NEW.company_engagement_score BETWEEN 25 AND 47 THEN
+  UPDATE company SET Level_of_engagement_level_of_engagement_id = 2 WHERE company_id = (NEW.company_id);
+  ELSEIF NEW.company_engagement_score > 47 THEN
+  UPDATE company SET Level_of_engagement_level_of_engagement_id = 3 WHERE company_id = (NEW.company_id);
   END IF;
 END//
 COMMIT//
 
 DELIMITER ;
+
+DELIMITER //
+
+CREATE TRIGGER updateLevelOfEngagement321
+AFTER UPDATE 
+ON Company
+FOR EACH ROW
+BEGIN 
+  IF OLD.company_engagement_score BETWEEN 4 AND 26 THEN
+  UPDATE company SET Level_of_engagement_level_of_engagement_id = 1 WHERE company_id = (OLD.company_id);
+  ELSEIF OLD.company_engagement_score BETWEEN 25 AND 47 THEN
+  UPDATE company SET Level_of_engagement_level_of_engagement_id = 2 WHERE company_id = (OLD.company_id);
+  ELSEIF OLD.company_engagement_score > 47 THEN
+  UPDATE company SET Level_of_engagement_level_of_engagement_id = 3 WHERE company_id = (OLD.company_id);
+  END IF;
+END//
+COMMIT//
+
+DELIMITER ;*/
