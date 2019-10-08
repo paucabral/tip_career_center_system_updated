@@ -39,6 +39,18 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Industry_Type` (
   PRIMARY KEY (`industry_type_id`))
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `tip_career_center_system_db`.`activity_log`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`activity_log` ;
+
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`activity_log` (
+  `activity_id` INT NOT NULL AUTO_INCREMENT,
+  `table_name` VARCHAR(20) NULL,
+  `activity_name` VARCHAR(15) NULL,
+  `dateTimeOccurred` datetime NULL,
+  PRIMARY KEY (`activity_id`))
+ENGINE = InnoDB;
 
 -- -----------------------------------------------------
 -- Table `tip_career_center_system_db`.`Company`
@@ -826,3 +838,32 @@ END//
 COMMIT//
 
 DELIMITER ;*/
+DELIMITER //
+CREATE TRIGGER updateActivityLog_Insert
+AFTER INSERT
+ON company
+FOR EACH ROW
+BEGIN
+  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred) VALUES ('Company', 'Insert', now());
+END//
+COMMIT//
+
+CREATE TRIGGER updateActivityLog_Update
+AFTER UPDATE
+ON company
+FOR EACH ROW
+BEGIN
+  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred) VALUES ('Company', 'Update', now());
+END//
+COMMIT//
+
+CREATE TRIGGER updateActivityLog_Delete
+AFTER DELETE
+ON company
+FOR EACH ROW
+BEGIN
+  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred) VALUES ('Company', 'Delete', now());
+END//
+COMMIT//
+
+DELIMITER ;
