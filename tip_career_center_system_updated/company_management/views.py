@@ -687,6 +687,13 @@ class ViewCompanyCareerFairAsAdmin(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
                 career_fairs=dictfetchall(cursor)
+            
+            careerfair=career_fairs[0]
+            replace=careerfair['career_fair_attachment']
+            print(replace.decode("utf-8"))
+
+            career_fairs[0]['career_fair_attachment']=replace.decode("utf-8")
+            
             return render(request,template_name='company_management/company_profile_career_fairs_AsAdmin.html',context={"career_fairs":career_fairs})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
@@ -717,6 +724,12 @@ class ViewCompanyOnCampusRecruitmentAsAdmin(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
                 on_campus_recruitments=dictfetchall(cursor)
+            oncamp=on_campus_recruitments[0]
+            replace=oncamp['on_campus_recruitment_attachment']
+            print(replace.decode("utf-8"))
+
+            on_campus_recruitments[0]['on_campus_recruitment_attachment']=replace.decode("utf-8")
+
             return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsAdmin.html',context={"on_campus_recruitments":on_campus_recruitments})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
@@ -747,6 +760,14 @@ class ViewCompanyCareerDevelopmentTrainingAsAdmin(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
                 career_development_trainings=dictfetchall(cursor)
+
+            
+            career_dev=career_development_trainings[0]
+            replace=career_dev['career_development_training_attachment']
+            print(replace.decode("utf-8"))
+            
+            career_development_trainings[0]['career_development_training_attachment']=replace.decode("utf-8")
+
             return render(request,template_name='company_management/company_profile_career_development_trainings_AsAdmin.html',context={"career_development_trainings":career_development_trainings})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
@@ -1336,6 +1357,13 @@ class ViewCompanyCareerDevelopmentTrainingAsOJT(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
                 career_development_trainings=dictfetchall(cursor)
+
+            career_dev=career_development_trainings[0]
+            replace=career_dev['career_development_training_attachment']
+            print(replace.decode("utf-8"))
+
+            career_development_trainings[0]['career_development_training_attachment']=replace.decode("utf-8")
+            
             return render(request,template_name='company_management/company_profile_career_development_trainings_AsOJT.html',context={"career_development_trainings":career_development_trainings})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
@@ -1366,6 +1394,14 @@ class ViewCompanyCareerFairAsOJT(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
                 career_fairs=dictfetchall(cursor)
+            
+            careerfair=career_fairs[0]
+            replace=careerfair['career_fair_attachment']
+            print(replace.decode("utf-8"))
+
+            careerfair[0]['career_fair_attachment']=replace.decode("utf-8")
+            career_fairs[0]['career_fair_attachment']=replace.decode("utf-8")
+
             return render(request,template_name='company_management/company_profile_career_fairs_AsOJT.html',context={"career_fairs":career_fairs})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
@@ -1484,6 +1520,13 @@ class ViewCompanyOnCampusRecruitmentAsOJT(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
                 on_campus_recruitments=dictfetchall(cursor)
+            
+            oncamp=on_campus_recruitments[0]
+            replace=oncamp['on_campus_recruitment_attachment']
+            print(replace.decode("utf-8"))
+
+            on_campus_recruitments[0]['on_campus_recruitment_attachment']=replace.decode("utf-8")
+
             return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsOJT.html',context={"on_campus_recruitments":on_campus_recruitments})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
