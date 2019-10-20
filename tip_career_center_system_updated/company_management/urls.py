@@ -28,5 +28,5 @@ urlpatterns = [
     path('ojt/company-profile/<int:company_id>/5', views.ViewCompanyOnCampusRecruitmentAsOJT.as_view(),name="view_on_campus_recruitment_as_ojt"),
     path('ojt/company-profile/<int:company_id>/3', views.ViewCompanyScholarshipAsOJT.as_view(),name="view_company_scholarship_as_ojt"),
 
-    path('administrator/company-profile/<int:company_id>/PDF', views.PDFTemplateView.as_view(), name='PDFTemplateView'),
+    path('administrator/company-profile/<int:company_id>/PDF', views.GeneratePDF.as_view(), name='generate_pdf'),
 ]

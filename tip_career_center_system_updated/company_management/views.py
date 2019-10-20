@@ -5,6 +5,7 @@ from django.db import connection
 #for FilSystemsStorage
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from .utils import render_to_pdf
 # from django.utils.datastructures import MultiValueDictError
 import os
 
@@ -1565,28 +1566,63 @@ class ViewCompanyScholarshipAsOJT(View):
 
 # --- New views ~Zeus ---
 
-class PDFTemplateResponseMixin(TemplateResponseMixin):
-    pdf_kwargs = None
-    def get_pdf_kwargs(self):
-        if self.pdf_kwargs is None:
-            return {}
-        return copy.copy(self.pdf_kwargs)
+# class PDFTemplateResponseMixin(TemplateResponseMixin):
+#     pdf_kwargs = None
+#     def get_pdf_kwargs(self):
+#         if self.pdf_kwargs is None:
+#             return {}
+#         return copy.copy(self.pdf_kwargs)
 
-    def get_pdf_response(self, context, **response_kwargs):
-        return render_to_pdf_response(
-            request=self.request,
-            template=self.get_template_names(),
-            context=context,
-            using=self.template_engine,
-            **self.get_pdf_kwargs()
-        )
+#     def get_pdf_response(self, context, **response_kwargs):
+#         return render_to_pdf_response(
+#             request=self.request,
+#             template=self.get_template_names(),
+#             context=context,
+#             using=self.template_engine,
+#             **self.get_pdf_kwargs()
+#         )
 
-    def render_to_response(self, context, **response_kwargs):
-        return self.get_pdf_response(context, **response_kwargs)
+#     def render_to_response(self, context, **response_kwargs):
+#         return self.get_pdf_response(context, **response_kwargs)
 
-class PDFTemplateView(PDFTemplateResponseMixin, ContextMixin, View):
-    template_name = 'PDF/profilePDF.html'
+# class PDFTemplateView(PDFTemplateResponseMixin, ContextMixin, View):
+#     template_name = 'PDF/profilePDF.html'
 
+#     def get(self, request, *args, **kwargs):
+#         context = self.get_context_data(**kwargs)
+#         return self.render_to_response(context)
+
+# UPDATED PDF GENERATION
+
+class GeneratePDF(View):
     def get(self, request, *args, **kwargs):
-        context = self.get_context_data(**kwargs)
-        return self.render_to_response(context)
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+            
+
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='PRIMARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+            contact_id=cursor.fetchone()[0]
+            cursor.execute("SELECT contact_person_id FROM contact_person WHERE (Company_company_id='{}' AND contact_person_priority='SECONDARY') ORDER BY contact_person_id DESC LIMIT 1".format(company_id))
+            contact_id2=cursor.fetchone()[0]
+
+        print('contact ID is here!')
+        print(contact_id)
+
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM company WHERE company_id={}".format(company_id))
+            result1=dictfetchall(cursor)[0]
+            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id))
+            result2=dictfetchall(cursor)[0]
+            cursor.execute("SELECT * FROM contact_person WHERE contact_person_id={}".format(contact_id2))
+            result3=dictfetchall(cursor)[0]
+            print(result1)
+            cursor.execute("SELECT * FROM company_has_activity WHERE Company_company_id={}".format(company_id))
+            actResults=dictfetchall(cursor)
+            print(actResults)
+
+            cursor.execute("SELECT*FROM activity")
+            activities=dictfetchall(cursor)
+            print(activities[0])
+            
+        return HttpResponse(render_to_pdf(template_src='company_management/pdf.html',context_dict={"company":result1,"contact_person":result2,"2contact_person":result3, "companyActs":actResults, "activities":activities}),content_type='application/pdf')

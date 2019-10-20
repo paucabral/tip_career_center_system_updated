@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+    <head>
+        <title>{{ company.company_name }}</title>
+        <style type="text/css">
+            body {
+                font-weight: 200;
+                font-size: 14px;
+                font-family: sans-serif;
+            }
+            .header {
+                font-size: 20px;
+                font-weight: 100;
+                text-align: center;
+            }
+            .title {
+                font-size: 30px;
+                font-weight: 100;
+                text-transform: uppercase;
+               /* text-align: right;*/
+               padding-top:50px;
+               padding-left: 10px;
+               padding-right: 10px; 
+            }
+            .title span {
+                color: #007cae;
+            }
+            .details {
+                /* padding: 10px 20px 0px 20px; */
+                text-align: center;
+                /*margin-left: 40%;*/
+            }
+            .hrItem {
+                border: none;
+                height: 1px;
+                /* Set the hr color */
+                color: #333; /* old IE */
+                background-color: #fff; /* Modern Browsers */
+            }
+        </style>
+    </head>
+    <body>
+        <div class='wrapper'>
+            <div class='header'>
+                <p class='title'><b> {{ company.company_name }} </b></p>
+                <p style="font-size:16px; padding-top:-30px;"> {{ company.company_address }} </p>
+            </div>
+        <div>
+        <div style="align-items: center;">
+                {% if company.profile_image != None %}
+		        <img src="{{ company.profile_image }}"/>
+		        {% else %}
+		        <img src="{% static '/img/profile.png' %}"/>
+		        {% endif %}
+        </div>
+        <div class='details'>
+            </br>
+            </br>
+            </br>
+            <p style="font-size:16px;"><b> Primary Contact Person: </b></p>
+            <p style="font-size:16px; padding-top:-10px;">{{ contact_person.contact_person_fname }} {{ contact_person.contact_person_lname }}</p>
+            <p style="font-size:14px; padding-top:-20px;">{{ contact_person.contact_person_position }}</p>
+            <p style="font-size:16px;">{{ contact_person.contact_person_email }}</p>
+            <p style="font-size:14px; padding-top:-20px;">E-mail</p>
+            <p style="font-size:16px;">{{ contact_person.contact_person_no }}</p>
+            <p style="font-size:14px; padding-top:-20px;">Contact Number</p>
+            </br>
+            </br>
+            <p style="font-size:16px;"><b> Secondary Contact Person: </b></p>
+            <p style="font-size:16px; padding-top:-10px;">{{ 2contact_person.contact_person_fname }} {{ contact_person.contact_person_lname }}</p>
+            <p style="font-size:14px; padding-top:-20px;">{{ 2contact_person.contact_person_position }}</p>
+            <p style="font-size:16px;">{{ 2contact_person.contact_person_email }}</p>
+            <p style="font-size:14px; padding-top:-20px;">E-mail</p>
+            <p style="font-size:16px;">{{ 2contact_person.contact_person_no }}</p>
+            <p style="font-size:14px; padding-top:-20px;">Contact Number</p>
+        </div>
+    </div>
+    </body>
+</html>
