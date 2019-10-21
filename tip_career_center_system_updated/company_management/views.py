@@ -8,6 +8,7 @@ from django.conf import settings
 from .utils import render_to_pdf
 # from django.utils.datastructures import MultiValueDictError
 import os
+import PyPDF2
 
 # ------------------------- For PDF Generation ---------------------------------
 import copy
@@ -689,11 +690,12 @@ class ViewCompanyCareerFairAsAdmin(View):
                 cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
                 career_fairs=dictfetchall(cursor)
             
-            careerfair=career_fairs[0]
-            replace=careerfair['career_fair_attachment']
-            print(replace.decode("utf-8"))
+            for i in range(len(career_fairs)):
+                careerfair=career_fairs[i]
+                replace=careerfair['career_fair_attachment']
+                print(replace.decode("utf-8"))
 
-            career_fairs[0]['career_fair_attachment']=replace.decode("utf-8")
+                career_fairs[i]['career_fair_attachment']=replace.decode("utf-8")
             
             return render(request,template_name='company_management/company_profile_career_fairs_AsAdmin.html',context={"career_fairs":career_fairs})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
@@ -725,11 +727,13 @@ class ViewCompanyOnCampusRecruitmentAsAdmin(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
                 on_campus_recruitments=dictfetchall(cursor)
-            oncamp=on_campus_recruitments[0]
-            replace=oncamp['on_campus_recruitment_attachment']
-            print(replace.decode("utf-8"))
+            
+            for i in range(len(on_campus_recruitments)):
+                oncamp=on_campus_recruitments[i]
+                replace=oncamp['on_campus_recruitment_attachment']
+                print(replace.decode("utf-8"))
 
-            on_campus_recruitments[0]['on_campus_recruitment_attachment']=replace.decode("utf-8")
+                on_campus_recruitments[i]['on_campus_recruitment_attachment']=replace.decode("utf-8")
 
             return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsAdmin.html',context={"on_campus_recruitments":on_campus_recruitments})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
@@ -762,12 +766,12 @@ class ViewCompanyCareerDevelopmentTrainingAsAdmin(View):
                 cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
                 career_development_trainings=dictfetchall(cursor)
 
+            for i in range(len(career_development_trainings)):
+                career_dev=career_development_trainings[i]
+                replace=career_dev['career_development_training_attachment']
+                print(replace.decode("utf-8"))
             
-            career_dev=career_development_trainings[0]
-            replace=career_dev['career_development_training_attachment']
-            print(replace.decode("utf-8"))
-            
-            career_development_trainings[0]['career_development_training_attachment']=replace.decode("utf-8")
+                career_development_trainings[i]['career_development_training_attachment']=replace.decode("utf-8")
 
             return render(request,template_name='company_management/company_profile_career_development_trainings_AsAdmin.html',context={"career_development_trainings":career_development_trainings})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
@@ -1359,11 +1363,12 @@ class ViewCompanyCareerDevelopmentTrainingAsOJT(View):
                 cursor.execute("SELECT*FROM career_development_training WHERE Company_company_id={}".format(company_id))
                 career_development_trainings=dictfetchall(cursor)
 
-            career_dev=career_development_trainings[0]
-            replace=career_dev['career_development_training_attachment']
-            print(replace.decode("utf-8"))
+            for i in range(len(career_development_trainings)):
+                career_dev=career_development_trainings[i]
+                replace=career_dev['career_development_training_attachment']
+                print(replace.decode("utf-8"))
 
-            career_development_trainings[0]['career_development_training_attachment']=replace.decode("utf-8")
+                career_development_trainings[i]['career_development_training_attachment']=replace.decode("utf-8")
             
             return render(request,template_name='company_management/company_profile_career_development_trainings_AsOJT.html',context={"career_development_trainings":career_development_trainings})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
@@ -1396,12 +1401,12 @@ class ViewCompanyCareerFairAsOJT(View):
                 cursor.execute("SELECT*FROM career_fair WHERE Company_company_id={}".format(company_id))
                 career_fairs=dictfetchall(cursor)
             
-            careerfair=career_fairs[0]
-            replace=careerfair['career_fair_attachment']
-            print(replace.decode("utf-8"))
+            for i in range(len(career_fairs)):
+                careerfair=career_fairs[i]
+                replace=careerfair['career_fair_attachment']
+                print(replace.decode("utf-8"))
 
-            careerfair[0]['career_fair_attachment']=replace.decode("utf-8")
-            career_fairs[0]['career_fair_attachment']=replace.decode("utf-8")
+                career_fairs[i]['career_fair_attachment']=replace.decode("utf-8")
 
             return render(request,template_name='company_management/company_profile_career_fairs_AsOJT.html',context={"career_fairs":career_fairs})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
@@ -1522,11 +1527,12 @@ class ViewCompanyOnCampusRecruitmentAsOJT(View):
                 cursor.execute("SELECT*FROM on_campus_recruitment WHERE Company_company_id={}".format(company_id))
                 on_campus_recruitments=dictfetchall(cursor)
             
-            oncamp=on_campus_recruitments[0]
-            replace=oncamp['on_campus_recruitment_attachment']
-            print(replace.decode("utf-8"))
+            for i in range(len(on_campus_recruitments)):
+                oncamp=on_campus_recruitments[i]
+                replace=oncamp['on_campus_recruitment_attachment']
+                print(replace.decode("utf-8"))
 
-            on_campus_recruitments[0]['on_campus_recruitment_attachment']=replace.decode("utf-8")
+                on_campus_recruitments[i]['on_campus_recruitment_attachment']=replace.decode("utf-8")
 
             return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsOJT.html',context={"on_campus_recruitments":on_campus_recruitments})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
@@ -1626,3 +1632,56 @@ class GeneratePDF(View):
             print(activities[0])
             
         return HttpResponse(render_to_pdf(template_src='company_management/pdf.html',context_dict={"company":result1,"contact_person":result2,"2contact_person":result3, "companyActs":actResults, "activities":activities}),content_type='application/pdf')
+
+## MERGE 
+def PDFmerge(pdfs, output):  
+    # creating pdf file merger object 
+    pdfMerger = PyPDF2.PdfFileMerger() 
+      
+    # appending pdfs one by one 
+    for pdf in pdfs: 
+        with open(pdf, 'rb') as f: 
+            pdfMerger.append(f) 
+          
+    # writing combined pdf to output pdf file 
+    with open(output, 'wb') as f: 
+        pdfMerger.write(f) 
+
+class GeneratePDF2(View):
+    def get(self, request, *args, **kwargs):
+        
+        print(self.kwargs['company_id'])
+        company_id = self.kwargs['company_id']
+
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT company_name FROM company WHERE company_id='{}' LIMIT 1".format(company_id))
+            company_name=cursor.fetchone()[0]
+        
+        print(company_name)
+
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        
+        print(BASE_DIR)
+        pdfs = os.listdir("{}/media/{}/".format(BASE_DIR,company_name))
+        print(pdfs)
+        modifiedpdfs=[]
+
+        for i in pdfs:
+            i = "{}/media/{}/{}".format(BASE_DIR,company_name,i)
+            i=i.replace("\\","/")
+            # i = os.path.join(BASE_DIR,"media",company_name,i)
+            print(i)
+            modifiedpdfs.append(i)
+
+        print(modifiedpdfs)
+
+        output="{}/media/{}_attachments.pdf".format(BASE_DIR,company_name)
+        print(output)
+
+        PDFmerge(pdfs=modifiedpdfs,output=output)
+
+        return HttpResponse('Hello! ',company_name)
+
+    def post(self, request, *args, **kwargs):
+        pass
+         

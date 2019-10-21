@@ -51,8 +51,15 @@
 	 }
 	 #Generate_PDF{
 	 position:absolute;
-		top:80%;
+		top:50%;
 		left:222%;
+		width:200px;
+	 }
+	 #Generate_PDF2{
+	 position:absolute;
+		top:90%;
+		left:222%;
+		width:200px;
 	 }
     </style>
     <div class="container-fluid" style="background-color:#f8f9fa;">
@@ -80,7 +87,8 @@
     <div class='center'>
         <h5><b>Company Name:</b> {{ company.company_name }}</h5>
         <h5><b>Company Address:</b> {{ company.company_address }}</h5>
-		<button type="btn" class="btn btn-warning" id="Generate_PDF" name="Generate_PDF"><a href="/company-management/administrator/company-profile/{{ company.company_id }}/PDF">Generate PDF</a></button>
+		<button type="btn" class="btn btn-warning" id="Generate_PDF" name="Generate_PDF"><a href="/company-management/administrator/company-profile/{{ company.company_id }}/PDF">Generate Front Page</a></button>
+		<button type="btn" class="btn btn-warning" id="Generate_PDF2" name="Generate_PDF2"><a href="/company-management/administrator/company-profile/{{ company.company_id }}/PDF2">Compiled Attachments</a></button>
         <h5><b>Primary Contact Person:</b> {{ contact_person.contact_person_fname }} {{ contact_person.contact_person_lname }}</h5>
         <h5><b>Secondary Contact Person:</b> {{ 2contact_person.contact_person_fname }} {{ 2contact_person.contact_person_lname }}</h5>
 		

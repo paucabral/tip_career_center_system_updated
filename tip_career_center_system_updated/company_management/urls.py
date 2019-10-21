@@ -29,4 +29,5 @@ urlpatterns = [
     path('ojt/company-profile/<int:company_id>/3', views.ViewCompanyScholarshipAsOJT.as_view(),name="view_company_scholarship_as_ojt"),
 
     path('administrator/company-profile/<int:company_id>/PDF', views.GeneratePDF.as_view(), name='generate_pdf'),
+    path('administrator/company-profile/<int:company_id>/PDF2', views.GeneratePDF2.as_view(), name='generate_pdf'),
 ]
