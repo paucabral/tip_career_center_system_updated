@@ -1,78 +1,92 @@
 {% extends 'template.html' %}
     {% block content %}
-	<style>
-	.Activity1{
-		height: 100px;
-		width: 100px;
-		background-color:yellow;
-		margin-right:2%;
-		}
-	.Activity2{
-		height: 100px;
-		width: 100px;
-		background-color:red;
-		margin-right:2%;
-		}
-	.Activity3{
-		height: 100px;
-		width: 100px;
-		background-color:yellow;
-		margin-right:2%;
-		}
-	.Activity4{
-		height: 100px;
-		width: 100px;
-		background-color:red;
-		margin-right:2%;
-		}
-	.Activity5{
-		height: 100px;
-		width: 100px;
-		background-color:yellow;
-		margin-right:2%;
-		}
-	.Activity6{
-		height: 100px;
-		width: 100px;
-		background-color:red;
-		margin-right:2%;
-		}
-	.Activity7{
-		height: 100px;
-		width: 100px;
-		background-color:yellow;
-		margin-right:2%;
-		}
-	</style>
-        <div class="container parallax1">
-            <div class="jumbtron">
-            </br>
-        </br>
-    </br>
-                <h1>Welcome to TIP Career Center Company Linkages System!</h1>
-				<div class="row">
-					<div class="Activity1">
-						Activity 1
+    <style>
+    .card {
+/* Add shadows to create the "card" effect */
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+transition: 0.3s;
+height: 150px;
+width: 250px;
+margin-top: 25px;
+margin-bottom: 25px;
+}
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.card2 {
+/* Add shadows to create the "card" effect */
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+transition: 0.3s;
+height: 350px;
+width: 430px;
+margin-top: 25px;
+margin-bottom: 25px;
+}
+/* On mouse-over, add a deeper shadow */
+.card2:hover {
+box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Add some padding inside the card container */
+.activity {
+text-align: center;
+padding-top:20px;
+padding-bottom: 20px;
+}
+
+.header2 {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 1;
+    z-index: 1020;
+    background-color: #f8f9fa;
+    color:#1e1e1e;
+    text-align:left;
+    padding:1%;
+    font-family:sans-serif;
+    font-size:34px;
+    font-weight: bold;
+    letter-spacing: 0.15em;
+    border-bottom: 5px solid #1e1e1e;
+}
+    </style>
+        <header class="header2">Dashboard</header>
+        <div class="container-fluid parallax1">
+            <div class="jumbotron" style="background-color:rgba(60, 60, 60, 0.5)">
+			<div class="row">
+                <div class="col-6">
+					<div class="card activity" style="background-color:#fea3aa;"> <!-- count companies -->
+                        Registered Companies<hr>
+                        <label>10000</label>
 					</div>
-					<div class="Activity2">
-						Activity 2
+					<div class="card activity" style="background-color:#f8b88b;"> <!-- from activity log (if possible) -->
+                        Daily Visitors<hr>
+                        <label>1</label> 
 					</div>
-					<div class="Activity3">
-						Activity 3
+					<div class="card activity" style="background-color:#faf884;"> <!-- company with highest engagement score -->
+                        Highest Engagement<hr>
+                        <label>100000000</label>
+                    </div>
+                </div>
+                <div class="col-6">
+					<div class="card2 activity" style="background-color:#baed91;"> <!-- Any table or graph for analytics -->
+                        Total amount of scholarships per company<hr>
+                        <label>2</label>
 					</div>
-					<div class="Activity4">
-						Activity 4
+					<div class="card2 activity" style="background-color:#b2cefe;"> <!-- Optional -->
+                        Total amount of scholarships per company<hr>
+                        <label>3</label>
 					</div>
-					<div class="Activity5">
-						Activity 5
+					<div class="card2 activity" style="background-color:#f2a2e8;"> <!-- Optional -->
+                        Total amount of scholarships per company<hr>
+                        <label>1</label>
 					</div>
-					<div class="Activity6">
-						Activity 6
-					</div>
-					<div class="Activity7">
-						Activity 7
-					</div>
-				</div>
+					<div class="card2 activity" style="background-color:white;"> <!-- Optional -->
+						Total amount of scholarships per company <hr>
+                    </div>
+                </div>
+			</div>
                 <!-- <p>admin @ "administrator/admin.html" url pattern is working</p> -->
             </div>
         </div>
