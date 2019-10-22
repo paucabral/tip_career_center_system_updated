@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, FileResponse, Http404
 from django.views import View
 from django.db import connection
 #for FilSystemsStorage
@@ -8,13 +8,22 @@ from django.conf import settings
 from .utils import render_to_pdf
 # from django.utils.datastructures import MultiValueDictError
 import os
-import PyPDF2
+import io
+from reportlab.pdfgen import canvas
+# import PyPDF2
+
+from PyPDF2 import PdfFileReader, PdfFileWriter
+from PyPDF2.pdf import PageObject
 
 # ------------------------- For PDF Generation ---------------------------------
 import copy
 from django.views.generic.base import TemplateResponseMixin, ContextMixin, View
 from .PDFrendering import render_to_pdf_response
 # -----------------------------------------------------------------------------
+
+import sys
+
+sys.setrecursionlimit(5000)
 
 # Create your views here.
 def dictfetchall(cursor): 
@@ -1636,16 +1645,32 @@ class GeneratePDF(View):
 ## MERGE 
 def PDFmerge(pdfs, output):  
     # creating pdf file merger object 
-    pdfMerger = PyPDF2.PdfFileMerger() 
+    writer = PdfFileWriter()
       
-    # appending pdfs one by one 
-    for pdf in pdfs: 
-        with open(pdf, 'rb') as f: 
-            pdfMerger.append(f) 
+    # appending pdfs one by one
+
+
+    # for pdf in pdfs: 
+    #     with open(pdf, 'rb') as f: 
+    #         pdfMerger.append(f)
+
+
+    for pdf in pdfs:
+        reader = PdfFileReader(open(pdf,'rb'))
+        for i in range(reader.getNumPages()):
+            page = reader.getPage(i)
+            writer.addPage(page)
+
           
     # writing combined pdf to output pdf file 
     with open(output, 'wb') as f: 
-        pdfMerger.write(f) 
+        writer.write(f) 
+
+# def pdf_view(request):
+#     try:
+#         return FileResponse(open('/media/{}_attachments.pdf'.format(company_name),'rb'),content_type='application/pdf')
+#     except FileNotFoundError:
+#         raise Http404
 
 class GeneratePDF2(View):
     def get(self, request, *args, **kwargs):
@@ -1662,25 +1687,30 @@ class GeneratePDF2(View):
         BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
         
         print(BASE_DIR)
-        pdfs = os.listdir("{}/media/{}/".format(BASE_DIR,company_name))
+        pdfs =[f for f in os.listdir("{}/media/{}/".format(BASE_DIR,company_name)) if f.endswith('.pdf')] 
         print(pdfs)
         modifiedpdfs=[]
 
         for i in pdfs:
-            i = "{}/media/{}/{}".format(BASE_DIR,company_name,i)
-            i=i.replace("\\","/")
-            # i = os.path.join(BASE_DIR,"media",company_name,i)
-            print(i)
-            modifiedpdfs.append(i)
+            if i.endswith('.pdf'):
+                i = "{}/media/{}/{}".format(BASE_DIR,company_name,i)
+                i=i.replace("\\","/")
+                # i = os.path.join(BASE_DIR,"media",company_name,i)
+                print(i)
+                modifiedpdfs.append(i)
 
         print(modifiedpdfs)
 
         output="{}/media/{}_attachments.pdf".format(BASE_DIR,company_name)
+        output=output.replace("\\","/")
         print(output)
 
         PDFmerge(pdfs=modifiedpdfs,output=output)
-
-        return HttpResponse('Hello! ',company_name)
+    
+        # return HttpResponse('Hello! ',company_name)
+        #return FileResponse(open("{}/media/{}_attachments.pdf".format(BASE_DIR,company_name)),content_type='application/pdf')
+        # return FileResponse(buffer, as_attachment=True, filename=output)
+        return HttpResponseRedirect('/media/{}_attachments.pdf'.format(company_name))
 
     def post(self, request, *args, **kwargs):
         pass
