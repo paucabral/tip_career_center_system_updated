@@ -47,13 +47,14 @@ padding-bottom: 20px;
     font-weight: bold;
     letter-spacing: 0.15em;
     border-bottom: 5px solid #1e1e1e;
+	text-align:center;
 }
     </style>
         <header class="header2">Dashboard</header>
         <div class="container-fluid parallax1">
             <div class="jumbotron" style="background-color:rgba(60, 60, 60, 0.5)">
 			<div class="row">
-                <div class="col-6">
+                <div class="col-2">
 					<div class="card activity" style="background-color:#fea3aa;"> <!-- count companies -->
                         Career Development Training<hr>
                         <label>10000</label>
@@ -83,22 +84,41 @@ padding-bottom: 20px;
                         <label>100000000</label>
                     </div>
                 </div>
-                <div class="col-6">
-					<div class="card2 activity" style="background-color:#baed91;"> <!-- Any table or graph for analytics -->
-                        Total amount of scholarships per company<hr>
-                        <label>2</label>
-					</div>
-					<div class="card2 activity" style="background-color:#b2cefe;"> <!-- Optional -->
-                        Total amount of scholarships per company<hr>
-                        <label>3</label>
-					</div>
-					<div class="card2 activity" style="background-color:#f2a2e8;"> <!-- Optional -->
-                        Total amount of scholarships per company<hr>
-                        <label>1</label>
-					</div>
-					<div class="card2 activity" style="background-color:white;"> <!-- Optional -->
-						Total amount of scholarships per company <hr>
-                    </div>
+                <div class="col-10">
+					<div class="table-responsive">
+                    <!--<h1>Main page test</h1>
+                    <p>index @ "--blank--" url pattern is working</p>-->
+                        <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
+                          <thead>
+                            <tr>
+                              <th colspan="9" style="text-align:center;color:#1e1e1e">Companies</th>
+                            </tr>
+                            <tr >
+                              <th>ID</th>
+                              <th>Name</th>
+                              <th>Address</th>
+                              <th>Engagement Points</th>
+                              <th>Level of Engagement</th>
+                              <th colspan="9"></th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                                <tr>
+                                  <td>a</td>
+                                  <td>b</td>
+                                  <td>c</td>
+                                  <td>d</td>
+                                    <td>Confederate Partner</td>
+                                    <td>Associate Partner</td>
+                                    <td>Executive Partner</td>
+                                    <td>NA</td>
+                                  <td>
+								  a
+                                  </td>
+                                </tr>
+                          </tbody>
+                      </table>
+            </div>
                 </div>
 			</div>
                 <!-- <p>admin @ "administrator/admin.html" url pattern is working</p> -->
