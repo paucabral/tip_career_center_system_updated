@@ -10,6 +10,7 @@ width: 250px;
 margin-top: 25px;
 margin-bottom: 25px;
 }
+
 /* On mouse-over, add a deeper shadow */
 .card:hover {
 box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
@@ -32,6 +33,8 @@ box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 text-align: center;
 padding-top:20px;
 padding-bottom: 20px;
+background-color:#f9e000;
+border: 2px solid black;
 }
 .header2 {
     position: -webkit-sticky;
@@ -47,58 +50,73 @@ padding-bottom: 20px;
     font-weight: bold;
     letter-spacing: 0.15em;
     border-bottom: 5px solid #1e1e1e;
+	text-align:center;
+}
+.hr {
+    border: 1px solid black;
+    
 }
     </style>
         <header class="header2">Dashboard</header>
         <div class="container-fluid parallax1">
             <div class="jumbotron" style="background-color:rgba(60, 60, 60, 0.5)">
 			<div class="row">
-                <div class="col-6">
-					<div class="card activity" style="background-color:#fea3aa;"> <!-- count companies -->
-                        Career Development Training<hr>
+                <div class="col-3">
+					<div class="card activity"> <!-- count companies -->
+                        Career Development Training<hr class="hr">
                         <label>10000</label>
 					</div>
-					<div class="card activity" style="background-color:#f8b88b;"> <!-- from activity log (if possible) -->
-                        Career Fair<hr>
+					<div class="card activity"> <!-- from activity log (if possible) -->
+                        Career Fair<hr class="hr">
                         <label>1</label> 
 					</div>
-					<div class="card activity" style="background-color:#faf884;"> <!-- company with highest engagement score -->
-                        Externships<hr>
+					<div class="card activity"> <!-- company with highest engagement score -->
+                        Externships<hr class="hr">
                         <label>100000000</label>
                     </div>
-					<div class="card activity" style="background-color:#faf886;"> <!-- company with highest engagement score -->
-                        Internships<hr>
+					<div class="card activity"> <!-- company with highest engagement score -->
+                        Internships<hr class="hr">
                         <label>100000000</label>
                     </div>
-					<div class="card activity" style="background-color:#faf884;"> <!-- company with highest engagement score -->
-                        Mock Job Interviews<hr>
+					<div class="card activity"> <!-- company with highest engagement score -->
+                        Mock Job Interviews<hr class="hr">
                         <label>100000000</label>
                     </div>
-					<div class="card activity" style="background-color:#faf884;"> <!-- company with highest engagement score -->
-                        On Campus Recruitments<hr>
+					<div class="card activity"> <!-- company with highest engagement score -->
+                        On Campus Recruitments<hr class="hr">
                         <label>100000000</label>
                     </div>
-					<div class="card activity" style="background-color:#faf884;"> <!-- company with highest engagement score -->
-                        Scholarships<hr>
+					<div class="card activity"> <!-- company with highest engagement score -->
+                        Scholarships<hr class="hr">
                         <label>100000000</label>
                     </div>
                 </div>
-                <div class="col-6">
-					<div class="card2 activity" style="background-color:#baed91;"> <!-- Any table or graph for analytics -->
-                        Total amount of scholarships per company<hr>
-                        <label>2</label>
-					</div>
-					<div class="card2 activity" style="background-color:#b2cefe;"> <!-- Optional -->
-                        Total amount of scholarships per company<hr>
-                        <label>3</label>
-					</div>
-					<div class="card2 activity" style="background-color:#f2a2e8;"> <!-- Optional -->
-                        Total amount of scholarships per company<hr>
-                        <label>1</label>
-					</div>
-					<div class="card2 activity" style="background-color:white;"> <!-- Optional -->
-						Total amount of scholarships per company <hr>
-                    </div>
+                <div class="col-8">
+					<div class="table-responsive">
+                    <!--<h1>Main page test</h1>
+                    <p>index @ "--blank--" url pattern is working</p>-->
+                        <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
+                          <thead>
+                            <tr>
+                              <th colspan="6" style="text-align:center;color:#1e1e1e">Companies</th>
+                            </tr>
+                            <tr style="text-align:center;">
+                              <th>Company ID</th>
+                              <th>Name</th>
+                              <th>Scholarship amount</th>
+                              <th></th>
+                            </tr>
+                          </thead>
+                          <tbody style="text-align:center;">
+                                <tr>
+                                  <td>a</td>
+                                  <td>b</td>
+                                  <td>c</td>
+								  <th></th>
+                                </tr>
+                          </tbody>
+                      </table>
+            </div>
                 </div>
 			</div>
                 <!-- <p>admin @ "administrator/admin.html" url pattern is working</p> -->
