@@ -108,12 +108,19 @@ border: 2px solid black;
                             </tr>
                           </thead>
                           <tbody style="text-align:center;">
+                            {% for c in Company %}
                                 <tr>
-                                  <td>a</td>
-                                  <td>b</td>
-                                  <td>c</td>
+                                
+                                  <td>{{ c.company_id }}</td>
+
+                                  <td>{{ c.company_name }}</td>
+
+                                  <td>{{ c.total }}</td>
+
 								  <th></th>
+
                                 </tr>
+                            {% endfor %}
                           </tbody>
                       </table>
             </div>

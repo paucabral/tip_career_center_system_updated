@@ -16,8 +16,44 @@ def dictfetchall(cursor):
 
 class Login(View):
     def get(self, request, *args, **kwargs):
+        '''with connection.cursor() as cursor:
+            sqlcheck = "SELECT count(session_key) FROM django_session"
+            cursor.execute(sqlcheck)
+            resultcheck = dictfetchall(cursor)[0]
+        
+        print ("RESULT OF USERNAME")
+        print (resultcheck)
+        print ("EXTRACTED")
+        getval = resultcheck.get('count(session_key)')
+        print(getval)
+        if getval == 0:'''
         return render(request,template_name='account_management/login.html',context={})
-     
+        '''else:
+            try:
+                session_id = request.session.session_key
+                uname_dict = request.session["current_user"] 
+                username = uname_dict.get('username')
+                with connection.cursor() as cursor:
+                    checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                    cursor.execute(checkSesh) 
+                    checkSeshResult = dictfetchall(cursor)[0]
+                    current_sesh = checkSeshResult.get('session_id')
+                    sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                    cursor.execute(sqlAdmin)
+                    resultAdmin = dictfetchall(cursor)[0]
+            except KeyError:
+                return redirect('/')
+
+            if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+                return redirect('/company-management/administrator/')
+            elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
+                return redirect('/company-management/ojt/')
+            elif (getval>0):
+                with connection.cursor() as cursor:
+                    sql = "DELETE FROM django_session"
+                    cursor.execute(sql)
+                return render(request,template_name='account_management/login.html',context={})'''
+
     def post(self, request, *args, **kwargs):
         username = request.POST.get("username") 
         password = request.POST.get("password")
@@ -57,6 +93,9 @@ class Login(View):
             return redirect ('/')
 
         else:
+            with connection.cursor() as cursor:
+                sql = "DELETE FROM django_session WHERE session_key not in (SELECT session_id FROM accounts)"
+                cursor.execute(sql)
             print(check_password(password,result['password']))
             if check_password(password,result['password']) and resultAdmin == {'isAdmin': 1}:
                 request.session["current_user"] = {"username":username}
@@ -102,3 +141,78 @@ class Register(View):
                 cursor.execute(sql)
                 connection.commit()
             return redirect('/')
+
+class AdminViewActivityLogs(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT * FROM activity_log")
+                result = dictfetchall(cursor)
+            #     for i in result:
+            #         print(i['company_id'])
+            #         print("First")
+            # print(result[0]['company_id'])
+            return render(request,template_name='account_management/adminview_activitylogs.html',context={'activity_log':result})
+        else:
+            return redirect ('/')
+
+class AdminManageAccounts(View):
+    def get(self, request, *args, **kwargs):
+        try:
+            session_id = request.session.session_key
+            uname_dict = request.session["current_user"] 
+            username = uname_dict.get('username')
+            with connection.cursor() as cursor:
+                checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
+                cursor.execute(checkSesh) 
+                checkSeshResult = dictfetchall(cursor)[0]
+                current_sesh = checkSeshResult.get('session_id')
+                sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
+                cursor.execute(sqlAdmin)
+                resultAdmin = dictfetchall(cursor)[0]
+        except KeyError:
+            return redirect('/')
+
+        if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT id, username, password FROM accounts")
+                result = dictfetchall(cursor)
+            return render(request,template_name='account_management/adminManage_Accounts.html',context={'accounts':result})
+        else:
+            return redirect ('/')
+
+    def post(self, request, *args, **kwargs):
+        User_idDel = request.POST['DeleteID']
+        print ("DELETE ID: ", User_idDel)
+        action = request.POST['ActionBTN']
+        print ("ACTION ID: ", action)
+        newsername =  request.POST.get("changeuser_{}".format(User_idDel))
+        newpassword = request.POST.get("changepassword_{}".format(User_idDel))
+        newhashedpass = make_password(newpassword)
+       
+        if action == '1':
+            with connection.cursor() as cursor:
+                cursor.execute("DELETE FROM accounts WHERE id={}".format(User_idDel))
+       
+        else:
+            print("USERNAME: ", newsername)
+            print ("HASHEDPASS: ", newhashedpass)
+            with connection.cursor() as cursor:
+                cursor.execute("UPDATE accounts set username ='{}', password='{}' WHERE id='{}'".format(newsername, newhashedpass, User_idDel))
+
+        return redirect('/account-management/manage-accounts/') 

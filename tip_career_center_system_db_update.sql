@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`activity_log` (
   `table_name` VARCHAR(20) NULL,
   `activity_name` VARCHAR(15) NULL,
   `dateTimeOccurred` datetime NULL,
+  `user` VARCHAR(50) NULL,
   PRIMARY KEY (`activity_id`))
 ENGINE = InnoDB;
 
@@ -278,7 +279,7 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Contact_Person` (
   `contact_person_fname` VARCHAR(45) NULL,
   `contact_person_lname` VARCHAR(45) NULL,
   `contact_person_email` VARCHAR(45) NULL,
-  `contact_person_no` INT NULL,
+  `contact_person_no` VARCHAR(20) NULL,
   `contact_person_priority` ENUM('PRIMARY', 'SECONDARY') NULL,
   `Company_company_id` INT NOT NULL,
   `contact_person_position` VARCHAR(45) NULL,
@@ -766,11 +767,11 @@ INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `
 INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (463, 'Non-Operating Establishments');
 
 COMMIT;
-
+/*
 -- Additional Code
 CREATE TABLE Accounts(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(50), last_name VARCHAR(50), username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(50), password TEXT NOT NULL, isAdmin tinyint(1), datecreated DATETIME default NOW(), session_id varchar(40));
 
-COMMIT;
+COMMIT;*/
 
 
 -- Additional Code
@@ -779,8 +780,19 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Accounts`(id INT PRIMA
 
 COMMIT;
 
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`Temp_logs` ;
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Temp_logs`(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, temp_username VARCHAR(50) NOT NULL);
+
+COMMIT;
+
 -- STORED PROC
 DELIMITER //
+CREATE PROCEDURE uspAddtoTemplog(IN Qtemp_username varchar(50))
+BEGIN
+INSERT INTO Temp_logs(temp_username) 
+VALUES(Qtemp_username);
+END//
+COMMIT//
 
 CREATE PROCEDURE uspAddCompany(IN Qcompany_name varchar(45), IN Qcompany_address varchar(100), IN QIndustry_Type_industry_type_id int, IN QpictureFileName varchar(100), IN QbannerFileName varchar(100), IN QmoaFileName varchar(100))
 BEGIN
@@ -846,7 +858,8 @@ AFTER INSERT
 ON company
 FOR EACH ROW
 BEGIN
-  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred) VALUES ('Company', 'Insert', now());
+  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred, user) VALUES ('Company', 'Insert', now(), (SELECT temp_username from Temp_logs));
+  DELETE FROM Temp_logs;
 END//
 COMMIT//
 
@@ -855,7 +868,8 @@ AFTER UPDATE
 ON company
 FOR EACH ROW
 BEGIN
-  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred) VALUES ('Company', 'Update', now());
+  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred, user) VALUES ('Company', 'Update', now(), (SELECT temp_username from Temp_logs));
+  DELETE FROM Temp_logs;
 END//
 COMMIT//
 
@@ -864,7 +878,8 @@ AFTER DELETE
 ON company
 FOR EACH ROW
 BEGIN
-  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred) VALUES ('Company', 'Delete', now());
+  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred, user) VALUES ('Company', 'Delete', now(), (SELECT temp_username from Temp_logs));
+  DELETE FROM Temp_logs;
 END//
 COMMIT//
 

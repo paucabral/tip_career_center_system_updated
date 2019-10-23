@@ -56,7 +56,10 @@ class Administrator(View):
             return redirect('/')
 
         if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
-            return render(request,template_name='company_management/administrator.html',context={})
+            with connection.cursor() as cursor:
+                cursor.execute("SELECT company_id, company_name, sum(scholarship_amount) as total FROM company c inner join scholarship s on c.company_id=s.company_company_id GROUP BY company_id  DESC")
+                result = dictfetchall(cursor)
+            return render(request,template_name='company_management/administrator.html',context={'Company':result})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/')
         else:
@@ -91,6 +94,8 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
 
     def post(self, request, *args, **kwargs):
         print("POST Function reached")
+        uname_dict = request.session['current_user'] 
+        username = uname_dict.get('username')
         # Company
         company_name = request.POST["company_name"]
         company_address = request.POST["company_address"]
@@ -149,6 +154,7 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
         # print(picurl)
 
         with connection.cursor() as cursor:
+            cursor.callproc('uspAddtoTemplog',[username])
             cursor.callproc('uspAddCompany', [company_name, company_address, Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName])
             print("Company inserted")
 
@@ -161,7 +167,7 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
 
             cursor.callproc('uspInsertContact', [contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,'PRIMARY',compny_id])
             print("contact 1 inserted")
-            cursor.callproc('uspInsertContact', [contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,'SECONDARY',compny_id])
+            cursor.callproc('uspInsertContact', [seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,'SECONDARY',compny_id])
             print("contact 2 inserted")
  #           connection.commit()
 
@@ -227,6 +233,8 @@ class EditCompanyAsAdmin(View):
             return redirect('/')
 
     def post(self, request, *args, **kwargs):
+        uname_dict = request.session["current_user"] 
+        username = uname_dict.get('username')
         print("POST Function reached")
         company_id = self.kwargs['company_id']
         company_name = request.POST["company_name"]
@@ -300,6 +308,7 @@ class EditCompanyAsAdmin(View):
             moaFileName = moaFile
 
         with connection.cursor() as cursor:
+            cursor.callproc('uspAddtoTemplog',[username])
             cursor.callproc('uspUpdateCompany',[company_name, company_address, Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName,company_id])
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))       
@@ -310,7 +319,8 @@ class EditCompanyAsAdmin(View):
 
 class ManageCompaniesAsAdmin(View):
     def post(self, request, *args, **kwargs):
-
+        uname_dict = request.session["current_user"] 
+        username = uname_dict.get('username')
         # companies=cursor.fetchall()
 
         # for i in companies:
@@ -319,6 +329,7 @@ class ManageCompaniesAsAdmin(View):
 
         company_id = request.POST["company_id"]
         with connection.cursor() as cursor:
+            cursor.callproc('uspAddtoTemplog',[username])
             cursor.execute("DELETE FROM contact_person WHERE Company_company_id='{}'".format(company_id))
             
             cursor.execute("DELETE FROM company_has_activity WHERE Company_company_id='{}'".format(company_id))
@@ -1078,6 +1089,8 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
             return redirect('/')
 
     def post(self, request, *args, **kwargs):
+        uname_dict = request.session["current_user"] 
+        username = uname_dict.get('username')
         print("POST Function reached")
         # Company
         company_name = request.POST["company_name"]
@@ -1137,7 +1150,9 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
         # print(picurl)
 
         with connection.cursor() as cursor:
+            cursor.callproc('uspAddtoTemplog',[username])
             cursor.callproc('uspAddCompany', [company_name, company_address, Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName])
+            
             cursor.execute("SELECT company_id FROM company ORDER BY company_id DESC LIMIT 1")#Moved this here so I get company_id. Needed it in inserting the contact persons...
             compny_id=cursor.fetchone()[0]
             print("COMPANY ID IS HERE")
@@ -1147,7 +1162,7 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
  #           connection.commit()
             cursor.callproc('uspInsertContact', [contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,'PRIMARY',compny_id])
             print("contact 1 inserted")
-            cursor.callproc('uspInsertContact', [contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,'SECONDARY',compny_id])
+            cursor.callproc('uspInsertContact', [seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,'SECONDARY',compny_id])
             print("contact 2 inserted")
 #company_has_contact_person is removed in our new database.
 #            cursor.execute("SELECT contact_person_id FROM contact_person WHERE contact_person_priority='PRIMARY' ORDER BY contact_person_id DESC LIMIT 1")
@@ -1211,6 +1226,8 @@ class EditCompanyAsOJT(View):
             return redirect ('/')
 
     def post(self, request, *args, **kwargs):
+        uname_dict = request.session["current_user"] 
+        username = uname_dict.get('username')
         print("POST Function reached")
         company_id = self.kwargs['company_id']
         company_name = request.POST["company_name"]
@@ -1284,7 +1301,8 @@ class EditCompanyAsOJT(View):
             moaFileName = moaFile
 
         with connection.cursor() as cursor:
-            cursor.callproc('uspUpdateCompany',[company_name, company_address, Industry_Type_industry_type_id, profile_image, banner_image, company_attachment])
+            cursor.callproc('uspAddtoTemplog',[username])
+            cursor.callproc('uspUpdateCompany',[company_name, company_address, Industry_Type_industry_type_id, pictureFileName, bannerFileName, moaFileName,company_id])
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='PRIMARY'".format(contactperson_fname,contactperson_lname,contactperson_position,contactperson_email,contactperson_number,contact_id))
             cursor.execute("UPDATE contact_person SET contact_person_fname='{}',contact_person_lname='{}',contact_person_position='{}',contact_person_email='{}',contact_person_no='{}' WHERE contact_person_id='{}' AND contact_person_priority='SECONDARY'".format(seccontactperson_fname,seccontactperson_lname,seccontactperson_position,seccontactperson_email,seccontactperson_number,contact_id2))
             

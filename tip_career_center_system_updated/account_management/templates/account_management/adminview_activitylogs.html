@@ -1,0 +1,47 @@
+{% extends 'template.html' %}
+{% load static %}
+    {% block content %}
+        <div class="container-fluid parallax1" style="padding-left:50px;padding-right:50px">
+        <div class="row">
+          <div class="col" style="background-color:rgba(207, 207, 207, 0.7);padding-left:75px;padding-right:75px;padding-top:50px;padding-bottom:50px">
+          <div class="table-responsive">
+                    <!--<h1>Main page test</h1>
+                    <p>index @ "--blank--" url pattern is working</p>-->
+                        <table id="tableID" class="display nowrap dataTable dtr-inline collapsed" width="80%">
+                          <thead>
+                            <tr>
+                              <th colspan="8" style="text-align:center;color:#1e1e1e">Activity Log</th>
+                            </tr>
+                            <tr >
+                              <th>ID</th>
+                              <th>Modifications on</th>
+                              <th>Transaction</th>
+                              <th>Date and Time Occurred</th>
+                              <th>User</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                              {% for c in activity_log %}
+                                <tr>
+                                  <td>{{ c.activity_id }}</td>
+                                  <td>{{ c.table_name }}</td>
+                                  <td>{{ c.activity_name }}</td>
+                                  <td>{{ c.dateTimeOccurred }}</td>
+                                  <td>{{ c.user }}</td>
+                                </tr>
+                              {% endfor %}
+                          </tbody>
+                      </table>
+            </div>
+            </div>
+          </div>
+            <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
+            <script>
+                $(document).ready( function () {
+                $('#tableID').DataTable();
+            } );
+            </script>
+        </div>
+    
+    {% endblock %}
