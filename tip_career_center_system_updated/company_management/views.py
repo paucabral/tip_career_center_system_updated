@@ -132,7 +132,7 @@ class AddCompanyAsAdmin(View):#Made some changes here. ##contactperson --> conta
             bannerFileName = "/static/img/Banner.jpg"
         
         if moa is not None:
-            moafiledir= str(company_name)+"/"+moa.name
+            moafiledir= str(company_name)+"/"+ "0000-moa-" +moa.name
             mfn = fs.save(moafiledir, moa)
             moaFileName = fs.url(mfn)
         else:
@@ -291,7 +291,7 @@ class EditCompanyAsAdmin(View):
         else:
             bannerFileName = banner_image
         if moa is not None:
-            moafiledir = str(company_name)+"/"+moa.name
+            moafiledir = str(company_name)+"/"+"0000-moa-" +moa.name
             mfn = fs.save(moafiledir, moa)
             moaFileName = fs.url(mfn)
         else:
@@ -1116,7 +1116,7 @@ class AddCompanyAsOJT(View):#Made some changes here. ##contactperson --> contact
             bannerFileName = "/static/img/Banner.jpg"
         
         if moa is not None:
-            moafiledir= str(company_name)+"/"+moa.name
+            moafiledir= str(company_name)+"/"+ "0000-moa-" +moa.name
             mfn = fs.save(moafiledir, moa)
             moaFileName = fs.url(mfn)
         else:
@@ -1271,7 +1271,7 @@ class EditCompanyAsOJT(View):
         else:
             bannerFileName = banner_image
         if moa is not None:
-            moafiledir = str(company_name)+"/"+moa.name
+            moafiledir = str(company_name)+"/"+ "0000-moa-" +moa.name
             mfn = fs.save(moafiledir, moa)
             moaFileName = fs.url(mfn)
         else:
