@@ -10,6 +10,8 @@ from .utils import render_to_pdf
 import os
 import io
 from reportlab.pdfgen import canvas
+
+from datetime import datetime
 # import PyPDF2
 
 from PyPDF2 import PdfFileReader, PdfFileWriter
@@ -494,18 +496,22 @@ class ViewCompanyAsAdmin(View):
             print("HAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
             print(company_name)
             print(company_id)
+
+            now = datetime.now()
+            date_time = now.strftime("%Y%m%d%H%M%S")
+            print(date_time)
             if career_fair_attachment is not None:
-                cfadir = company_name+"/"+career_fair_attachment.name
+                cfadir = company_name+"/"+date_time+career_fair_attachment.name
                 cfa_filename = fs.save(cfadir, career_fair_attachment)
                 cfa_path = fs.url(cfa_filename)
 
             if on_campus_recruitment_attachment is not None:
-                ocrdir = company_name+"/"+on_campus_recruitment_attachment.name
+                ocrdir = company_name+"/"+date_time+on_campus_recruitment_attachment.name
                 ocr_filename = fs.save(ocrdir, on_campus_recruitment_attachment)
                 ocr_path = fs.url(ocr_filename)
             
             if career_development_training_attachments is not None:
-                cdtdir = company_name+"/"+career_development_training_attachments.name
+                cdtdir = company_name+"/"+date_time+career_development_training_attachments.name
                 cdt_filename = fs.save(cdtdir, career_development_training_attachments)
                 cdt_path = fs.url(cdt_filename)
 
