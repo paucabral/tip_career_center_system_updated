@@ -64,31 +64,31 @@ border: 2px solid black;
                 <div class="col-3">
 					<div class="card activity"> <!-- count companies -->
                         Career Development Training<hr class="hr">
-                        <label>10000</label>
+                       <label>  {% for c in cdt %} <div>{{ c.total }}</div> {% endfor %}</label>
 					</div>
 					<div class="card activity"> <!-- from activity log (if possible) -->
                         Career Fair<hr class="hr">
-                        <label>1</label> 
+                        <label>{% for c in cf %} <div>{{ c.total }}</div> {% endfor %}</label> 
 					</div>
 					<div class="card activity"> <!-- company with highest engagement score -->
                         Externships<hr class="hr">
-                        <label>100000000</label>
+                        <label>{% for c in ext %} <div>{{ c.total }}</div> {% endfor %}</label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
                         Internships<hr class="hr">
-                        <label>100000000</label>
+                        <label>{% for c in int %} <div>{{ c.total }}</div> {% endfor %}</label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
                         Mock Job Interviews<hr class="hr">
-                        <label>100000000</label>
+                        <label>{% for c in mji %} <div>{{ c.total }}</div> {% endfor %}</label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
                         On Campus Recruitments<hr class="hr">
-                        <label>100000000</label>
+                        <label>{% for c in ocr %} <div>{{ c.total }}</div> {% endfor %}</label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
                         Scholarships<hr class="hr">
-                        <label>100000000</label>
+                        <label>{% for c in scho %} <div>{{ c.total }}</div> {% endfor %}</label>
                     </div>
                 </div>
                 <div class="col-8">

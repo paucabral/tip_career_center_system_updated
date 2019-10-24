@@ -59,7 +59,29 @@ class Administrator(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT company_id, company_name, sum(scholarship_amount) as total FROM company c inner join scholarship s on c.company_id=s.company_company_id GROUP BY company_id  DESC")
                 result = dictfetchall(cursor)
-            return render(request,template_name='company_management/administrator.html',context={'Company':result})
+
+                cursor.execute("SELECT count(*) as total FROM career_development_training")
+                cdtresult = dictfetchall(cursor)
+
+                cursor.execute("SELECT count(*) as total FROM career_fair")
+                cfresult = dictfetchall(cursor)
+
+                cursor.execute("SELECT count(*) as total FROM externship")
+                extresult = dictfetchall(cursor)
+
+                cursor.execute("SELECT count(*) as total FROM intership")
+                intresult = dictfetchall(cursor)
+
+                cursor.execute("SELECT count(*) as total FROM mock_job_interview")
+                mjiresult = dictfetchall(cursor)
+
+                cursor.execute("SELECT count(*) as total FROM on_campus_recruitment")
+                ocrresult = dictfetchall(cursor)
+
+                cursor.execute("SELECT count(*) as total FROM scholarship")
+                schoresult = dictfetchall(cursor)
+
+            return render(request,template_name='company_management/administrator.html',context={'Company':result, "cdt":cdtresult, "cf":cfresult, "ext":extresult, "int":intresult, "mji":mjiresult, "ocr":ocrresult, "scho":schoresult})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/')
         else:
