@@ -57,28 +57,28 @@ class Administrator(View):
 
         if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             with connection.cursor() as cursor:
-                cursor.execute("SELECT company_id, company_name, sum(scholarship_amount) as total FROM company c inner join scholarship s on c.company_id=s.company_company_id GROUP BY company_id  DESC")
+                cursor.execute("SELECT company_id, company_name, sum(scholarship_amount) as total FROM company c inner join scholarship s on c.company_id=s.company_company_id GROUP BY company_id ORDER BY total DESC")
                 result = dictfetchall(cursor)
 
-                cursor.execute("SELECT count(*) as total FROM career_development_training")
+                cursor.execute("SELECT company_name, count(*) as total FROM company c inner join career_development_training cdt on c.company_id=cdt.company_company_id GROUP BY company_id ORDER BY total DESC LIMIT 1")
                 cdtresult = dictfetchall(cursor)
 
-                cursor.execute("SELECT count(*) as total FROM career_fair")
+                cursor.execute("SELECT company_name, count(*) as total FROM company c inner join career_fair cf on c.company_id=cf.company_company_id GROUP BY company_id ORDER BY total DESC LIMIT 1")
                 cfresult = dictfetchall(cursor)
 
-                cursor.execute("SELECT count(*) as total FROM externship")
+                cursor.execute("SELECT company_name, count(*) as total FROM company c inner join externship ext on c.company_id=ext.company_company_id GROUP BY company_id ORDER BY total DESC LIMIT 1")
                 extresult = dictfetchall(cursor)
 
-                cursor.execute("SELECT count(*) as total FROM intership")
+                cursor.execute("SELECT company_name, count(*) as total FROM company c inner join intership i on c.company_id=i.company_company_id GROUP BY company_id ORDER BY total DESC LIMIT 1")
                 intresult = dictfetchall(cursor)
 
-                cursor.execute("SELECT count(*) as total FROM mock_job_interview")
+                cursor.execute("SELECT company_name, count(*) as total FROM company c inner join mock_job_interview mji on c.company_id=mji.company_company_id GROUP BY company_id ORDER BY total DESC LIMIT 1")
                 mjiresult = dictfetchall(cursor)
 
-                cursor.execute("SELECT count(*) as total FROM on_campus_recruitment")
+                cursor.execute("SELECT company_name, count(*) as total FROM company c inner join on_campus_recruitment ocr on c.company_id=ocr.company_company_id GROUP BY company_id ORDER BY total DESC LIMIT 1")
                 ocrresult = dictfetchall(cursor)
 
-                cursor.execute("SELECT count(*) as total FROM scholarship")
+                cursor.execute("SELECT company_name, count(*) as total FROM company c inner join scholarship scho on c.company_id=scho.company_company_id GROUP BY company_id ORDER BY total DESC LIMIT 1")
                 schoresult = dictfetchall(cursor)
 
             return render(request,template_name='company_management/administrator.html',context={'Company':result, "cdt":cdtresult, "cf":cfresult, "ext":extresult, "int":intresult, "mji":mjiresult, "ocr":ocrresult, "scho":schoresult})

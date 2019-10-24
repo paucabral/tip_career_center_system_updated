@@ -63,32 +63,40 @@ border: 2px solid black;
 			<div class="row">
                 <div class="col-3">
 					<div class="card activity"> <!-- count companies -->
-                        Career Development Training<hr class="hr">
-                       <label>  {% for c in cdt %} <div>{{ c.total }}</div> {% endfor %}</label>
+                        <strong>Career Development Training</strong><hr class="hr">
+                        {% for c in cdt %}   <label> {% if c.total is None %}  No Data Available  {% elif c.total != None %} <div> <strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }} </div> {% endif %} </label> {% endfor %}
 					</div>
 					<div class="card activity"> <!-- from activity log (if possible) -->
-                        Career Fair<hr class="hr">
-                        <label>{% for c in cf %} <div>{{ c.total }}</div> {% endfor %}</label> 
+                        <strong>Career Fair</strong><hr class="hr">
+                        {% for c in cf %} <label>{% if cf.company_name == None %} <div><strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }} </div> {% elif cf.company_name != None %} No Data {% endif %} </label>  {% endfor %}
 					</div>
 					<div class="card activity"> <!-- company with highest engagement score -->
-                        Externships<hr class="hr">
-                        <label>{% for c in ext %} <div>{{ c.total }}</div> {% endfor %}</label>
+                        <strong>Externships</strong> <hr class="hr">
+                        <label>{% for c in ext %} <div><strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }} </div> {% endfor %}</label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
-                        Internships<hr class="hr">
-                        <label>{% for c in int %} <div>{{ c.total }}</div> {% endfor %}</label>
+                        <strong>Internships</strong><hr class="hr">
+                        {% for c in int %} 
+                        <label> 
+                            {% if int.company_name is None %}
+                        NO DATA
+                            {% else %}
+                        <div> <strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }}  </div>
+                            {% endif %}
+                        </label>
+                        {% endfor %}
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
-                        Mock Job Interviews<hr class="hr">
-                        <label>{% for c in mji %} <div>{{ c.total }}</div> {% endfor %}</label>
+                        <strong>Mock Job Interviews</strong><hr class="hr">
+                        <label><div><strong> Top Company:</strong> {{ mjiresult.company_name }}  <br> <strong>Total #:</strong> {{ mjiresult.total }} </div></label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
-                        On Campus Recruitments<hr class="hr">
-                        <label>{% for c in ocr %} <div>{{ c.total }}</div> {% endfor %}</label>
+                        <strong>On Campus Recruitments</strong><hr class="hr">
+                        <label>{% for c in ocr %} <div><strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }} </div> {% endfor %}</label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
-                        Scholarships<hr class="hr">
-                        <label>{% for c in scho %} <div>{{ c.total }}</div> {% endfor %}</label>
+                        <strong>Scholarships</strong><hr class="hr">
+                        <label>{% for c in scho %} <div><strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }} </div> {% endfor %}</label>
                     </div>
                 </div>
                 <div class="col-8">
