@@ -16,7 +16,7 @@ def dictfetchall(cursor):
 
 class Login(View):
     def get(self, request, *args, **kwargs):
-        '''with connection.cursor() as cursor:
+        with connection.cursor() as cursor:
             sqlcheck = "SELECT count(session_key) FROM django_session"
             cursor.execute(sqlcheck)
             resultcheck = dictfetchall(cursor)[0]
@@ -26,9 +26,9 @@ class Login(View):
         print ("EXTRACTED")
         getval = resultcheck.get('count(session_key)')
         print(getval)
-        if getval == 0:'''
-        return render(request,template_name='account_management/login.html',context={})
-        '''else:
+        if getval == 0:
+            return render(request,template_name='account_management/login.html',context={})
+        else:
             try:
                 session_id = request.session.session_key
                 uname_dict = request.session["current_user"] 
@@ -52,7 +52,7 @@ class Login(View):
                 with connection.cursor() as cursor:
                     sql = "DELETE FROM django_session"
                     cursor.execute(sql)
-                return render(request,template_name='account_management/login.html',context={})'''
+                return render(request,template_name='account_management/login.html',context={})
 
     def post(self, request, *args, **kwargs):
         username = request.POST.get("username") 

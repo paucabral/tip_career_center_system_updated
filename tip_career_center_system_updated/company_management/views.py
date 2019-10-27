@@ -81,6 +81,7 @@ class Administrator(View):
                 cursor.execute("SELECT company_name, count(*) as total FROM company c inner join scholarship scho on c.company_id=scho.company_company_id GROUP BY company_id ORDER BY total DESC LIMIT 1")
                 schoresult = dictfetchall(cursor)
 
+            print(intresult)
             return render(request,template_name='company_management/administrator.html',context={'Company':result, "cdt":cdtresult, "cf":cfresult, "ext":extresult, "int":intresult, "mji":mjiresult, "ocr":ocrresult, "scho":schoresult})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/')

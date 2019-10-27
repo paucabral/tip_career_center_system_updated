@@ -76,19 +76,11 @@ border: 2px solid black;
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
                         <strong>Internships</strong><hr class="hr">
-                        {% for c in int %} 
-                        <label> 
-                            {% if int.company_name is None %}
-                        NO DATA
-                            {% else %}
-                        <div> <strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }}  </div>
-                            {% endif %}
-                        </label>
-                        {% endfor %}
+                        <label>{% for c in intr %} <div><strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }} </div> {% endfor %}</label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
                         <strong>Mock Job Interviews</strong><hr class="hr">
-                        <label><div><strong> Top Company:</strong> {{ mjiresult.company_name }}  <br> <strong>Total #:</strong> {{ mjiresult.total }} </div></label>
+                        <label> {% for c in mji %} <div><strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }} </div> {% endfor %}</label>
                     </div>
 					<div class="card activity"> <!-- company with highest engagement score -->
                         <strong>On Campus Recruitments</strong><hr class="hr">
