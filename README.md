@@ -40,6 +40,6 @@
   <li>Create the database schema using the tip_career_center_system_updated.sql. The file can be executed using MySQL workbench. The database ERD can be viewed using MySQL Workbench by using the tip_career_center_system_db_erd</li>
   <li>Navigate to the folder location of mange.py file. Open CMD on this folder</li>
   <li>Run the script: "python manage.py migrate" (without quotation marks) to migrate required the Django entities on the database.</li>
-  <li>Run the script: "python manage.py runserver" to run the program.</li>
+  <li>Run the script: "python manage.py runserver" to run the system on localhost.</li>
   <li>On a web browser, enter "localhost:8000" (without quotation marks) on the address bar to go to the homepage.</li>
 </ol>
