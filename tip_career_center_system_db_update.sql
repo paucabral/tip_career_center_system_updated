@@ -801,7 +801,7 @@ VALUES(0,Qcompany_name, Qcompany_address, QIndustry_Type_industry_type_id, Qpict
 END //
 COMMIT//
 
-CREATE PROCEDURE uspInsertContact(IN Qcontact_person_fname varchar(45) , IN Qcontact_person_lname varchar(45), IN Qcontact_person_position varchar(45),IN Qcontact_person_email varchar(45), IN Qcontact_person_no int, IN Qcontact_person_priority enum('PRIMARY','SECONDARY'), IN QCompany_company_id int)
+CREATE PROCEDURE uspInsertContact(IN Qcontact_person_fname varchar(45) , IN Qcontact_person_lname varchar(45), IN Qcontact_person_position varchar(45),IN Qcontact_person_email varchar(45), IN Qcontact_person_no varchar(20), IN Qcontact_person_priority enum('PRIMARY','SECONDARY'), IN QCompany_company_id int)
 BEGIN
 INSERT INTO contact_person(contact_person_fname,contact_person_lname,contact_person_position,contact_person_email,contact_person_no,contact_person_priority,Company_company_id)
 VALUES(Qcontact_person_fname,Qcontact_person_lname,Qcontact_person_position,Qcontact_person_email,Qcontact_person_no,Qcontact_person_priority,QCompany_company_id);
