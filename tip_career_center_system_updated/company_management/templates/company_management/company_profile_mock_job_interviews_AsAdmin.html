@@ -28,7 +28,11 @@
     <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
     <script>
         $(document).ready( function () {
-        $('#tableID').DataTable();
-    } );
+        $('#tableID').DataTable(
+            {
+                dom: 'Bftrip',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+            }   );
+    }   );
     </script>
     {% endblock %}

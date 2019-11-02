@@ -648,7 +648,7 @@ class ViewCompanyInternshipAsAdmin(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM intership WHERE Company_company_id={}".format(company_id))
                 internships=dictfetchall(cursor)
-            return render(request,template_name='company_management/company_profile_internships_AsAdmin.html',context={"internships":internships})
+            return render(request,template_name='company_management/company_profile_internships_AsAdmin.html',context={"internships":internships,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
         else:
@@ -678,7 +678,7 @@ class ViewCompanyExternshipAsAdmin(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM externship WHERE Company_company_id={}".format(company_id))
                 externships=dictfetchall(cursor)
-            return render(request,template_name='company_management/company_profile_externships_AsAdmin.html',context={"externships":externships})
+            return render(request,template_name='company_management/company_profile_externships_AsAdmin.html',context={"externships":externships,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
         else:
@@ -708,7 +708,7 @@ class ViewCompanyScholarshipAsAdmin(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM scholarship WHERE Company_company_id={}".format(company_id))
                 scholarships=dictfetchall(cursor)
-            return render(request,template_name='company_management/company_profile_scholarships_AsAdmin.html',context={"scholarships":scholarships})
+            return render(request,template_name='company_management/company_profile_scholarships_AsAdmin.html',context={"scholarships":scholarships,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/ojt/manage-companies/')
         else:
@@ -746,7 +746,7 @@ class ViewCompanyCareerFairAsAdmin(View):
 
                 career_fairs[i]['career_fair_attachment']=replace.decode("utf-8")
             
-            return render(request,template_name='company_management/company_profile_career_fairs_AsAdmin.html',context={"career_fairs":career_fairs})
+            return render(request,template_name='company_management/company_profile_career_fairs_AsAdmin.html',context={"career_fairs":career_fairs,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
         else:
@@ -784,7 +784,7 @@ class ViewCompanyOnCampusRecruitmentAsAdmin(View):
 
                 on_campus_recruitments[i]['on_campus_recruitment_attachment']=replace.decode("utf-8")
 
-            return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsAdmin.html',context={"on_campus_recruitments":on_campus_recruitments})
+            return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsAdmin.html',context={"on_campus_recruitments":on_campus_recruitments,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
         else:
@@ -822,7 +822,7 @@ class ViewCompanyCareerDevelopmentTrainingAsAdmin(View):
             
                 career_development_trainings[i]['career_development_training_attachment']=replace.decode("utf-8")
 
-            return render(request,template_name='company_management/company_profile_career_development_trainings_AsAdmin.html',context={"career_development_trainings":career_development_trainings})
+            return render(request,template_name='company_management/company_profile_career_development_trainings_AsAdmin.html',context={"career_development_trainings":career_development_trainings,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
         else:
@@ -852,7 +852,7 @@ class ViewCompanyMockJobInterviewAsAdmin(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM mock_job_interview WHERE Company_company_id={}".format(company_id))
                 mock_job_interviews=dictfetchall(cursor)
-            return render(request,template_name='company_management/company_profile_mock_job_interviews_AsAdmin.html',context={"mock_job_interviews":mock_job_interviews})
+            return render(request,template_name='company_management/company_profile_mock_job_interviews_AsAdmin.html',context={"mock_job_interviews":mock_job_interviews,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
             return redirect('/company-management/ojt/manage-companies/')
         else:
@@ -1426,7 +1426,7 @@ class ViewCompanyCareerDevelopmentTrainingAsOJT(View):
 
                 career_development_trainings[i]['career_development_training_attachment']=replace.decode("utf-8")
             
-            return render(request,template_name='company_management/company_profile_career_development_trainings_AsOJT.html',context={"career_development_trainings":career_development_trainings})
+            return render(request,template_name='company_management/company_profile_career_development_trainings_AsOJT.html',context={"career_development_trainings":career_development_trainings,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
         else:
@@ -1464,7 +1464,7 @@ class ViewCompanyCareerFairAsOJT(View):
 
                 career_fairs[i]['career_fair_attachment']=replace.decode("utf-8")
 
-            return render(request,template_name='company_management/company_profile_career_fairs_AsOJT.html',context={"career_fairs":career_fairs})
+            return render(request,template_name='company_management/company_profile_career_fairs_AsOJT.html',context={"career_fairs":career_fairs,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
         else:
@@ -1494,7 +1494,7 @@ class ViewCompanyExternshipAsOJT(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM externship WHERE Company_company_id={}".format(company_id))
                 externships=dictfetchall(cursor)
-            return render(request,template_name='company_management/company_profile_externships_AsOJT.html',context={"externships":externships})
+            return render(request,template_name='company_management/company_profile_externships_AsOJT.html',context={"externships":externships,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
         else:
@@ -1524,7 +1524,7 @@ class ViewCompanyInternshipAsOJT(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM intership WHERE Company_company_id={}".format(company_id))
                 internships=dictfetchall(cursor)
-            return render(request,template_name='company_management/company_profile_internships_AsOJT.html',context={"internships":internships})
+            return render(request,template_name='company_management/company_profile_internships_AsOJT.html',context={"internships":internships,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
         else: 
@@ -1553,7 +1553,7 @@ class ViewCompanyMockJobInterviewAsOJT(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM mock_job_interview WHERE Company_company_id={}".format(company_id))
                 mock_job_interviews=dictfetchall(cursor)
-            return render(request,template_name='company_management/company_profile_mock_job_interviews_AsOJT.html',context={"mock_job_interviews":mock_job_interviews})
+            return render(request,template_name='company_management/company_profile_mock_job_interviews_AsOJT.html',context={"mock_job_interviews":mock_job_interviews,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
         else:
@@ -1590,7 +1590,7 @@ class ViewCompanyOnCampusRecruitmentAsOJT(View):
 
                 on_campus_recruitments[i]['on_campus_recruitment_attachment']=replace.decode("utf-8")
 
-            return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsOJT.html',context={"on_campus_recruitments":on_campus_recruitments})
+            return render(request,template_name='company_management/company_profile_on_campus_recruitments_AsOJT.html',context={"on_campus_recruitments":on_campus_recruitments,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
         else:
@@ -1620,7 +1620,7 @@ class ViewCompanyScholarshipAsOJT(View):
             with connection.cursor() as cursor:
                 cursor.execute("SELECT*FROM scholarship WHERE Company_company_id={}".format(company_id))
                 scholarships=dictfetchall(cursor)
-            return render(request,template_name='company_management/company_profile_scholarships_AsOJT.html',context={"scholarships":scholarships})
+            return render(request,template_name='company_management/company_profile_scholarships_AsOJT.html',context={"scholarships":scholarships,"company_id":company_id})
         elif (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
             return redirect('/company-management/administrator/manage-companies/')
         else:

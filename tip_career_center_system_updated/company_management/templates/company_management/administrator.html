@@ -129,4 +129,13 @@ border: 2px solid black;
                 <!-- <p>admin @ "administrator/admin.html" url pattern is working</p> -->
             </div>
         </div>
+        <script>
+            $(document).ready( function () {
+            $('#tableID').DataTable(
+                {
+                    dom: 'Bftrip',
+                    buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                }   );
+        }   );
+        </script>
     {% endblock %}    

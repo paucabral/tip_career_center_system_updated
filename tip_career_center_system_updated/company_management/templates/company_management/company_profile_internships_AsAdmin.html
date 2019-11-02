@@ -1,7 +1,6 @@
 {% extends 'template.html' %}
 {% load static %}
     {% block content %}
-
     <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
         <thead>
                 <tr>
@@ -27,12 +26,14 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
     <script>
         $(document).ready( function () {
-        $('#tableID').DataTable();
-    } );
+        $('#tableID').DataTable(
+            {
+                dom: 'Bftrip',
+                buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+            }   );
+    }   );
     </script>
+    
     {% endblock %}

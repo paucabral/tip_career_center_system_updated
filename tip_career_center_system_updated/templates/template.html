@@ -17,8 +17,6 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/datatables.min.css' %}"/>
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 
-    </script>
-
     <link rel="stylesheet" href="{% static 'css/jquery-ui.css' %}">
     <script src="{% static 'js/jquery-ui.min.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/chosen.min.css' %}">
@@ -127,6 +125,7 @@
     <script src="{% static 'js/popper.js' %}"></script>
     <!-- Bootstrap JS -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
     <script>
         $('#deletemodal').on('shown.bs.modal', function () {
         $('#deletebtn').trigger('focus')    
@@ -135,5 +134,6 @@
     <script type="text/javascript">
         $(".custom-select").chosen();
     </script>
+    <script type="text/javascript" src="{% static 'css/datatables.min.js' %}"></script>
 </body>
 </html>

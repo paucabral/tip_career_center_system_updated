@@ -74,10 +74,14 @@
             <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/datatables.min.js' %}"></script>
             <script>
-                $(document).ready( function () {
-                $('#tableID').DataTable();
-            } );
-            </script>
+              $(document).ready( function () {
+              $('#tableID').DataTable(
+                  {
+                      dom: 'Bftrip',
+                      buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+                  }   );
+          }   );
+          </script>
         </div>
     
     {% endblock %}
