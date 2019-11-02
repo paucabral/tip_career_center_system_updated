@@ -62,6 +62,7 @@
 		width:200px;
 	 }
     </style>
+	<div class="contain1" style="margin-right:11%;">
     <div class="container-fluid" style="background-color:#f8f9fa;">
 	<header class="header2">
 		{% if company.banner_image != None %}
@@ -95,7 +96,7 @@
     </div>
     <div class="row"></div>
     <div class="col" style="padding-left:100px;padding-right:100px;padding-top:50px;padding-bottom:50px">
-    <div class="table-responsive">
+    <div class="table-responsive" style="overflow-x:hidden;">
     <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
         <thead>
                 <tr>
@@ -141,6 +142,7 @@
     <button type="btn" class="btn btn-warning" style="float:right" data-toggle="modal" data-target="#modalform">Add an Activity</button>
     </div>
     </div>
+	</div>
     <div class="modal fade" id="modalform" style="margin-top:20px;overflow:unset;" tabindex="-1" role="dialog" aria-labelledby="true" data-backdrop="false" data-keyboard="false">
         <form method="POST" enctype="multipart/form-data">{% csrf_token %}
         <div class="modal-dialog cascading-modal modal-dialog-centered modal-xl" style="width:100%" role="document">
