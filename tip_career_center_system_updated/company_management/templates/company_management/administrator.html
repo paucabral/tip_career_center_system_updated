@@ -54,14 +54,13 @@ border: 2px solid black;
 }
 .hr {
     border: 1px solid black;
-    
 }
     </style>
         <header class="header2">Dashboard</header>
         <div class="container-fluid parallax1">
             <div class="jumbotron" style="background-color:rgba(60, 60, 60, 0.5)">
 			<div class="row">
-                <div class="col-3">
+                <div class="col-2">
 					<div class="card activity"> <!-- count companies -->
                         <strong>Career Development Training</strong><hr class="hr">
                         {% for c in cdt %}   <label> {% if c.total is None %}  No Data Available  {% elif c.total != None %} <div> <strong> Top Company:</strong> {{ c.company_name }}  <br> <strong>Total #:</strong> {{ c.total }} </div> {% endif %} </label> {% endfor %}
@@ -92,7 +91,7 @@ border: 2px solid black;
                     </div>
                 </div>
                 <div class="col-8">
-					<div class="table-responsive">
+					<div class="table">
                     <!--<h1>Main page test</h1>
                     <p>index @ "--blank--" url pattern is working</p>-->
                         <table id="tableID" class="display nowrap dataTable dtr-inline collapsed">
@@ -123,7 +122,7 @@ border: 2px solid black;
                             {% endfor %}
                           </tbody>
                       </table>
-            </div>
+					</div>
                 </div>
 			</div>
                 <!-- <p>admin @ "administrator/admin.html" url pattern is working</p> -->
