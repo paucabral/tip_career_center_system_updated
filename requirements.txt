@@ -1,0 +1,5 @@
+Django
+MySQLClient
+PyMySQL
+PyPDF2
+xhtml2pdf
