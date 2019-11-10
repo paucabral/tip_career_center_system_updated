@@ -37,22 +37,27 @@ class Login(View):
                     checkSesh = "SELECT session_id FROM accounts WHERE username = '{}'".format(username)
                     cursor.execute(checkSesh) 
                     checkSeshResult = dictfetchall(cursor)[0]
+                    
                     current_sesh = checkSeshResult.get('session_id')
                     sqlAdmin = "SELECT isAdmin FROM accounts WHERE username='{}'".format(username)
                     cursor.execute(sqlAdmin)
                     resultAdmin = dictfetchall(cursor)[0]
             except KeyError:
-                return redirect('/')
+                return render(request,template_name='account_management/login.html',context={})
 
             if (session_id == current_sesh and resultAdmin == {'isAdmin': 1}):
                 return redirect('/company-management/administrator/')
             elif (session_id == current_sesh and resultAdmin == {'isAdmin': 0}):
                 return redirect('/company-management/ojt/')
-            elif (getval>0):
-                with connection.cursor() as cursor:
-                    sql = "DELETE FROM django_session"
-                    cursor.execute(sql)
+            else:
                 return render(request,template_name='account_management/login.html',context={})
+           # else:
+            #    return render(request,template_name='account_management/login.html',context={})
+            #elif (session_id != current_sesh):
+               # with connection.cursor() as cursor:
+                #    sql = "DELETE FROM django_session"
+                 #   cursor.execute(sql)
+                #return render(request,template_name='account_management/login.html',context={})
 
     def post(self, request, *args, **kwargs):
         username = request.POST.get("username") 
