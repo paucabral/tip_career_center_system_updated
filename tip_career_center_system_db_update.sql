@@ -1,60 +1,60 @@
--- MySQL Workbench Forward Engineering
+-- mysql workbench forward ENGINEering
 
-SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
-SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+set @old_unique_checks=@@unique_checks, unique_checks=0;
+set @old_foreign_key_checks=@@foreign_key_checks, foreign_key_checks=0;
+set @old_sql_mode=@@sql_mode, sql_mode='only_full_group_by,strict_trans_tables,no_zero_in_date,no_zero_date,error_for_division_by_zero,no_ENGINE_substitution';
 
 -- -----------------------------------------------------
--- Schema tip_career_center_system_db
+-- schema tip_career_center_system_db
 -- -----------------------------------------------------
 DROP SCHEMA IF EXISTS `tip_career_center_system_db` ;
 
 -- -----------------------------------------------------
--- Schema tip_career_center_system_db
+-- schema tip_career_center_system_db
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `tip_career_center_system_db` DEFAULT CHARACTER SET utf8 ;
-USE `tip_career_center_system_db` ;
+CREATE SCHEMA IF NOT EXISTS `tip_career_center_system_db` default character set utf8 ;
+use `tip_career_center_system_db` ;
 
 -- -----------------------------------------------------
--- Table `tip_career_center_system_db`.`Level_of_engagement`
+-- table `tip_career_center_system_db`.`level_of_engagement`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tip_career_center_system_db`.`Level_of_engagement` ;
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`level_of_engagement` ;
 
-CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Level_of_engagement` (
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`level_of_engagement` (
   `level_of_engagement_id` INT NOT NULL AUTO_INCREMENT,
-  `level_of_engagement_name` VARCHAR(45) NULL,
-  `level_of_engagement_required_score` INT NULL,
-  PRIMARY KEY (`level_of_engagement_id`))
-ENGINE = InnoDB;
+  `level_of_engagement_name` varchar(45) NULL,
+  `level_of_engagement_required_score` int NULL,
+  primary key (`level_of_engagement_id`))
+ENGINE = innodb;
 
 
 -- -----------------------------------------------------
--- Table `tip_career_center_system_db`.`Industry_Type`
+-- table `tip_career_center_system_db`.`industry_type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tip_career_center_system_db`.`Industry_Type` ;
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`industry_type` ;
 
-CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Industry_Type` (
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`industry_type` (
   `industry_type_id` INT NOT NULL AUTO_INCREMENT,
-  `industry_type_name` VARCHAR(100) NULL,
-  PRIMARY KEY (`industry_type_id`))
-ENGINE = InnoDB;
+  `industry_type_name` varchar(100) NULL,
+  primary key (`industry_type_id`))
+ENGINE = innodb;
 
 -- -----------------------------------------------------
--- Table `tip_career_center_system_db`.`activity_log`
+-- table `tip_career_center_system_db`.`activity_log`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`activity_log` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`activity_log` (
   `activity_id` INT NOT NULL AUTO_INCREMENT,
-  `table_name` VARCHAR(20) NULL,
-  `activity_name` VARCHAR(15) NULL,
-  `dateTimeOccurred` datetime NULL,
-  `user` VARCHAR(50) NULL,
-  PRIMARY KEY (`activity_id`))
-ENGINE = InnoDB;
+  `table_name` varchar(20) NULL,
+  `activity_name` varchar(15) NULL,
+  `datetimeoccurred` datetime NULL,
+  `user` varchar(50) NULL,
+  primary key (`activity_id`))
+ENGINE = innodb;
 
 -- -----------------------------------------------------
--- Table `tip_career_center_system_db`.`Company`
+-- table `tip_career_center_system_db`.`company`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Company` ;
 
@@ -83,19 +83,19 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `tip_career_center_system_db`.`Activity`
+-- table `tip_career_center_system_db`.`activity`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `tip_career_center_system_db`.`Activity` ;
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`activity` ;
 
-CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Activity` (
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`activity` (
   `activity_id` INT NOT NULL AUTO_INCREMENT,
-  `activity_name` VARCHAR(45) NULL,
-  PRIMARY KEY (`activity_id`))
-ENGINE = InnoDB;
+  `activity_name` varchar(45) NULL,
+  primary key (`activity_id`))
+ENGINE = innodb;
 
 
 -- -----------------------------------------------------
--- Table `tip_career_center_system_db`.`Company_has_Activity`
+-- table `tip_career_center_system_db`.`company_has_activity`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Company_has_Activity` ;
 
@@ -117,7 +117,7 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `tip_career_center_system_db`.`Intership`
+-- table `tip_career_center_system_db`.`intership`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Intership` ;
 
@@ -138,9 +138,6 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Intership` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `tip_career_center_system_db`.`Externship`
--- -----------------------------------------------------
 DROP TABLE IF EXISTS `tip_career_center_system_db`.`Externship` ;
 
 CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Externship` (
@@ -291,515 +288,537 @@ CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Contact_Person` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
+
 -- -----------------------------------------------------
--- Data for table `tip_career_center_system_db`.`industry_type`
+-- table `tip_career_center_system_db`.`contact_person`
 -- -----------------------------------------------------
-START TRANSACTION;
-USE `tip_career_center_system_db`;
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`contact_person` ;
 
-INSERT INTO `tip_career_center_system_db`.`level_of_engagement` VALUES(1,'Confederate Partner',5);
-INSERT INTO `tip_career_center_system_db`.`level_of_engagement` VALUES(2,'Associate Partner',26);
-INSERT INTO `tip_career_center_system_db`.`level_of_engagement` VALUES(3,'Executive Partner',47);
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`contact_person` (
+  `contact_person_id` INT NOT NULL AUTO_INCREMENT,
+  `contact_person_fname` varchar(45) NULL,
+  `contact_person_lname` varchar(45) NULL,
+  `contact_person_email` varchar(45) NULL,
+  `contact_person_no` varchar(20) NULL,
+  `contact_person_priority` enum('primary', 'secondary') NULL,
+  `company_company_id` INT NOT NULL,
+  `contact_person_position` varchar(45) NULL,
+  primary key (`contact_person_id`),
+  CONSTRAINT `fk_contact_person_company1`
+    FOREIGN KEY (`company_company_id`)
+    REFERENCES `tip_career_center_system_db`.`company` (`company_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = innodb;
+
+-- -----------------------------------------------------
+-- data for table `tip_career_center_system_db`.`industry_type`
+-- -----------------------------------------------------
+start transaction;
+use `tip_career_center_system_db`;
+
+insert into `tip_career_center_system_db`.`level_of_engagement` values(1,'confederate partner',5);
+insert into `tip_career_center_system_db`.`level_of_engagement` values(2,'associate partner',26);
+insert into `tip_career_center_system_db`.`level_of_engagement` values(3,'executive partner',47);
 
 
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(1,'Internship');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(2,'Externship');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(3,'Scholarship');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(4,'Career Fair');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(5,'On-Campus Recruitment');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(6,'Career Development Training');
-INSERT INTO `tip_career_center_system_db`.`activity` VALUES(7,'Mock Job Interview');
+insert into `tip_career_center_system_db`.`activity` values(1,'internship');
+insert into `tip_career_center_system_db`.`activity` values(2,'externship');
+insert into `tip_career_center_system_db`.`activity` values(3,'scholarship');
+insert into `tip_career_center_system_db`.`activity` values(4,'career fair');
+insert into `tip_career_center_system_db`.`activity` values(5,'on-campus recruitment');
+insert into `tip_career_center_system_db`.`activity` values(6,'career development training');
+insert into `tip_career_center_system_db`.`activity` values(7,'mock job interview');
 
 
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (1, 'Agricultural Production-Crops');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (2, 'Agricultural Prod-Livestock  Animal Specialties');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (3, 'Agricultural Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (4, 'Forestry');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (5, 'Fishing Hunting and Trapping');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (6, 'Metal Mining');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (7, 'Gold and Silver Ores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (8, 'Miscellaneous Metal Ores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (9, 'Bituminous Coal  Lignite Mining');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (10, 'Bituminous Coal  Lignite Surface Mining');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (11, 'Crude Petroleum  Natural Gas');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (12, 'Drilling Oil  Gas Wells');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (13, 'Oil  Gas Field Exploration Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (14, 'Oil  Gas Field Services NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (15, 'Mining  Quarrying of Nonmetallic Minerals (No Fuels)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (16, 'General Bldg Contractors - Residential Bldgs');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (17, 'Operative Builders');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (18, 'General Bldg Contractors - Nonresidential Bldgs');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (19, 'Heavy Construction Other Than Bldg Const - Contractors');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (20, 'Water Sewer Pipeline Comm  Power Line Construction');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (21, 'Heavy Construction Not Elsewhere Classified [8]');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (22, 'Construction - Special Trade Contractors');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (23, 'Electrical Work');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (24, 'Food and Kindred Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (25, 'Meat Packing Plants');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (26, 'Sausages  Other Prepared Meat Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (27, 'Poultry Slaughtering and Processing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (28, 'Dairy Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (29, 'Ice Cream  Frozen Desserts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (30, 'Canned Frozen  Preserved Fruit Veg  Food Specialties');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (31, 'Canned Fruits Veg Preserves Jams  Jellies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (32, 'Grain Mill Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (33, 'Bakery Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (34, 'Cookies  Crackers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (35, 'Sugar  Confectionery Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (37, 'Fats  Oils');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (38, 'Beverages');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (39, 'Malt Beverages');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (40, 'Bottled  Canned Soft Drinks  Carbonated Waters');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (41, 'Miscellaneous Food Preparations  Kindred Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (42, 'Prepared Fresh or Frozen Fish  Seafood');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (43, 'Tobacco Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (44, 'Cigarettes');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (45, 'Textile Mill Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (46, 'Broadwoven Fabric Mills Cotton');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (47, 'Broadwoven Fabric Mills Man Made Fiber  Silk');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (48, 'Knitting Mills');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (49, 'Knit Outerwear Mills');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (50, 'Carpets  Rugs');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (51, 'Apparel  Other Finished Prods of Fabrics  Similar Matl');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (52, 'Men\'s  Boys\' Furnishings Work Clothing  Allied Garments');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (53, 'Women\'s Misses\' and Juniors Outerwear');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (54, 'Women\'s Misses\' Children\'s  Infant\'s Undergarments');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (55, 'Miscellaneous Fabricated Textile Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (56, 'Lumber  Wood Products (No Furniture)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (57, 'Sawmills  Planing Mills General');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (58, 'Millwood Veneer Plywood  Structural Wood Members');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (59, 'Mobile Homes');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (60, 'Prefabricated Wood Bldgs  Components');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (61, 'Household Furniture');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (62, 'Wood Household Furniture (No Upholstered)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (63, 'Office Furniture');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (64, 'Office Furniture (No Wood)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (65, 'Public Bldg  Related Furniture');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (66, 'Partitions Shelvg Lockers  office  Store Fixtures');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (67, 'Miscellaneous Furniture  Fixtures');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (68, 'Papers  Allied Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (69, 'Pulp Mills');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (70, 'Paper Mills');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (71, 'Paperboard Mills');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (72, 'Paperboard Containers  Boxes');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (73, 'Converted Paper  Paperboard Prods (No Containers/Boxes)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (74, 'Plastics Foil  Coated Paper Bags');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (76, 'Newspapers: Publishing or Publishing  Printing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (77, 'Periodicals: Publishing or Publishing  Printing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (78, 'Books: Publishing or Publishing  Printing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (79, 'Book Printing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (80, 'Miscellaneous Publishing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (81, 'Commercial Printing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (82, 'Manifold Business Forms');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (83, 'Greeting Cards');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (84, 'Blankbooks Looseleaf Binders  Bookbinding  Related Work');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (85, 'Service Industries For The Printing Trade');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (86, 'Chemicals  Allied Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (87, 'Industrial Inorganic Chemicals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (88, 'Plastic Material Synth Resin/Rubber Cellulos (No Glass)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (89, 'Plastic Materials Synth Resins  Nonvulcan Elastomers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (90, 'Medicinal Chemicals  Botanical Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (91, 'Pharmaceutical Preparations');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (92, 'In Vitro  In Vivo Diagnostic Substances');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (93, 'Biological Products (No Diagnostic Substances)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (94, 'Soap Detergents Cleaning Preparations Perfumes Cosmetics');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (95, 'Specialty Cleaning Polishing and Sanitation Preparations');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (96, 'Perfumes Cosmetics  Other Toilet Preparations');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (97, 'Paints Varnishes Lacquers Enamels  Allied Prods');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (98, 'Industrial Organic Chemicals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (99, 'Agricultural Chemicals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (100, 'Miscellaneous Chemical Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (101, 'Adhesives  Sealants');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (102, 'Petroleum Refining');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (103, 'Asphalt Paving  Roofing Materials');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (104, 'Miscellaneous Products of Petroleum  Coal');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (105, 'Tires  Inner Tubes');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (106, 'Rubber  Plastics Footwear');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (107, 'Gaskets Packg  Sealg Devices  Rubber  Plastics Hose');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (108, 'Fabricated Rubber Products NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (109, 'Miscellaneous Plastics Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (110, 'Unsupported Plastics Film  Sheet');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (111, 'Plastics Foam Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (112, 'Plastics Products NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (113, 'Leather  ');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (114, 'Leather Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (115, 'Footwear (No Rubber)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (116, 'Flat Glass');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (117, 'Glass  Glassware Pressed or Blown');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (118, 'Glass Containers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (119, 'Glass Products Made of Purchased Glass');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (120, 'Cement Hydraulic');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (121, 'Structural Clay Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (122, 'Pottery  Related Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (123, 'Concrete Gypsum  Plaster Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (124, 'Concrete Products Except Block  Brick');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (125, 'Cut Stone  Stone Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (126, 'Abrasive Asbestos  Misc Nonmetallic Mineral Prods');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (127, 'Steel Works Blast Furnaces  Rolling  Finishing Mills');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (128, 'Steel Works Blast Furnaces  Rolling Mills (Coke Ovens)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (129, 'Steel Pipe  Tubes');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (130, 'Iron  Steel Foundries');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (131, 'Primary Smelting  Refining of Nonferrous Metals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (132, 'Primary Production of Aluminum');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (133, 'Secondary Smelting  Refining of Nonferrous Metals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (134, 'Rolling Drawing  Extruding of Nonferrous Metals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (135, 'Drawing  Insulating of Nonferrous Wire');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (136, 'Nonferrous Foundries (Castings)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (137, 'Miscellaneous Primary Metal Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (138, 'Metal Cans');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (139, 'Metal Shipping Barrels Drums Kegs  Pails');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (140, 'Cutlery Handtools  General Hardware');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (141, 'Heating Equip Except Elec  Warm Air;  Plumbing Fixtures');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (142, 'Heating Equipment Except Electric  Warm Air Furnaces');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (143, 'Fabricated Structural Metal Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (144, 'Metal Doors Sash Frames Moldings  Trim');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (145, 'Fabricated Plate Work (Boiler Shops)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (146, 'Sheet Metal Work');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (147, 'Prefabricated Metal Buildings  Components');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (148, 'Screw Machine Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (149, 'Bolts Nuts Screws Rivets  Washers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (150, 'Metal Forgings  Stampings');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (151, 'Coating Engraving  Allied Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (152, 'Ordnance  Accessories (No Vehicles/Guided Missiles)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (154, 'Miscellaneous Fabricated Metal Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (155, 'Engines  Turbines');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (156, 'Farm Machinery  Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (157, 'Lawn  Garden Tractors  Home Lawn  Gardens Equip');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (158, 'Construction Mining  Materials Handling Machinery  Equip');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (159, 'Construction Machinery  Equip');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (160, 'Mining Machinery  Equip (No Oil  Gas Field Mach  Equip)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (161, 'Oil  Gas Field Machinery  Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (162, 'Industrial Trucks Tractors Trailers  Stackers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (163, 'Metalworkg Machinery  Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (164, 'Machine Tools Metal Cutting Types');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (165, 'Special Industry Machinery (No Metalworking Machinery)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (166, 'Printing Trades Machinery  Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (167, 'Special Industry Machinery NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (168, 'General Industrial Machinery  Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (169, 'Pumps  Pumping Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (170, 'Ball  Roller Bearings');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (171, 'Industrial  Commercial Fans  Blowers  Air Purifying Equip');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (172, 'Industrial Process Furnaces  Ovens');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (173, 'General Industrial Machinery  Equipment NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (174, 'Computer  office Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (175, 'Electronic Computers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (176, 'Computer Storage Devices');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (177, 'Computer Terminals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (178, 'Computer Communications Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (179, 'Computer Peripheral Equipment NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (180, 'Calculating  Accounting Machines (No Electronic Computers)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (181, 'Office Machines NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (182, 'Refrigeration  Service Industry Machinery');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (183, 'Air-Cond  Warm Air Heatg Equip  Comm  Indl Refrig Equip');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (184, 'Misc Industrial  Commercial Machinery  Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (185, 'Electronic  Other Electrical Equipment (No Computer Equip)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (186, 'Power Distribution  Specialty Transformers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (187, 'Switchgear  Switchboard Apparatus');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (188, 'Electrical Industrial Apparatus');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (189, 'Motors  Generators');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (190, 'Household Appliances');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (191, 'Electric Housewares  Fans');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (193, 'Electric Lighting  Wiring Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (194, 'Household Audio  Video Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (195, 'Phonograph Records  Prerecorded Audio Tapes  Disks');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (196, 'Telephone  Telegraph Apparatus');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (197, 'Radio  TV Broadcasting  Communications Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (198, 'Communications Equipment NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (199, 'Electronic Components  Accessories');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (200, 'Printed Circuit Boards');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (201, 'Semiconductors  Related Devices');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (202, 'Electronic Coils Transformers  Other Inductors');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (203, 'Electronic Connectors');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (204, 'Electronic Components NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (205, 'Miscellaneous Electrical Machinery Equipment  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (206, 'Magnetic  Optical Recording Media');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (207, 'Motor Vehicles  Passenger Car Bodies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (208, 'Truck  Bus Bodies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (209, 'Motor Vehicle Parts  Accessories');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (210, 'Truck Trailers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (211, 'Motor Homes');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (212, 'Aircraft  Parts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (213, 'Aircraft');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (214, 'Aircraft Engines  Engine Parts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (215, 'Aircraft Parts  Auxiliary Equipment NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (216, 'Ship  Boat Building  Repairing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (217, 'Railroad Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (218, 'Motorcycles Bicycles  Parts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (219, 'Guided Missiles  Space Vehicles  Parts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (220, 'Miscellaneous Transportation Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (221, 'Search Detection Navigation Guidance Aeronautical Sys');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (222, 'Laboratory Apparatus  Furniture');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (223, 'Auto Controls For Regulating Residential  Comml Environments');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (224, 'Industrial Instruments For Measurement Display and Control');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (225, 'Totalizing Fluid Meters  Counting Devices');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (226, 'Instruments For Meas  Testing of Electricity  Elec Signals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (227, 'Laboratory Analytical Instruments');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (228, 'Optical Instruments  Lenses');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (229, 'Measuring  Controlling Devices NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (230, 'Surgical  Medical Instruments  Apparatus');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (232, 'Orthopedic Prosthetic  Surgical Appliances  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (233, 'Dental Equipment  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (234, 'X-Ray Apparatus  Tubes  Related Irradiation Apparatus');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (235, 'Electromedical  Electrotherapeutic Apparatus');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (236, 'Ophthalmic Goods');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (237, 'Photographic Equipment  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (238, 'Watches Clocks Clockwork Operated Devices/Parts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (239, 'Jewelry Silverware  Plated Ware');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (240, 'Jewelry Precious Metal');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (241, 'Musical Instruments');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (242, 'Dolls  Stuffed Toys');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (243, 'Games Toys  Children\'s Vehicles (No Dolls  Bicycles)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (244, 'Sporting  Athletic Goods NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (245, 'Pens Pencils  Other Artists\' Materials');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (246, 'Costume Jewelry  Novelties');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (247, 'Miscellaneous Manufacturing Industries');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (248, 'Railroads Line-Haul Operating');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (249, 'Railroad Switching  Terminal Establishments');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (250, 'Local  Suburban Transit  Interurban Hwy Passenger Trans');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (251, 'Trucking  Courier Services (No Air)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (252, 'Trucking (No Local)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (253, 'Public Warehousing  Storage');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (254, 'Terminal Maintenance Facilities For Motor Freight Transport');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (255, 'Water Transportation');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (256, 'Deep Sea Foreign Transportation of Freight');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (257, 'Air Transportation Scheduled');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (258, 'Air Courier Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (259, 'Air Transportation Nonscheduled');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (260, 'Airports Flying Fields  Airport Terminal Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (261, 'Pipe Lines (No Natural Gas)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (262, 'Transportation Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (263, 'Arrangement of Transportation of Freight  Cargo');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (264, 'Radiotelephone Communications');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (265, 'Telephone Communications (No Radiotelephone)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (266, 'Telegraph  Other Message Communications');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (267, 'Radio Broadcasting Stations');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (268, 'Television Broadcasting Stations');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (269, 'Cable  Other Pay Television Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (271, 'Communications Services NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (272, 'Electric Gas  Sanitary Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (273, 'Electric Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (274, 'Natural Gas Transmission');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (275, 'Natural Gas Transmission  Distribution');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (276, 'Natural Gas Distribution');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (277, 'Electric  Other Services Combined');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (278, 'Gas  Other Services Combined');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (279, 'Water Supply');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (280, 'Sanitary Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (281, 'Refuse Systems');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (282, 'Hazardous Waste Management');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (283, 'Steam  Air-Conditioning Supply');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (284, 'Co-generation Services  Small Power Producers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (285, 'Wholesale-Durable Goods');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (286, 'Wholesale-Motor Vehicles  Motor Vehicle Parts  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (287, 'Wholesale-Motor Vehicle Supplies  New Parts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (288, 'Wholesale-Furniture  Home Furnishings');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (289, 'Wholesale-Lumber  Other Construction Materials');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (290, 'Wholesale-Lumber Plywood millwork  Wood Panels');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (291, 'Wholesale-Professional  Commercial Equipment  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (292, 'Wholesale-Computers  Peripheral Equipment  Software');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (293, 'Wholesale-Medical Dental  Hospital Equipment  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (294, 'Wholesale-Metals  Minerals (No Petroleum)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (295, 'Wholesale-Metals Service Centers  Offices');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (296, 'Wholesale-Electrical Apparatus  Equipment Wiring Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (297, 'Wholesale-Electrical Appliances TV  Radio Sets');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (298, 'Wholesale-Electronic Parts  Equipment NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (299, 'Wholesale-Hardware  Plumbing  Heating Equipment  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (300, 'Wholesale-Hardware');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (301, 'Wholesale-Machinery Equipment  Supplies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (302, 'Wholesale-Construction  Mining (No Petro) Machinery  Equip');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (303, 'Wholesale-Industrial Machinery  Equipment');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (304, 'Wholesale-Misc Durable Goods');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (305, 'Wholesale-Jewelry Watches Precious Stones  Metals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (306, 'Wholesale-Durable Goods NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (307, 'Wholesale-Paper  Paper Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (308, 'Wholesale-Drugs Proprietaries  Druggists\' Sundries');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (310, 'Wholesale-Apparel Piece Goods  Notions');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (311, 'Wholesale-Groceries  Related Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (312, 'Wholesale-Groceries General Line (merchandise)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (313, 'Wholesale-Farm Product Raw Materials');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (314, 'Wholesale-Chemicals  Allied Products');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (315, 'Wholesale-Petroleum Bulk Stations  Terminals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (316, 'Wholesale-Petroleum  Petroleum Products (No Bulk Stations)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (317, 'Wholesale-Beer Wine  Distilled Alcoholic Beverages');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (318, 'Wholesale-Miscellaneous Non-durable Goods');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (319, 'Retail-Building Materials Hardware Garden Supply');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (320, 'Retail-Lumber  Other Building Materials Dealers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (321, 'Retail-Mobile Home Dealers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (322, 'Retail-Department Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (323, 'Retail-Variety Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (324, 'Retail-Misc General Merchandise Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (325, 'Retail-Food Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (326, 'Retail-Grocery Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (327, 'Retail-Convenience Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (328, 'Retail-Auto Dealers  Gasoline Stations');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (329, 'Retail-Auto  Home Supply Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (330, 'Boat Dealers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (331, 'Retail-Apparel  Accessory Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (332, 'Retail-Women\'s Clothing Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (333, 'Retail-Family Clothing Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (334, 'Retail-Shoe Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (335, 'Retail-Home Furniture Furnishings  Equipment Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (336, 'Retail-Furniture Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (337, 'Retail-Radio TV  Consumer Electronics Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (338, 'Retail-Computer  Computer Software Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (339, 'Retail-Record  Prerecorded Tape Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (340, 'Retail-Eating  Drinking Places');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (341, 'Retail-Eating Places');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (342, 'Retail-Miscellaneous Retail');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (343, 'Retail-Drug Stores and Proprietary Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (344, 'Retail-Miscellaneous Shopping Goods Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (345, 'Retail-Jewelry Stores');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (346, 'Retail-Hobby Toy  Game Shops');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (347, 'Retail-Nonstore Retailers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (348, '');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (349, 'Retail-Catalog  Mail-Order Houses');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (350, 'Retail-Retail Stores NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (351, 'Pay Day Lenders');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (352, 'National Commercial Banks');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (353, 'State Commercial Banks');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (354, 'Commercial Banks NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (355, 'Savings Institution Federally Chartered');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (356, 'Savings Institutions Not Federally Chartered');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (357, 'Functions Related To Depository Banking NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (358, 'Federal  Federally Sponsored Credit Agencies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (359, 'Personal Credit Institutions');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (360, 'Short-Term Business Credit Institutions');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (361, 'Miscellaneous Business Credit Institution');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (362, 'Mortgage Bankers  Loan Correspondents');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (363, 'Loan Brokers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (364, 'Finance Lessors');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (365, 'Asset-Backed Securities');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (366, 'Finance Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (367, 'Security  Commodity Brokers Dealers Exchanges  Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (368, 'Security Brokers Dealers  Flotation Companies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (369, 'Commodity Contracts Brokers  Dealers');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (370, 'Investment Advice');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (371, 'Life Insurance');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (372, 'Accident  Health Insurance');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (373, 'Hospital  Medical Service Plans');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (374, 'Fire Marine  Casualty Insurance');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (375, 'Surety Insurance');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (376, 'Title Insurance');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (377, 'Insurance Carriers NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (378, 'Insurance Agents Brokers  Service');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (379, 'Real Estate');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (380, 'Real Estate Operators (No Developers)  Lessors');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (381, 'Operators of Nonresidential Buildings');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (382, 'Operators of Apartment Buildings');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (383, 'Lessors of Real Property NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (384, 'Real Estate Agents  Managers (For Others)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (385, 'Real Estate Dealers (For Their Own Account)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (386, 'Land Subdividers  Developers (No Cemeteries)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (388, 'Blank Checks');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (389, 'Oil Royalty Traders');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (390, 'Patent Owners  Lessors');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (391, 'Mineral Royalty Traders');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (392, 'Real Estate Investment Trusts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (393, 'Investors NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (394, 'Hotels Rooming Houses Camps  Other Lodging Places');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (395, 'Hotels  Motels');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (396, 'Services-Personal Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (397, 'Services-Advertising');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (398, 'Services-Advertising Agencies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (399, 'Services-Consumer Credit Reporting Collection Agencies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (400, 'Services-Mailing Reproduction Commercial Art  Photography');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (401, 'Services-Direct Mail Advertising Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (402, 'Services-Photocopying and Duplicating Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (403, 'Services-To Dwellings  Other Buildings');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (404, 'Services-Miscellaneous Equipment Rental  Leasing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (405, 'Services-Equipment Rental  Leasing NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (406, 'Services-Employment Agencies');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (407, 'Services-Help Supply Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (408, 'Services-Computer Programming Data Processing Etc.');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (409, 'Services-Computer Programming Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (410, 'Services-Prepackaged Software');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (411, 'Services-Computer Integrated Systems Design');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (412, 'Services-Computer Processing  Data Preparation');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (413, 'Services-Computer Rental  Leasing');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (414, 'Services-Miscellaneous Business Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (415, 'Services-Detective Guard  Armored Car Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (416, 'Services-Photofinishing Laboratories');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (417, 'Services-Telephone Interconnect Systems');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (418, 'Services-Business Services NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (419, 'Services-Automotive Repair Services  Parking');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (420, 'Services-Auto Rental  Leasing (No Drivers)');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (421, 'Services-Miscellaneous Repair Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (422, 'Services-Motion Picture  Video Tape Production');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (423, 'Services-Allied To Motion Picture Production');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (424, 'Services-Motion Picture  Video Tape Distribution');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (425, 'Services-Allied To Motion Picture Distribution');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (427, 'Services-Motion Picture Theaters');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (428, 'Services-Video Tape Rental');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (429, 'Services-Amusement  Recreation Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (430, 'Services-Racing Including Track Operation');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (431, 'Services-Miscellaneous Amusement  Recreation');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (432, 'Services-Video Game Arcades');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (433, 'Services-Gambling Transactions');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (434, 'Services-Amusement Parks');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (435, 'Services-Membership Sports  Recreation Clubs');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (436, 'Services-Health Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (437, 'Services-Offices  Clinics of Doctors of Medicine');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (438, 'Services-Nursing  Personal Care Facilities');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (439, 'Services-Skilled Nursing Care Facilities');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (440, 'Services-Hospitals');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (441, 'Services-General Medical  Surgical Hospitals NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (442, 'Services-Medical Laboratories');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (443, 'Services-Home Health Care Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (444, 'Services-Misc Health  Allied Services NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (445, 'Services-Specialty Outpatient Facilities NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (446, 'Services-Legal Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (447, 'Services-Educational Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (448, 'Services-Social Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (449, 'Services-Child Day Care Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (450, 'Services-Membership organizations');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (451, 'Services-Engineering Accounting Research Management');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (452, 'Services-Engineering Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (453, 'Services-Commercial Physical  Biological Research');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (454, 'Services-Testing Laboratories');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (455, 'Services-Management Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (456, 'Services-Management Consulting Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (457, 'Services-Facilities Support Management Services');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (458, 'Business Consulting Services Not Elsewhere Classified');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (459, 'American Depositary Receipts');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (460, 'Foreign Governments');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (461, 'Services-Services NEC');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (462, 'International Affairs');
-INSERT INTO `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) VALUES (463, 'Non-Operating Establishments');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (1, 'agricultural production-crops');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (2, 'agricultural prod-livestock  animal specialties');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (3, 'agricultural services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (4, 'forestry');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (5, 'fishing hunting and trapping');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (6, 'metal mining');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (7, 'gold and silver ores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (8, 'miscellaneous metal ores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (9, 'bituminous coal  lignite mining');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (10, 'bituminous coal  lignite surface mining');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (11, 'crude petroleum  natural gas');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (12, 'drilling oil  gas wells');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (13, 'oil  gas field exploration services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (14, 'oil  gas field services nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (15, 'mining  quarrying of nonmetallic minerals (no fuels)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (16, 'general bldg contractors - residential bldgs');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (17, 'operative builders');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (18, 'general bldg contractors - nonresidential bldgs');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (19, 'heavy construction other than bldg const - contractors');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (20, 'water sewer pipeline comm  power line construction');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (21, 'heavy construction not elsewhere classified [8]');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (22, 'construction - special trade contractors');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (23, 'electrical work');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (24, 'food and kindred products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (25, 'meat packing plants');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (26, 'sausages  other prepared meat products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (27, 'poultry slaughtering and processing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (28, 'dairy products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (29, 'ice cream  frozen desserts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (30, 'canned frozen  preserved fruit veg  food specialties');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (31, 'canned fruits veg preserves jams  jellies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (32, 'grain mill products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (33, 'bakery products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (34, 'cookies  crackers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (35, 'sugar  confectionery products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (37, 'fats  oils');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (38, 'beverages');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (39, 'malt beverages');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (40, 'bottled  canned soft drinks  carbonated waters');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (41, 'miscellaneous food preparations  kindred products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (42, 'prepared fresh or frozen fish  seafood');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (43, 'tobacco products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (44, 'cigarettes');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (45, 'textile mill products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (46, 'broadwoven fabric mills cotton');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (47, 'broadwoven fabric mills man made fiber  silk');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (48, 'knitting mills');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (49, 'knit outerwear mills');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (50, 'carpets  rugs');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (51, 'apparel  other finished prods of fabrics  similar matl');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (52, 'men\'s  boys\' furnishings work clothing  allied garments');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (53, 'women\'s misses\' and juniors outerwear');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (54, 'women\'s misses\' children\'s  infant\'s undergarments');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (55, 'miscellaneous fabricated textile products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (56, 'lumber  wood products (no furniture)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (57, 'sawmills  planing mills general');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (58, 'millwood veneer plywood  structural wood members');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (59, 'mobile homes');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (60, 'prefabricated wood bldgs  components');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (61, 'household furniture');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (62, 'wood household furniture (no upholstered)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (63, 'office furniture');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (64, 'office furniture (no wood)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (65, 'public bldg  related furniture');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (66, 'partitions shelvg lockers  office  store fixtures');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (67, 'miscellaneous furniture  fixtures');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (68, 'papers  allied products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (69, 'pulp mills');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (70, 'paper mills');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (71, 'paperboard mills');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (72, 'paperboard containers  boxes');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (73, 'converted paper  paperboard prods (no containers/boxes)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (74, 'plastics foil  coated paper bags');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (76, 'newspapers: publishing or publishing  printing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (77, 'periodicals: publishing or publishing  printing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (78, 'books: publishing or publishing  printing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (79, 'book printing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (80, 'miscellaneous publishing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (81, 'commercial printing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (82, 'manifold business forms');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (83, 'greeting cards');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (84, 'blankbooks looseleaf binders  bookbinding  related work');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (85, 'service industries for the printing trade');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (86, 'chemicals  allied products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (87, 'industrial inorganic chemicals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (88, 'plastic material synth resin/rubber cellulos (no glass)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (89, 'plastic materials synth resins  nonvulcan elastomers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (90, 'medicinal chemicals  botanical products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (91, 'pharmaceutical preparations');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (92, 'in vitro  in vivo diagnostic substances');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (93, 'biological products (no diagnostic substances)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (94, 'soap detergents cleaning preparations perfumes cosmetics');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (95, 'specialty cleaning polishing and sanitation preparations');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (96, 'perfumes cosmetics  other toilet preparations');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (97, 'paints varnishes lacquers enamels  allied prods');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (98, 'industrial organic chemicals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (99, 'agricultural chemicals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (100, 'miscellaneous chemical products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (101, 'adhesives  sealants');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (102, 'petroleum refining');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (103, 'asphalt paving  roofing materials');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (104, 'miscellaneous products of petroleum  coal');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (105, 'tires  inner tubes');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (106, 'rubber  plastics footwear');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (107, 'gaskets packg  sealg devices  rubber  plastics hose');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (108, 'fabricated rubber products nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (109, 'miscellaneous plastics products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (110, 'unsupported plastics film  sheet');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (111, 'plastics foam products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (112, 'plastics products nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (113, 'leather  ');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (114, 'leather products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (115, 'footwear (no rubber)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (116, 'flat glass');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (117, 'glass  glassware pressed or blown');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (118, 'glass containers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (119, 'glass products made of purchased glass');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (120, 'cement hydraulic');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (121, 'structural clay products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (122, 'pottery  related products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (123, 'concrete gypsum  plaster products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (124, 'concrete products except block  brick');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (125, 'cut stone  stone products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (126, 'abrasive asbestos  misc nonmetallic mineral prods');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (127, 'steel works blast furnaces  rolling  finishing mills');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (128, 'steel works blast furnaces  rolling mills (coke ovens)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (129, 'steel pipe  tubes');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (130, 'iron  steel foundries');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (131, 'primary smelting  refining of nonferrous metals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (132, 'primary production of aluminum');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (133, 'secondary smelting  refining of nonferrous metals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (134, 'rolling drawing  extruding of nonferrous metals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (135, 'drawing  insulating of nonferrous wire');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (136, 'nonferrous foundries (castings)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (137, 'miscellaneous primary metal products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (138, 'metal cans');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (139, 'metal shipping barrels drums kegs  pails');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (140, 'cutlery handtools  general hardware');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (141, 'heating equip except elec  warm air;  plumbing fixtures');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (142, 'heating equipment except electric  warm air furnaces');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (143, 'fabricated structural metal products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (144, 'metal doors sash frames moldings  trim');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (145, 'fabricated plate work (boiler shops)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (146, 'sheet metal work');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (147, 'prefabricated metal buildings  components');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (148, 'screw machine products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (149, 'bolts nuts screws rivets  washers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (150, 'metal forgings  stampings');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (151, 'coating engraving  allied services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (152, 'ordnance  accessories (no vehicles/guided missiles)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (154, 'miscellaneous fabricated metal products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (155, 'ENGINEs  turbines');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (156, 'farm machinery  equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (157, 'lawn  garden tractors  home lawn  gardens equip');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (158, 'construction mining  materials handling machinery  equip');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (159, 'construction machinery  equip');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (160, 'mining machinery  equip (no oil  gas field mach  equip)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (161, 'oil  gas field machinery  equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (162, 'industrial trucks tractors trailers  stackers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (163, 'metalworkg machinery  equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (164, 'machine tools metal cutting types');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (165, 'special industry machinery (no metalworking machinery)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (166, 'printing trades machinery  equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (167, 'special industry machinery nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (168, 'general industrial machinery  equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (169, 'pumps  pumping equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (170, 'ball  roller bearings');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (171, 'industrial  commercial fans  blowers  air purifying equip');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (172, 'industrial process furnaces  ovens');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (173, 'general industrial machinery  equipment nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (174, 'computer  office equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (175, 'electronic computers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (176, 'computer storage devices');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (177, 'computer terminals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (178, 'computer communications equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (179, 'computer peripheral equipment nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (180, 'calculating  accounting machines (no electronic computers)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (181, 'office machines nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (182, 'refrigeration  service industry machinery');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (183, 'air-cond  warm air heatg equip  comm  indl refrig equip');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (184, 'misc industrial  commercial machinery  equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (185, 'electronic  other electrical equipment (no computer equip)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (186, 'power distribution  specialty transformers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (187, 'switchgear  switchboard apparatus');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (188, 'electrical industrial apparatus');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (189, 'motors  generators');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (190, 'household appliances');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (191, 'electric housewares  fans');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (193, 'electric lighting  wiring equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (194, 'household audio  video equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (195, 'phonograph records  prerecorded audio tapes  disks');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (196, 'telephone  telegraph apparatus');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (197, 'radio  tv broadcasting  communications equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (198, 'communications equipment nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (199, 'electronic components  accessories');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (200, 'printed circuit boards');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (201, 'semiconductors  related devices');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (202, 'electronic coils transformers  other inductors');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (203, 'electronic connectors');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (204, 'electronic components nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (205, 'miscellaneous electrical machinery equipment  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (206, 'magnetic  optical recording media');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (207, 'motor vehicles  passenger car bodies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (208, 'truck  bus bodies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (209, 'motor vehicle parts  accessories');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (210, 'truck trailers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (211, 'motor homes');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (212, 'aircraft  parts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (213, 'aircraft');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (214, 'aircraft ENGINEs  ENGINE parts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (215, 'aircraft parts  auxiliary equipment nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (216, 'ship  boat building  repairing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (217, 'railroad equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (218, 'motorcycles bicycles  parts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (219, 'guided missiles  space vehicles  parts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (220, 'miscellaneous transportation equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (221, 'search detection navigation guidance aeronautical sys');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (222, 'laboratory apparatus  furniture');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (223, 'auto controls for regulating residential  comml environments');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (224, 'industrial instruments for measurement display and control');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (225, 'totalizing fluid meters  counting devices');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (226, 'instruments for meas  testing of electricity  elec signals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (227, 'laboratory analytical instruments');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (228, 'optical instruments  lenses');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (229, 'measuring  controlling devices nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (230, 'surgical  medical instruments  apparatus');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (232, 'orthopedic prosthetic  surgical appliances  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (233, 'dental equipment  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (234, 'x-ray apparatus  tubes  related irradiation apparatus');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (235, 'electromedical  electrotherapeutic apparatus');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (236, 'ophthalmic goods');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (237, 'photographic equipment  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (238, 'watches clocks clockwork operated devices/parts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (239, 'jewelry silverware  plated ware');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (240, 'jewelry precious metal');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (241, 'musical instruments');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (242, 'dolls  stuffed toys');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (243, 'games toys  children\'s vehicles (no dolls  bicycles)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (244, 'sporting  athletic goods nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (245, 'pens pencils  other artists\' materials');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (246, 'costume jewelry  novelties');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (247, 'miscellaneous manufacturing industries');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (248, 'railroads line-haul operating');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (249, 'railroad switching  terminal establishments');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (250, 'local  suburban transit  interurban hwy passenger trans');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (251, 'trucking  courier services (no air)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (252, 'trucking (no local)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (253, 'public warehousing  storage');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (254, 'terminal maintenance facilities for motor freight transport');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (255, 'water transportation');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (256, 'deep sea foreign transportation of freight');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (257, 'air transportation scheduled');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (258, 'air courier services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (259, 'air transportation nonscheduled');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (260, 'airports flying fields  airport terminal services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (261, 'pipe lines (no natural gas)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (262, 'transportation services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (263, 'arrangement of transportation of freight  cargo');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (264, 'radiotelephone communications');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (265, 'telephone communications (no radiotelephone)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (266, 'telegraph  other message communications');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (267, 'radio broadcasting stations');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (268, 'television broadcasting stations');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (269, 'cable  other pay television services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (271, 'communications services nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (272, 'electric gas  sanitary services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (273, 'electric services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (274, 'natural gas transmission');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (275, 'natural gas transmission  distribution');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (276, 'natural gas distribution');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (277, 'electric  other services combined');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (278, 'gas  other services combined');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (279, 'water supply');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (280, 'sanitary services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (281, 'refuse systems');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (282, 'hazardous waste management');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (283, 'steam  air-conditioning supply');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (284, 'co-generation services  small power producers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (285, 'wholesale-durable goods');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (286, 'wholesale-motor vehicles  motor vehicle parts  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (287, 'wholesale-motor vehicle supplies  new parts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (288, 'wholesale-furniture  home furnishings');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (289, 'wholesale-lumber  other construction materials');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (290, 'wholesale-lumber plywood millwork  wood panels');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (291, 'wholesale-professional  commercial equipment  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (292, 'wholesale-computers  peripheral equipment  software');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (293, 'wholesale-medical dental  hospital equipment  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (294, 'wholesale-metals  minerals (no petroleum)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (295, 'wholesale-metals service centers  offices');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (296, 'wholesale-electrical apparatus  equipment wiring supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (297, 'wholesale-electrical appliances tv  radio sets');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (298, 'wholesale-electronic parts  equipment nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (299, 'wholesale-hardware  plumbing  heating equipment  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (300, 'wholesale-hardware');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (301, 'wholesale-machinery equipment  supplies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (302, 'wholesale-construction  mining (no petro) machinery  equip');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (303, 'wholesale-industrial machinery  equipment');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (304, 'wholesale-misc durable goods');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (305, 'wholesale-jewelry watches precious stones  metals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (306, 'wholesale-durable goods nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (307, 'wholesale-paper  paper products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (308, 'wholesale-drugs proprietaries  druggists\' sundries');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (310, 'wholesale-apparel piece goods  notions');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (311, 'wholesale-groceries  related products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (312, 'wholesale-groceries general line (merchandise)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (313, 'wholesale-farm product raw materials');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (314, 'wholesale-chemicals  allied products');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (315, 'wholesale-petroleum bulk stations  terminals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (316, 'wholesale-petroleum  petroleum products (no bulk stations)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (317, 'wholesale-beer wine  distilled alcoholic beverages');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (318, 'wholesale-miscellaneous non-durable goods');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (319, 'retail-building materials hardware garden supply');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (320, 'retail-lumber  other building materials dealers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (321, 'retail-mobile home dealers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (322, 'retail-department stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (323, 'retail-variety stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (324, 'retail-misc general merchandise stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (325, 'retail-food stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (326, 'retail-grocery stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (327, 'retail-convenience stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (328, 'retail-auto dealers  gasoline stations');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (329, 'retail-auto  home supply stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (330, 'boat dealers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (331, 'retail-apparel  accessory stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (332, 'retail-women\'s clothing stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (333, 'retail-family clothing stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (334, 'retail-shoe stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (335, 'retail-home furniture furnishings  equipment stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (336, 'retail-furniture stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (337, 'retail-radio tv  consumer electronics stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (338, 'retail-computer  computer software stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (339, 'retail-record  prerecorded tape stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (340, 'retail-eating  drinking places');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (341, 'retail-eating places');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (342, 'retail-miscellaneous retail');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (343, 'retail-drug stores and proprietary stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (344, 'retail-miscellaneous shopping goods stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (345, 'retail-jewelry stores');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (346, 'retail-hobby toy  game shops');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (347, 'retail-nonstore retailers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (348, '');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (349, 'retail-catalog  mail-order houses');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (350, 'retail-retail stores nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (351, 'pay day lenders');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (352, 'national commercial banks');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (353, 'state commercial banks');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (354, 'commercial banks nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (355, 'savings institution federally chartered');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (356, 'savings institutions not federally chartered');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (357, 'functions related to depository banking nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (358, 'federal  federally sponsored credit agencies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (359, 'personal credit institutions');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (360, 'short-term business credit institutions');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (361, 'miscellaneous business credit institution');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (362, 'mortgage bankers  loan correspondents');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (363, 'loan brokers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (364, 'finance lessors');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (365, 'asset-backed securities');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (366, 'finance services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (367, 'security  commodity brokers dealers exchanges  services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (368, 'security brokers dealers  flotation companies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (369, 'commodity contracts brokers  dealers');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (370, 'investment advice');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (371, 'life insurance');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (372, 'accident  health insurance');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (373, 'hospital  medical service plans');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (374, 'fire marine  casualty insurance');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (375, 'surety insurance');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (376, 'title insurance');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (377, 'insurance carriers nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (378, 'insurance agents brokers  service');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (379, 'real estate');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (380, 'real estate operators (no developers)  lessors');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (381, 'operators of nonresidential buildings');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (382, 'operators of apartment buildings');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (383, 'lessors of real property nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (384, 'real estate agents  managers (for others)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (385, 'real estate dealers (for their own account)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (386, 'land subdividers  developers (no cemeteries)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (388, 'blank checks');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (389, 'oil royalty traders');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (390, 'patent owners  lessors');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (391, 'mineral royalty traders');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (392, 'real estate investment trusts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (393, 'investors nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (394, 'hotels rooming houses camps  other lodging places');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (395, 'hotels  motels');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (396, 'services-personal services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (397, 'services-advertising');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (398, 'services-advertising agencies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (399, 'services-consumer credit reporting collection agencies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (400, 'services-mailing reproduction commercial art  photography');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (401, 'services-direct mail advertising services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (402, 'services-photocopying and duplicating services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (403, 'services-to dwellings  other buildings');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (404, 'services-miscellaneous equipment rental  leasing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (405, 'services-equipment rental  leasing nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (406, 'services-employment agencies');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (407, 'services-help supply services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (408, 'services-computer programming data processing etc.');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (409, 'services-computer programming services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (410, 'services-prepackaged software');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (411, 'services-computer integrated systems design');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (412, 'services-computer processing  data preparation');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (413, 'services-computer rental  leasing');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (414, 'services-miscellaneous business services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (415, 'services-detective guard  armored car services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (416, 'services-photofinishing laboratories');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (417, 'services-telephone interconnect systems');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (418, 'services-business services nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (419, 'services-automotive repair services  parking');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (420, 'services-auto rental  leasing (no drivers)');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (421, 'services-miscellaneous repair services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (422, 'services-motion picture  video tape production');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (423, 'services-allied to motion picture production');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (424, 'services-motion picture  video tape distribution');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (425, 'services-allied to motion picture distribution');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (427, 'services-motion picture theaters');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (428, 'services-video tape rental');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (429, 'services-amusement  recreation services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (430, 'services-racing including track operation');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (431, 'services-miscellaneous amusement  recreation');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (432, 'services-video game arcades');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (433, 'services-gambling transactions');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (434, 'services-amusement parks');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (435, 'services-membership sports  recreation clubs');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (436, 'services-health services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (437, 'services-offices  clinics of doctors of medicine');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (438, 'services-nursing  personal care facilities');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (439, 'services-skilled nursing care facilities');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (440, 'services-hospitals');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (441, 'services-general medical  surgical hospitals nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (442, 'services-medical laboratories');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (443, 'services-home health care services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (444, 'services-misc health  allied services nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (445, 'services-specialty outpatient facilities nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (446, 'services-legal services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (447, 'services-educational services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (448, 'services-social services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (449, 'services-child day care services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (450, 'services-membership organizations');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (451, 'services-ENGINEering accounting research management');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (452, 'services-ENGINEering services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (453, 'services-commercial physical  biological research');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (454, 'services-testing laboratories');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (455, 'services-management services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (456, 'services-management consulting services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (457, 'services-facilities support management services');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (458, 'business consulting services not elsewhere classified');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (459, 'american depositary receipts');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (460, 'foreign governments');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (461, 'services-services nec');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (462, 'international affairs');
+insert into `tip_career_center_system_db`.`industry_type` (`industry_type_id`, `industry_type_name`) values (463, 'non-operating establishments');
 
-COMMIT;
+commit;
 /*
--- Additional Code
-CREATE TABLE Accounts(id INT PRIMARY KEY AUTO_INCREMENT, first_name VARCHAR(50), last_name VARCHAR(50), username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(50), password TEXT NOT NULL, isAdmin tinyint(1), datecreated DATETIME default NOW(), session_id varchar(40));
+-- additional code
+create table accounts(id int primary key AUTO_INCREMENT, first_name varchar(50), last_name varchar(50), username varchar(50) unique not NULL, email varchar(50), password text not NULL, isadmin tinyint(1), datecreated datetime default now(), session_id varchar(40));
+commit;*/
 
-COMMIT;*/
 
+-- additional code
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`accounts` ;
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`accounts`(id int primary key not NULL AUTO_INCREMENT, first_name varchar(50), last_name varchar(50), username varchar(50) unique not NULL, email varchar(50), password text not NULL, isadmin tinyint(1), datecreated datetime default now(), session_id varchar(40));
 
--- Additional Code
-DROP TABLE IF EXISTS `tip_career_center_system_db`.`Accounts` ;
-CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Accounts`(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, first_name VARCHAR(50), last_name VARCHAR(50), username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(50), password TEXT NOT NULL, isAdmin tinyint(1), datecreated DATETIME default NOW(), session_id varchar(40));
+commit;
 
-COMMIT;
+DROP TABLE IF EXISTS `tip_career_center_system_db`.`temp_logs` ;
+CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`temp_logs`(id int primary key not NULL AUTO_INCREMENT, temp_username varchar(50) not NULL);
 
-DROP TABLE IF EXISTS `tip_career_center_system_db`.`Temp_logs` ;
-CREATE TABLE IF NOT EXISTS `tip_career_center_system_db`.`Temp_logs`(id INT PRIMARY KEY NOT NULL AUTO_INCREMENT, temp_username VARCHAR(50) NOT NULL);
+commit;
 
-COMMIT;
+-- stored proc
+delimiter //
+create procedure uspaddtotemplog(in qtemp_username varchar(50))
+begin
+insert into temp_logs(temp_username) 
+values(qtemp_username);
+end//
+commit//
 
--- STORED PROC
-DELIMITER //
-CREATE PROCEDURE uspAddtoTemplog(IN Qtemp_username varchar(50))
-BEGIN
-INSERT INTO Temp_logs(temp_username) 
-VALUES(Qtemp_username);
-END//
-COMMIT//
-
-CREATE PROCEDURE uspAddCompany(IN Qcompany_name varchar(45), IN Qcompany_address varchar(100), IN QIndustry_Type_industry_type_id int, IN QpictureFileName varchar(100), IN QbannerFileName varchar(100), IN QmoaFileName varchar(100))
-BEGIN
-INSERT INTO company(company_engagement_score,company_name, company_address, Industry_Type_industry_type_id, profile_image, banner_image, company_attachment)
-VALUES(0,Qcompany_name, Qcompany_address, QIndustry_Type_industry_type_id, QpictureFileName, QbannerFileName, QmoaFileName);
-END //
-COMMIT//
+create procedure uspaddcompany(in qcompany_name varchar(45), in qcompany_address varchar(100), in qindustry_type_industry_type_id int, in qpicturefilename varchar(100), in qbannerfilename varchar(100), in qmoafilename varchar(100))
+begin
+insert into company(company_engagement_score,company_name, company_address, industry_type_industry_type_id, profile_image, banner_image, company_attachment)
+values(0,qcompany_name, qcompany_address, qindustry_type_industry_type_id, qpicturefilename, qbannerfilename, qmoafilename);
+end //
+commit//
 
 CREATE PROCEDURE uspInsertContact(IN Qcontact_person_fname varchar(45) , IN Qcontact_person_lname varchar(45), IN Qcontact_person_position varchar(45),IN Qcontact_person_email varchar(45), IN Qcontact_person_no varchar(20), IN Qcontact_person_priority enum('PRIMARY','SECONDARY'), IN QCompany_company_id int)
 BEGIN
@@ -815,72 +834,68 @@ WHERE company_id = Qcompany_id;
 END //
 COMMIT//
 /*
-DELIMITER //
-CREATE TRIGGER updateLevelOfEngagement123
-BEFORE UPDATE 
-ON Company
-FOR EACH ROW
-BEGIN 
-  IF NEW.company_engagement_score BETWEEN 4 AND 26 THEN
-  UPDATE company SET Level_of_engagement_level_of_engagement_id = 1 WHERE company_id = (NEW.company_id);
-  ELSEIF NEW.company_engagement_score BETWEEN 25 AND 47 THEN
-  UPDATE company SET Level_of_engagement_level_of_engagement_id = 2 WHERE company_id = (NEW.company_id);
-  ELSEIF NEW.company_engagement_score > 47 THEN
-  UPDATE company SET Level_of_engagement_level_of_engagement_id = 3 WHERE company_id = (NEW.company_id);
-  END IF;
-END//
-COMMIT//
+delimiter //
+create trigger updatelevelofengagement123
+before update 
+on company
+for each row
+begin 
+  if new.company_engagement_score between 4 and 26 then
+  update company set level_of_engagement_level_of_engagement_id = 1 where company_id = (new.company_id);
+  elseif new.company_engagement_score between 25 and 47 then
+  update company set level_of_engagement_level_of_engagement_id = 2 where company_id = (new.company_id);
+  elseif new.company_engagement_score > 47 then
+  update company set level_of_engagement_level_of_engagement_id = 3 where company_id = (new.company_id);
+  end if;
+end//
+commit//
+delimiter ;
+delimiter //
+create trigger updatelevelofengagement321
+after update 
+on company
+for each row
+begin 
+  if old.company_engagement_score between 4 and 26 then
+  update company set level_of_engagement_level_of_engagement_id = 1 where company_id = (old.company_id);
+  elseif old.company_engagement_score between 25 and 47 then
+  update company set level_of_engagement_level_of_engagement_id = 2 where company_id = (old.company_id);
+  elseif old.company_engagement_score > 47 then
+  update company set level_of_engagement_level_of_engagement_id = 3 where company_id = (old.company_id);
+  end if;
+end//
+commit//
+delimiter ;*/
 
-DELIMITER ;
+delimiter //
+create trigger updateactivitylog_insert
+after insert
+on company
+for each row
+begin
+  insert into activity_log (table_name, activity_name, datetimeoccurred, user) values ('company', 'insert', now(), (select temp_username from temp_logs));
+  delete from temp_logs;
+end//
+commit//
 
-DELIMITER //
+create trigger updateactivitylog_update
+after update
+on company
+for each row
+begin
+  insert into activity_log (table_name, activity_name, datetimeoccurred, user) values ('company', 'update', now(), (select temp_username from temp_logs));
+  delete from temp_logs;
+end//
+commit//
 
-CREATE TRIGGER updateLevelOfEngagement321
-AFTER UPDATE 
-ON Company
-FOR EACH ROW
-BEGIN 
-  IF OLD.company_engagement_score BETWEEN 4 AND 26 THEN
-  UPDATE company SET Level_of_engagement_level_of_engagement_id = 1 WHERE company_id = (OLD.company_id);
-  ELSEIF OLD.company_engagement_score BETWEEN 25 AND 47 THEN
-  UPDATE company SET Level_of_engagement_level_of_engagement_id = 2 WHERE company_id = (OLD.company_id);
-  ELSEIF OLD.company_engagement_score > 47 THEN
-  UPDATE company SET Level_of_engagement_level_of_engagement_id = 3 WHERE company_id = (OLD.company_id);
-  END IF;
-END//
-COMMIT//
+create trigger updateactivitylog_delete
+after delete
+on company
+for each row
+begin
+  insert into activity_log (table_name, activity_name, datetimeoccurred, user) values ('company', 'delete', now(), (select temp_username from temp_logs));
+  delete from temp_logs;
+end//
+commit//
 
-DELIMITER ;*/
-
-DELIMITER //
-CREATE TRIGGER updateActivityLog_Insert
-AFTER INSERT
-ON company
-FOR EACH ROW
-BEGIN
-  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred, user) VALUES ('Company', 'Insert', now(), (SELECT temp_username from Temp_logs));
-  DELETE FROM Temp_logs;
-END//
-COMMIT//
-
-CREATE TRIGGER updateActivityLog_Update
-AFTER UPDATE
-ON company
-FOR EACH ROW
-BEGIN
-  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred, user) VALUES ('Company', 'Update', now(), (SELECT temp_username from Temp_logs));
-  DELETE FROM Temp_logs;
-END//
-COMMIT//
-
-CREATE TRIGGER updateActivityLog_Delete
-AFTER DELETE
-ON company
-FOR EACH ROW
-BEGIN
-  INSERT INTO activity_log (table_name, activity_name, dateTimeOccurred, user) VALUES ('Company', 'Delete', now(), (SELECT temp_username from Temp_logs));
-  DELETE FROM Temp_logs;
-END//
-COMMIT//
-
-DELIMITER ;
+delimiter ;
